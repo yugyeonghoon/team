@@ -144,7 +144,7 @@
 					<div id="password-feedback" class="feedback">비밀번호가 일치하지 않습니다.</div>
 					
 					<label>이름</label>
-					<input type="name" id="name" name="name">
+					<input type="text" id="name" name="name">
 					<div id="name-feedback" class="feedback">이름을 입력해주세요.</div>
 					
 					<label>닉네임</label>
@@ -184,6 +184,9 @@
 	let emailFeedback = $("#mail-feedback");
 	let emc = $("#mailCheck");
 	let emcFeedback = $("#mailCheck-feedback");
+	
+	let name = $("#name");
+	let nameFeedback = $("#name-feedback");
 	
 	$("#mailBtn").click(function(){
 		let mail = $("#mail");
@@ -354,6 +357,16 @@
 		idFeedback.addClass("success");
 		idFeedback.text("아이디 확인이 완료되었습니다.");
 		
+		if(name.val().trim() == ""){
+			name.focus();
+			name.val("");
+			nameFeedback.css("display", "block");
+			nameFeedback.text("이름을 입력해주세요.");
+			nameFeedback.removeClass("success");
+		}
+		
+		idFeedback.css("display", "none");
+		
 		if(pw.val().trim() == ""){
 			pw.focus();
 			pw.val("");
@@ -363,7 +376,7 @@
 			return false;
 		}
 		
-		idFeedback.css("display", "none");
+		nameFeedback.css("display", "none");
 		
 		if(pwc.val().trim() == ""){
 			pwc.focus();
