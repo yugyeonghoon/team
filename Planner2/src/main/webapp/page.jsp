@@ -521,6 +521,7 @@
 	$("#btnOk").click(function(){
 		let content = $("#content").val();
 		if(content == "") {
+			console.log("빈문자");
 			return;
 		}
 		
