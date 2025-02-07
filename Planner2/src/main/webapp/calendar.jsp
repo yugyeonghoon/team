@@ -352,7 +352,6 @@ $(function(){
 	          </div>
 	        </form>
 	      </div>
-	      <div>ssss</div>
 	      <div class="modal-footer">
 	        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
 	        <button type="button" class="btn btn-primary" id="saveChanges">저장</button>
