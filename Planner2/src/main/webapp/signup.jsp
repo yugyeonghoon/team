@@ -363,9 +363,12 @@
 			nameFeedback.css("display", "block");
 			nameFeedback.text("이름을 입력해주세요.");
 			nameFeedback.removeClass("success");
+			return false;
 		}
 		
 		idFeedback.css("display", "none");
+		
+		nameFeedback.css("display", "none");
 		
 		if(pw.val().trim() == ""){
 			pw.focus();
@@ -376,7 +379,6 @@
 			return false;
 		}
 		
-		nameFeedback.css("display", "none");
 		
 		if(pwc.val().trim() == ""){
 			pwc.focus();
