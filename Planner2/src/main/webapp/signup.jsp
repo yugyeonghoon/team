@@ -143,6 +143,10 @@
 					<input type="password" id="password-check" name="password-check">
 					<div id="password-feedback" class="feedback">비밀번호가 일치하지 않습니다.</div>
 					
+					<label>이름</label>
+					<input type="name" id="name" name="name">
+					<div id="name-feedback" class="feedback">이름을 입력해주세요.</div>
+					
 					<label>닉네임</label>
 					<input type="text" id="nickname" name="nickname">
 					<div id="nickname-feedback" class="feedback">닉네임 중복확인을 해주세요.</div>
@@ -156,9 +160,6 @@
 					<input type="text" id="mailCheck" class="email">
 					<input type="button" id="mailCheckBtn" class="btn" value="인증번호 확인">
 					<div id="mailCheck-feedback" class="feedback">인증번호가 일치하지 않습니다.</div>
-					
-					<label>생년월일</label>
-					<input type="date" max="9999-12-31" id="birth" name="birth"><br>
 					
 					<input type="submit" value="회원가입" class="btn1" >
 				</form>
