@@ -136,16 +136,16 @@
 					<input type="text" id="username" name="username">
 					<div id="username-feedback" class="feedback">아이디 중복확인을 해주세요</div>
 					
+					<label>이름</label>
+					<input type="text" id="name" name="name">
+					<div id="name-feedback" class="feedback">이름을 입력해주세요.</div>
+					
 					<label>비밀번호</label>
 					<input type="password" id="password" name="password">
 					
 					<label>비밀번호 확인</label>
 					<input type="password" id="password-check" name="password-check">
 					<div id="password-feedback" class="feedback">비밀번호가 일치하지 않습니다.</div>
-					
-					<label>이름</label>
-					<input type="text" id="name" name="name">
-					<div id="name-feedback" class="feedback">이름을 입력해주세요.</div>
 					
 					<label>닉네임</label>
 					<input type="text" id="nickname" name="nickname">
