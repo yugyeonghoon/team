@@ -10,8 +10,6 @@ public class BoardVO {
 	private int boardType;
 	private String startTime;
 	private String endTime;
-	private int startPage;
-	private int endPage;
 	
 	public int getNo() {
 		return no;
@@ -66,18 +64,6 @@ public class BoardVO {
 	}
 	public void setEndTime(String endTime) {
 		this.endTime = endTime;
-	}
-	public int getStartPage() {
-		return startPage;
-	}
-	public void setStartPage(int startPage) {
-		this.startPage = startPage;
-	}
-	public int getEndPage() {
-		return endPage;
-	}
-	public void setEndPage(int endPage) {
-		this.endPage = endPage;
 	}
 	
 	

@@ -20,8 +20,6 @@ public class BoardDAO extends DBManager{
 		
 		String startTime = vo.getStartTime();
 		String endTime = vo.getEndTime();
-		int startPage = vo.getStartPage();
-		int endPage = vo.getEndPage();
 		
 		driverLoad();
 		DBConnect();
@@ -41,7 +39,6 @@ public class BoardDAO extends DBManager{
 		 * if(startTime != null && endTime != null) { //sql2 실행 executeQuery(sql2);
 		 * }else { //sql1 실행 executeQuery(sql1); }
 		 */
-		
 		
 		  sql += "insert into board("; 
 		  sql += "author, "; 
@@ -70,6 +67,11 @@ public class BoardDAO extends DBManager{
 		  }
 		  
 		  sql += ")";
+		  
+		  executeUpdate(sql);
+		  
+		  String sql2 = "select last_insert_id() as no";
+		  executeQuery(sql2);
 		 
 		if(next()) {
 			int no = getInt("no");
@@ -118,28 +120,24 @@ public class BoardDAO extends DBManager{
 		
 		String sql = "";
 		sql += "select * from board where board_type != 99 ";
-		sql += "and no = " + bno;
+		sql += "and bno = " + bno;
 		executeQuery(sql);
 		
 		if(next()) {
-			int no = getInt("no");
+			int no = getInt("bno");
 			String title = getString("title");
 			String content = getString("content");
 			String author = getString("author");
-			String startTime = getString("start_time");
-			String endTime = getString("end_time");
-			int startPage = getInt("start_page");
-			int endPage = getInt("end_page");
+			String startDate = getString("start_date");
+			String endDate = getString("end_date");
 			
 			BoardVO vo = new BoardVO();
 			vo.setNo(no);
 			vo.setTitle(title);
 			vo.setContent(content);
 			vo.setAuthor(author);
-			vo.setStartTime(startTime);
-			vo.setEndTime(endTime);
-			vo.setStartPage(startPage);
-			vo.setEndPage(endPage);
+			vo.setStartTime(startDate);
+			vo.setEndTime(endDate);
 			
 			DBDisConnect();
 			return vo;
