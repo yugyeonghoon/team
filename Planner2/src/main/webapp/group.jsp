@@ -1,6 +1,14 @@
+<%@page import="group.groupVO"%>
+<%@page import="group.groupDAO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ include file="header.jsp" %>
+<% 
+	groupDAO dao = new groupDAO();
+	groupVO vo = new groupVO();
+	
+	
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -64,11 +72,18 @@
 	.action-buttons button.delete:hover{
 		background: #e60000;
 	}
+	.group_buttons{
+		text-align: right;
+	}
 </style>
 </head>
 <body>
 	<div class="group-container">
-		<h2>My Group</h2><button class="invite">초대하기</button>
+	<h2>My Group</h2>
+		<div class="group_buttons">
+			<button class="invite">초대하기</button>
+			<button class="group"  onclick="location.href='makegroup.jsp'">그룹만들기</button>
+		</div>
 		<table>
 			<thead>
 				<tr>	
@@ -86,6 +101,7 @@
 					<td class="action-buttons">
 						<button>수정</button>
 						<button class="delete">삭제</button>
+						<button>초대</button>
 					</td>
 				</tr>
 				<tr>
@@ -95,6 +111,7 @@
 					<td class="action-buttons">
 						<button>수정</button>
 						<button class="delete">삭제</button>
+						<button>초대</button>
 					</td>
 				</tr>
 				<tr>
@@ -104,6 +121,7 @@
 					<td class="action-buttons">
 						<button>수정</button>
 						<button class="delete">삭제</button>
+						<button>초대</button>
 					</td>
 				</tr>
 				<tr>
@@ -113,6 +131,7 @@
 					<td class="action-buttons">
 						<button>수정</button>
 						<button class="delete">삭제</button>
+						<button>초대</button>
 					</td>
 				</tr>
 			</tbody>

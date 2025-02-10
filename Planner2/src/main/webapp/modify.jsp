@@ -18,6 +18,7 @@
 	String end = vo.getEndTime();
 	String content = vo.getContent();
 	String author = vo.getAuthor();
+	
 %>
 <!DOCTYPE html>
 <html>
