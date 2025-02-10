@@ -4,10 +4,18 @@
     pageEncoding="UTF-8"%>
 <%
 	request.setCharacterEncoding("utf-8");
-
-	UserDAO dao = new UserDAO();
-	UserVO vo = new UserVO();
 	
+	String id = request.getParameter("id");
+	
+	if(id == null){
+		response.sendRedirect("findpwok.jsp");
+		return;
+	}
+	
+	if(id.isEmpty()){
+		response.sendRedirect("findpwok.jsp");
+		return;
+	}
 %>
 <!DOCTYPE html>
 <html>
@@ -97,6 +105,7 @@
 				<form method="post" action="changepw.jsp" onsubmit="return formCheck()">
 					<div class="profile-field">
 						<label for="password">새 비밀번호</label>
+						<input type="hidden" value="<%= id %>" name="id">
 						<input type="password" id="password" name="password" placeholder="비밀번호를 다시 입력하세요.">
 					</div>
 					<div class="profile-field">
@@ -105,7 +114,7 @@
 						<div id="password-feedback" class="feedback">비밀번호가 일치하지 않습니다.</div>
 					</div>
 					<div>
-						<button type="submit" class="btn">확인</button>
+						<button type="submit" class="btn" id="btnClick">확인</button>
 					</div>
 				</form>
 		</div>
@@ -114,6 +123,10 @@
 		let pw = $("#password");
 		let pwc = $("#password-check");
 		let pwFeedback = $("#password-feedback");
+		
+		$("#btnClick").click(function(){
+			
+		});
 		
 		function formCheck(){
 			if(pw.val().trim() == ""){
@@ -142,6 +155,11 @@
 				pwFeedback.text("비밀번호가 일치하지 않습니다.");
 				pwFeedback.removeClass("success");
 				return false;
+			}else{
+				pwFeedback.css("display", "block");
+				pwFeedback.addClass("success");
+				pwFeedback.text("비밀번호가 일치합니다.");
+				alert("비밀번호 변경이 완료되었습니다.");
 			}
 			
 			return true;

@@ -8,13 +8,14 @@
 	UserVO user = (UserVO)session.getAttribute("user");	
 	
 	String pw = request.getParameter("password");
+	String id = request.getParameter("id");
 	
-	if(pw == null){
+	if(pw == null || id == null){
 		response.sendRedirect("findpwok.jsp");
 		return;
 	}
 	
-	if(pw.isEmpty()){
+	if(pw.isEmpty() || id.isEmpty()){
 		response.sendRedirect("findpwok.jsp");
 		return;
 	}
@@ -23,6 +24,7 @@
 	UserVO vo = new UserVO();
 	
 	vo.setPw(pw);
+	vo.setId(id);
 	
 	dao.changepw(vo);
 	

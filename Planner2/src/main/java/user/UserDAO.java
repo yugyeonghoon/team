@@ -40,12 +40,14 @@ public class UserDAO extends DBManager{
 		
 		if(next()) {
 			String uid = getString("id");
+			String name = getString("name");
 			String nick = getString("nick");
 			int userType = getInt("user_type");
 			String email = getString("email");
 			
 			UserVO uvo = new UserVO();
 			uvo.setId(uid);
+			uvo.setName(name);
 			uvo.setNick(nick);
 			uvo.setUserType(userType);
 			uvo.setEmail(email);
@@ -181,7 +183,10 @@ public class UserDAO extends DBManager{
 			sql += "update user set ";
 			sql += "pw = '"+pw+"', update_date = now() ";
 			sql += "where id = '"+id+"'";
+			
 			executeUpdate(sql);
+			
+			System.out.println(sql);
 			
 			DBDisConnect();
 		}

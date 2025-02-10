@@ -83,6 +83,10 @@
 				<input type="text" id="username" name="username" value="<%= user.getId() %>" readonly>
 			</div>
 			<div class="profile-field">
+				<label for="name">이름</label>
+				<input type="text" id="name" name="name" value="<%= user.getName() %>" readonly>
+			</div>
+			<div class="profile-field">
 				<label for="nickname">닉네임</label>
 				<input type="text" id="nickname" name="nickname" value="<%= user.getNick() %>">
 				<!-- <div class="feedback">닉네임 중복확인을 해주세요. </div> -->
