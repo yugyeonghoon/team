@@ -5,7 +5,7 @@
 <%@ include file="header.jsp" %>
 <%
 	if(user == null || user.getUserType() != 0){
-		response.sendRedirect("caleder.jsp");
+		response.sendRedirect("calendar.jsp");
 		return;
 	}
 
@@ -105,12 +105,12 @@
 						<tr style="color:<%= userType == 1 ? "black" : "red" %>;">
 							<td><%= userType %></td>
 							<td><%= i+1 %></td>
-							<td><%= id %></td>
-							<td><%= name%></td>
+							<td><%= id %></td>				
+							<td><%= name %></td>
 							<td><%= nick %></td>
 							<td><%= email %></td>
 							<td class="action-buttons">
-								<button onclick="location.href='user_update.jsp'">수정</button>
+								<button onclick="location.href='user_update.jsp'">수정</button>	<%-- ?id=<%= id %> --%>
 								<button class="delete" onclick="deleteUser('<%= id %>')">삭제</button>
 							</td>
 						</tr>				

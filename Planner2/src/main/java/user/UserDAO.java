@@ -192,4 +192,19 @@ public class UserDAO extends DBManager{
 			
 			DBDisConnect();
 		}
+		
+	//9. 회원조회 한명
+		public void getOneUser(String id) {
+				
+			driverLoad();
+			DBConnect();
+			
+			String sql = "";
+			sql += "select * from user where id = '"+id+"'";
+			executeQuery(sql);
+						
+			System.out.println(sql);
+			
+			DBDisConnect();
+		}
 }
