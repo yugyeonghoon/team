@@ -23,14 +23,9 @@
 <script src='https://unpkg.com/tooltip.js/dist/umd/tooltip.min.js'></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/dayjs/1.11.13/dayjs.min.js" integrity="sha512-FwNWaxyfy2XlEINoSnZh1JQ5TRRtGow0D6XcmAWmYCRgvqOUTnzCxPc9uF35u5ZEpirk1uhlPVA19tflhvnW1g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <style>
-	.fc-day-grid
-	.fc-day-fri a {
-	  color: black;
-	  text-decoration: none;
-	}
-	.fc-day-thu a {
-	  color: black;
-	  text-decoration: none;
+	.fc-day-grid{
+		color : black;
+		text-decoration: none;
 	}
 	.fc-day-wed a {
 	  color: black;
@@ -50,6 +45,14 @@
 	}
 	.fc-day-sat a {
 	  color: blue;
+	  text-decoration: none;
+	}
+	.fc-day-fri a {
+	  color: black;
+	  text-decoration: none;
+	}
+	.fc-day-thu a {
+	  color: black;
 	  text-decoration: none;
 	}
 	.popper,
@@ -233,7 +236,7 @@ $(function(){
     			String title = vo.getTitle();
     			String start = vo.getStartTime();
     			String end = vo.getEndTime();
-    			String author = vo.getAuthor();
+    			
     			%>
     				{
     					id : <%= no %>,
@@ -261,6 +264,7 @@ $(function(){
   	    content: $("#content").val(),
   	    start: $("#choose-date").val(),
   	    end: $("#choose-real-end-date").val(),
+  	  	boardType : $("#boardType").val()
   	  };
   	  //빈값입력시 오류
   	  if (
@@ -291,7 +295,8 @@ $(function(){
   	    		title : eventData.title,
   	    		content : eventData.content,
   	    		start : eventData.start,
-  	    		end : eventData.end
+  	    		end : eventData.end,
+  	    		boardType : eventData.boardType
   	    	},
   	    	success : function(result){
   	    		console.log(result);
@@ -337,9 +342,9 @@ $(function(){
 	          </div>
 	          <div>
 	          	<label col-form-label>일정 타입:</label>
-	          	<select class="select">
-	          		<option>일정</option>
-	          		<option>공부</option>
+	          	<select class="select" id="boardType">
+	          		<option value="1">일정</option>
+	          		<option value="2">공부</option>
 	          	</select>
 	          </div>
 	          <div class="mb-3">

@@ -7,14 +7,17 @@
 	String content = request.getParameter("content");
 	String start = request.getParameter("start");
 	String end = request.getParameter("end");
+	String boardType = request.getParameter("boardType");
 	
 	CalendarDAO dao = new CalendarDAO();
 	BoardVO vo = new BoardVO();
+	int boardTypeNum = Integer.parseInt(boardType);
+	
 	vo.setTitle(title);
 	vo.setContent(content);
 	vo.setStartTime(start);
 	vo.setEndTime(end);
-	vo.setBoardType(1);
+	vo.setBoardType(boardTypeNum);
 	
 	dao.writeMemo(vo);
 	

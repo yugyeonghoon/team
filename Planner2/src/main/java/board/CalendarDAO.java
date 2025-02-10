@@ -18,12 +18,16 @@ public class CalendarDAO extends DBManager{
 		DBConnect();
 		
 		String sql = "";
-		sql += "insert into board(title, content, start_date, end_date, board_type)";
+		sql += "insert into board( title, content, start_date, end_date, board_type)";
 		sql += " values('"+title+"', '"+content+"', '"+start+"', '"+end+"', "+boardType+")";
 		executeUpdate(sql);
 		
+		String selectSql = "select last_insert_id() as no;";
+		executeQuery(selectSql);
+		
 		DBDisConnect();
 	};
+	
 	//일정 수정
 	public void modify(BoardVO vo) {
 		int no = vo.getNo();

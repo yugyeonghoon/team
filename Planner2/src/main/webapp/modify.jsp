@@ -16,6 +16,7 @@
 	String start = vo.getStartTime();
 	String end = vo.getEndTime();
 	String content = vo.getContent();
+	String author = vo.getAuthor();
 %>
 <!DOCTYPE html>
 <html>
@@ -151,7 +152,7 @@ $(document).ready(function(){
 			<table>
 				<thead>
 					<tr>
-						<th>유저 아이디</th>
+						<th name="author"><%=author%></th>
 					</tr>
 				</thead>
 				<tbody>
