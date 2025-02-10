@@ -11,11 +11,14 @@
 	}
 	CalendarDAO dao = new CalendarDAO();
 	BoardVO vo = dao.view(no);
+	
 	int bno = vo.getNo();
 	String title = vo.getTitle();
 	String start = vo.getStartTime();
 	String end = vo.getEndTime();
 	String content = vo.getContent();
+	String author = vo.getAuthor();
+	
 %>
 <!DOCTYPE html>
 <html>
@@ -151,7 +154,7 @@ $(document).ready(function(){
 			<table>
 				<thead>
 					<tr>
-						<th>유저 아이디</th>
+						<th name="author"><%=author%></th>
 					</tr>
 				</thead>
 				<tbody>
@@ -179,10 +182,13 @@ $(document).ready(function(){
 			
 			<div class="memo">상세내용 입력</div> <br>
 			<textarea class="text-content" name="content"><%=content %></textarea><br>
+			<% if(user != null && (user.getId().equals(author)|| user.getUserType() == 0)){
+			%>
 			<div class="action-buttons">
 				<button>수정</button>
 				<button class="delete">삭제</button>
 			</div>
+			<% } %>
 		</form>
 	</div>
 </body>

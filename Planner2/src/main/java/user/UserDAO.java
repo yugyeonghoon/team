@@ -40,12 +40,14 @@ public class UserDAO extends DBManager{
 		
 		if(next()) {
 			String uid = getString("id");
+			String name = getString("name");
 			String nick = getString("nick");
 			int userType = getInt("user_type");
 			String email = getString("email");
 			
 			UserVO uvo = new UserVO();
 			uvo.setId(uid);
+			uvo.setName(name);
 			uvo.setNick(nick);
 			uvo.setUserType(userType);
 			uvo.setEmail(email);
@@ -132,12 +134,14 @@ public class UserDAO extends DBManager{
 		List<UserVO> list = new ArrayList<>();
 		while(next()) {
 			String id = getString("id");
+			String name = getString("name");
 			String nick = getString("nick");
 			String email = getString("email");
 			int userType = getInt("user_type");
 			
 			UserVO vo = new UserVO();
 			vo.setId(id);
+			vo.setName(name);
 			vo.setNick(nick);
 			vo.setEmail(email);
 			vo.setUserType(userType);
@@ -149,13 +153,13 @@ public class UserDAO extends DBManager{
 	
 	//7. 아이디 찾기
 	public String findid(UserVO vo) {
-		String nick = vo.getNick();
+		String name = vo.getName();
 		String email = vo.getEmail();
 		
 		driverLoad();
 		DBConnect();
 		String sql = "select id from user ";
-		sql += "where nick = '"+nick+"' and email = '"+email+"'";
+		sql += "where name = '"+name+"' and email = '"+email+"'";
 		executeQuery(sql);
 		System.out.println(sql);
 		
@@ -181,7 +185,25 @@ public class UserDAO extends DBManager{
 			sql += "update user set ";
 			sql += "pw = '"+pw+"', update_date = now() ";
 			sql += "where id = '"+id+"'";
+			
 			executeUpdate(sql);
+			
+			System.out.println(sql);
+			
+			DBDisConnect();
+		}
+		
+	//9. 회원조회 한명
+		public void getOneUser(String id) {
+				
+			driverLoad();
+			DBConnect();
+			
+			String sql = "";
+			sql += "select * from user where id = '"+id+"'";
+			executeQuery(sql);
+						
+			System.out.println(sql);
 			
 			DBDisConnect();
 		}

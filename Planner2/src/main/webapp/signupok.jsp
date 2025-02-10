@@ -9,14 +9,14 @@
 	String pw = request.getParameter("password");
 	String email = request.getParameter("email");
 	String nick = request.getParameter("nickname");
-	String birth = request.getParameter("birth");
+	String name = request.getParameter("name");
 	
-	if(id == null || pw == null || email == null || nick == null || birth == null){
+	if(id == null || pw == null || email == null || nick == null || name == null){
 		response.sendRedirect("signup.jsp");
 		return;
 	}
 	
-	if(id.isEmpty() || pw.isEmpty() || email.isEmpty() || nick.isEmpty() || birth.isEmpty()){
+	if(id.isEmpty() || pw.isEmpty() || email.isEmpty() || nick.isEmpty() || name.isEmpty()){
 		response.sendRedirect("signup.jsp");
 		return;
 	}
@@ -28,7 +28,7 @@
 	vo.setPw(pw);
 	vo.setEmail(email);
 	vo.setNick(nick);
-	vo.setBirth(birth);
+	vo.setName(name);
 	
 	dao.join(vo);
 	

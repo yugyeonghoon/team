@@ -1,0 +1,26 @@
+package group;
+
+public class memberVO {
+	private String id;
+	private int groupnum;
+	private int grouptype;
+	
+	public String getId() {
+		return id;
+	}
+	public void setId(String id) {
+		this.id = id;
+	}
+	public int getGroupnum() {
+		return groupnum;
+	}
+	public void setGroupnum(int groupnum) {
+		this.groupnum = groupnum;
+	}
+	public int getGrouptype() {
+		return grouptype;
+	}
+	public void setGrouptype(int grouptype) {
+		this.grouptype = grouptype;
+	}
+}

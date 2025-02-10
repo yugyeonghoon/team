@@ -4,22 +4,26 @@ import db.DBManager;
 
 public class groupDAO extends DBManager{
 	//1. 그룹 생성
-	//insert into group (gname, id, group_creat_date)
-	//value ('1그룹', 'hong', default now());
 	public void insertGroup(groupVO vo) {
-		String gname = vo.getGname();
-		String id = vo.getId();
+		String gname = vo.getGroupName();
+		int gnum = vo.getGroupNum();
+		String gcreate_date = vo.getGcreate_date();
 		
 		driverLoad();
 		DBConnect();
 		
 		String sql = "";
-		sql += "insert into group (gname, id, group_create_date) ";
-		sql += "value ('"+gname+"', '"+id+"', now()) ";
+		sql += "insert into calendargroup (groupname) ";
+		sql += "value ('"+gname+"') ";
+		
 		executeUpdate(sql);
+		
+		String selectsql = "select last_insert_id() as no;";
+		
+		executeUpdate(selectsql);
+		
 		DBDisConnect();
 		
 	}
-	
 
 }

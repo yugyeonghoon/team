@@ -6,6 +6,7 @@
 <%@page import="board.BoardVO" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ include file="header_main.jsp" %>
 <%
 	//게시글 번호 받아오기
 	String no = request.getParameter("no");
