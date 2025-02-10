@@ -5,15 +5,15 @@
 <%
 	request.setCharacterEncoding("utf-8");	
 
-	String nick = request.getParameter("nickname");
+	String name = request.getParameter("name");
 	String email = request.getParameter("email");
 	
-	if(nick == null || email == null){
+	if(name == null || email == null){
 		response.sendRedirect("findid.jsp");
 		return;
 	}
 	
-	if(nick.isEmpty() || email.isEmpty()){
+	if(name.isEmpty() || email.isEmpty()){
 		response.sendRedirect("findid.jsp");
 		return;
 	}
@@ -21,7 +21,7 @@
 	UserDAO dao = new UserDAO();
 	UserVO vo = new UserVO();
 	
-	vo.setNick(nick);
+	vo.setName(name);
 	vo.setEmail(email);
 	
 	String id  = dao.findid(vo);
@@ -107,7 +107,7 @@
 		<div class="find-container">
 			<form >
 				<div class="find-box">
-					<label><%= nick %> 님의 아이디는</label>
+					<label><%= name %> 님의 아이디는</label>
 						<input type="text" value="<%= id %>">
 					<label>입니다.</label>
 				</div>	

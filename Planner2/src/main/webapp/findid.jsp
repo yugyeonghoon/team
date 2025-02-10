@@ -93,8 +93,8 @@
 		<div class="findid">
 		<h1>아이디 찾기</h1>
 			<form class="idform" method="post" action="findidok.jsp">
-				<div class="fi1">닉네임 :
-					<input type="text" name="nickname" id="nickname" placeholder="닉네임 입력하세요" autocomplete="off">
+				<div class="fi1"> 이름 :
+					<input type="text" name="name" id="name" placeholder="이름을 입력하세요" autocomplete="off">
 				</div>
 				<div class="fi1">이메일 :
 					<input type="text" name="email" id="email" placeholder="email을 입력하세요" autocomplete="off">

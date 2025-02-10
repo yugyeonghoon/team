@@ -149,13 +149,13 @@ public class UserDAO extends DBManager{
 	
 	//7. 아이디 찾기
 	public String findid(UserVO vo) {
-		String nick = vo.getNick();
+		String name = vo.getName();
 		String email = vo.getEmail();
 		
 		driverLoad();
 		DBConnect();
 		String sql = "select id from user ";
-		sql += "where nick = '"+nick+"' and email = '"+email+"'";
+		sql += "where name = '"+name+"' and email = '"+email+"'";
 		executeQuery(sql);
 		System.out.println(sql);
 		
