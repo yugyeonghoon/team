@@ -13,13 +13,14 @@ public class CalendarDAO extends DBManager{
 		String start = vo.getStartTime();
 		String end = vo.getEndTime();
 		int boardType = vo.getBoardType();
+		String author = vo.getAuthor();
 		
 		driverLoad();
 		DBConnect();
 		
 		String sql = "";
-		sql += "insert into board( title, content, start_date, end_date, board_type)";
-		sql += " values('"+title+"', '"+content+"', '"+start+"', '"+end+"', "+boardType+")";
+		sql += "insert into board(author, title, content, start_date, end_date, board_type)";
+		sql += " values('"+author+"', '"+title+"', '"+content+"', '"+start+"', '"+end+"', "+boardType+")";
 		executeUpdate(sql);
 		
 		String selectSql = "select last_insert_id() as no;";

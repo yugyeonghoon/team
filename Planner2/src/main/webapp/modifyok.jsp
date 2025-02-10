@@ -12,6 +12,7 @@
 	String content = request.getParameter("content");
 	String start = request.getParameter("start");
 	String end = request.getParameter("end");
+	String author = request.getParameter("author");
 	
 	if(no == null || title == null || content == null){
 		response.sendRedirect("calendar.jsp");
@@ -27,6 +28,7 @@
 	CalendarDAO dao = new CalendarDAO();
 	BoardVO vo = new BoardVO();
 	
+	vo.setAuthor(author);
 	vo.setNo(noNum);
 	vo.setTitle(title);
 	vo.setContent(content);
