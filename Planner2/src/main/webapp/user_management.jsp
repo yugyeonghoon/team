@@ -121,4 +121,9 @@
 			</table>
 		</div>
 	</body>
+	<script>
+	function deleteUser(userId){
+		location.href = "userOut.jsp?userId="+userId;
+	}
+</script>
 </html>

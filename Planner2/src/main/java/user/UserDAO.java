@@ -134,12 +134,14 @@ public class UserDAO extends DBManager{
 		List<UserVO> list = new ArrayList<>();
 		while(next()) {
 			String id = getString("id");
+			String name = getString("name");
 			String nick = getString("nick");
 			String email = getString("email");
 			int userType = getInt("user_type");
 			
 			UserVO vo = new UserVO();
 			vo.setId(id);
+			vo.setName(name);
 			vo.setNick(nick);
 			vo.setEmail(email);
 			vo.setUserType(userType);
