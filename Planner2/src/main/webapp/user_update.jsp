@@ -69,6 +69,13 @@
 				border-radius: 10px;
 				box-sizing: border-box;
 			}
+			.profile-field select{
+				width: 100%;
+				padding: 8px;
+				border: 1px solid black;
+				border-radius: 10px;
+				box-sizing: border-box;
+			}
 			.feedback{
 				font-size: 0.9rem;
 				color: red;
@@ -82,7 +89,7 @@
 				color: #dfdeee;
 				border: none;
 				padding: 10px 20px;
-				border-radius: 5px;
+				border-radius: 10px;
 				cursor: pointer;
 				transition: background 0.3s ease;
 				margin: 0 64px;
@@ -95,7 +102,7 @@
 	<body>
 		<div class="profile-container">
 			<h2>회원 관리</h2>
-				<form>
+				<form action="userType_change.jsp">
 					<div class="profile-field">
 						<label for="username">아이디</label>
 						<input type="text" id="id" name="id" value="<%= id %>" readonly>
@@ -114,7 +121,16 @@
 					</div>
 					<div class="profile-field">
 						<label for="user_type">타입</label>
-						<input type="text" id="type" name="type" value="<%= uvo.getUserType() %>" readonly>
+						<%-- <input type="text" id="type" name="type" value="<%= uvo.getUserType() %>" readonly> --%>
+						<select class="profile-field" name="changeType">				
+							<option value="관리자">0</option>		
+							<option selected="selected"><%= uvo.getUserType() %></option>							
+						</select>	
+						<div class="profile-actions">
+							<button type="submit">저장</button>
+							<button type="submit" onclick="locatuon.href='user_management.jsp'">확인</button>
+							<button type="button" onclick="location.href='user_management.jsp'">취소</button>							
+						</div>						
 					</div>				
 				</form>
 		</div>

@@ -77,6 +77,25 @@ public class UserDAO extends DBManager{
 		
 		DBDisConnect();
 	}
+	
+	//3.1 회원 타입 변경
+		public void changeType(UserVO vo) {
+			String id = vo.getId();
+			int userType = vo.getUserType();
+			
+			driverLoad();
+			DBConnect();
+			
+			String sql = "";
+			sql += "update user set delete_date = now(), user_type = "+userType+""; 
+			sql += " where id = '"+id+"'";
+			
+			executeUpdate(sql);
+			System.out.println(sql);
+			
+			DBDisConnect();
+		}
+	
 	//4. 회원탈퇴
 	public void delete(String id) {
 		driverLoad();
@@ -87,6 +106,7 @@ public class UserDAO extends DBManager{
 		executeUpdate(sql);
 		DBDisConnect();	
 	}
+	
 	//5. id 중복검사
 	public int idCheck(String id) {
 		driverLoad();
