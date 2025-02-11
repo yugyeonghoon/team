@@ -8,12 +8,12 @@
 	String id = request.getParameter("id");
 
 	if(id == null){
-		response.sendRedirect("user_management.jsp");
+		response.sendRedirect("manager.jsp");
 		return;
 	}
 	
 	if(id.isEmpty()){
-		response.sendRedirect("user_management.jsp");
+		response.sendRedirect("manager.jsp");
 		return;
 	}
 	

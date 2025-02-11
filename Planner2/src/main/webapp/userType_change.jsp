@@ -16,11 +16,14 @@
 		response.sendRedirect("user_update");
 		return;
 	}
+	
+	int userTypeNum = Integer.parseInt(userType);
 
 	UserDAO dao = new UserDAO();
 	UserVO vo = new UserVO();
 	
 	vo.setId(id);
+	vo.setUserType(userTypeNum);
 	
 	dao.changeType(vo);
 	
