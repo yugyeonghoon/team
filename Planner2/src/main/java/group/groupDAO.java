@@ -4,11 +4,7 @@ import db.DBManager;
 
 public class groupDAO extends DBManager{
 	//1. 그룹 생성
-	public void insertGroup(groupVO vo) {
-		String gname = vo.getGroupName();
-		int gnum = vo.getGroupNum();
-		String gcreate_date = vo.getGcreate_date();
-		
+	public int insertGroup(String gname) {
 		driverLoad();
 		DBConnect();
 		
@@ -20,10 +16,16 @@ public class groupDAO extends DBManager{
 		
 		String selectsql = "select last_insert_id() as no;";
 		
-		executeUpdate(selectsql);
+		executeQuery(selectsql);
 		
-		DBDisConnect();
+		if(next()) {
+			int no = getInt("no");
+			DBDisConnect();
+			return no;
+		}else {
+			DBDisConnect();
+			return 0;
+		}
 		
 	}
-
 }

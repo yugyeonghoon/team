@@ -6,11 +6,6 @@
 <%@ include file="header.jsp" %>
 <% 
 	UserVO user1 = (UserVO)session.getAttribute("user");
-
-	groupDAO dao = new groupDAO();
-	groupVO vo = new groupVO();
-
-	int gnum = vo.getGroupNum();
 %>
 <!DOCTYPE html>
 <html>
@@ -95,15 +90,17 @@
 					</tr>
 				</thead>
 				<tbody>
-					<td>
-						<input name="gname"></input>
-					</td>
-					<td> <%=user1.getId() %> </td>
+					<tr>
+						<td>
+							<input name="gname"></input>
+						</td>
+						<td> <%=user1.getId() %> </td>
+					</tr>
 				</tbody>
 			</table>
 			<br>
 				<div class="action-buttons"> 
-					<button class="make">그룹생성</button>
+					<button class="make" type="submit">그룹생성</button>
 				</div>
 		</form>
 	</div>
