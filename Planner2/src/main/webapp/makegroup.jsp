@@ -84,7 +84,7 @@
 			<table>
 				<thead>
 					<tr>	
-						<th>그룹 명</th>
+						<th>그룹 이름</th>
 						<th>그룹 생성자</th>
 					
 					</tr>

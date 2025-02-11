@@ -26,6 +26,20 @@ public class groupDAO extends DBManager{
 			DBDisConnect();
 			return 0;
 		}
+	
+	}
+	// 그룹 목록 조회
+	public void view(groupVO vo) {
+		int gnum = vo.getGroupNum();
+		String gname = vo.getGroupName();
 		
+		driverLoad();
+		DBConnect();
+		
+		String sql = "";
+		sql += "select * from calendargroup;";
+		
+		executeQuery(sql);
+		DBDisConnect();
 	}
 }

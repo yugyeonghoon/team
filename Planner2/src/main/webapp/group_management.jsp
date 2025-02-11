@@ -1,4 +1,3 @@
-<%@page import="java.util.List"%>
 <%@page import="group.memberVO"%>
 <%@page import="group.memberDAO"%>
 <%@page import="group.groupVO"%>
@@ -7,11 +6,7 @@
     pageEncoding="UTF-8"%>
 <%@ include file="header.jsp" %>
 <% 
-	UserVO user1 = (UserVO)session.getAttribute("user");
-	memberDAO dao = new memberDAO();
-	memberVO vo = new memberVO();
-	
-	List<memberVO> list = dao.view(user1.getId());
+
 %>
 <!DOCTYPE html>
 <html>
@@ -83,40 +78,35 @@
 </head>
 <body>
 	<div class="group-container">
-	<h2>my group</h2>
-		<div class="group_buttons">
-			<button class="invite">초대하기</button>
-			<button class="group"  onclick="location.href='makegroup.jsp'">그룹만들기</button>
-		</div>
+	<h2>관리자그룹페이지</h2>
 		<table>
 			<thead>
 				<tr>	
-					<th>아이디</th>
+					<th>그룹명</th>
+					<th>그룹장</th>
 					<th>이름</th>
-					<th>이메일</th>
 					<th>관리</th>
 				</tr>
 			</thead>
 			<tbody>
-			<%for(int i = 0; i < list.size(); i++){
-					memberVO vo2 = list.get(i);
-					String id = vo2.getId();
-					String name = vo2.getName();
-					String email = vo2.getEmail();
-					%>
 				<tr>
-					<td><%= id%></td>
-					<td><%= name %></td>
-					<td><%= email %></td>
+					<td>그룹1</td>
+					<td>hong</td>
+					<td>홍길동</td>
 					<td class="action-buttons">
-						<button>수정</button>
-						<button class="delete">삭제</button>
-						<button>초대</button>
+						<button>그룹 이름 변경</button>
+						<button class="delete">그룹 삭제</button>
 					</td>
 				</tr>
-					<%
-				}
-				%>
+				<tr>
+					<td>그룹2</td>
+					<td>jeon</td>
+					<td>전우치</td>
+					<td class="action-buttons">
+						<button>그룹 이름 변경</button>
+						<button class="delete">그룹 삭제</button>
+					</td>
+				</tr>
 			</tbody>
 		</table>
 	</div>
