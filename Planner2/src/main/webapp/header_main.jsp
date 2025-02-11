@@ -14,16 +14,18 @@
 	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 	    <style>
 	        header {
-	        	height : 45px;
+	        	height : 55px;
 	            background: white;
 	            color: #333;
 	            padding: 15px;
 	            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 	            position: relative;
+	            border-top: 3px solid gray;
+				border-bottom: 3px solid gray;
 	        }
 	        .menu-toggle {
 	            position: absolute;
-	            top: -15px;
+	            top: 2px;
 	            right: 15px;
 	            background:black;
 	            color: white;
@@ -34,7 +36,7 @@
 	        }
 	        .group-toggle {
 	            position: absolute;
-	            top: -15px;
+	            top: 2px;
 	            right: 85px;
 	            background:black;
 	            color: white;
@@ -44,10 +46,10 @@
 	            cursor: pointer;
 	        }
 	        .menu-toggle:hover {
-	            background: blue;
+	            background: #1d243d;
 	        }
 	        .group-toggle:hover {
-	            background: blue;
+	            background: #1d243d;
 	        }
 	        .dropdown-menu {
 	            display: none;
@@ -136,14 +138,15 @@
 	   			height: 70px;
 			    position: absolute;
 			    font-size:30px;
-			    top: 50%;
-			    left: 48%;
+			    top: 80%;
+			    left: 49%;
 			    transform: translate(-50%, -50%);
 			    color:cornflowerblue;
 			    text-decoration-line:none;
 	    	}
 	    	p{
-	    		margin-top: -20px;
+	    		margin-top: 10px;
+	    		font-size: 15px;
 	    	}
 	    </style>
 		<script>
@@ -207,6 +210,7 @@
 								if(user.getUserType() == 0){
 									%>
 										<a href="user_management.jsp">관리자페이지</a>
+										<!-- <a href="manager.jsp">관리자 목록</a> -->
 									<%
 								}
 						%>

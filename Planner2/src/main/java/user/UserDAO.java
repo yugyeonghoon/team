@@ -77,6 +77,25 @@ public class UserDAO extends DBManager{
 		
 		DBDisConnect();
 	}
+	
+	//3.1 회원 타입 변경
+		public void changeType(UserVO vo) {
+			String id = vo.getId();
+			int userType = vo.getUserType();
+			
+			driverLoad();
+			DBConnect();
+			
+			String sql = "";
+			sql += "update user set delete_date = now(), user_type = "+userType+""; 
+			sql += " where id = '"+id+"'";
+			
+			executeUpdate(sql);
+			System.out.println(sql);
+			
+			DBDisConnect();
+		}
+	
 	//4. 회원탈퇴
 	public void delete(String id) {
 		driverLoad();
@@ -87,6 +106,7 @@ public class UserDAO extends DBManager{
 		executeUpdate(sql);
 		DBDisConnect();	
 	}
+	
 	//5. id 중복검사
 	public int idCheck(String id) {
 		driverLoad();
@@ -151,6 +171,34 @@ public class UserDAO extends DBManager{
 		return list;
 	}
 	
+	//6. 관리자 목록 조회
+		public List<UserVO> getAllManager() {
+			driverLoad();
+			DBConnect();
+			
+			String sql = "";
+			sql += "select * from user where user_type != 1";
+			executeQuery(sql);
+			List<UserVO> list = new ArrayList<>();
+			while(next()) {
+				String id = getString("id");
+				String name = getString("name");
+				String nick = getString("nick");
+				String email = getString("email");
+				int userType = getInt("user_type");
+				
+				UserVO vo = new UserVO();
+				vo.setId(id);
+				vo.setName(name);
+				vo.setNick(nick);
+				vo.setEmail(email);
+				vo.setUserType(userType);
+				list.add(vo);
+			}
+			DBDisConnect();
+			return list;
+		}
+	
 	//7. 아이디 찾기
 	public String findid(UserVO vo) {
 		String name = vo.getName();
@@ -194,7 +242,7 @@ public class UserDAO extends DBManager{
 		}
 		
 	//9. 회원조회 한명
-		public void getOneUser(String id) {
+		public UserVO getOneUser(String id) {
 				
 			driverLoad();
 			DBConnect();
@@ -205,6 +253,26 @@ public class UserDAO extends DBManager{
 						
 			System.out.println(sql);
 			
-			DBDisConnect();
+			if(next()) {
+				String uid = getString("id");
+				String name = getString("name");
+				String nick = getString("nick");
+				String email = getString("email");
+				int userType = getInt("user_type");
+				
+				UserVO uvo = new UserVO();
+				uvo.setId(uid);
+				uvo.setName(name);
+				uvo.setNick(nick);
+				uvo.setEmail(email);
+				uvo.setUserType(userType);
+				
+				DBDisConnect();
+				return uvo;
+			}else {
+				DBDisConnect();
+				return null;
+			}
+			
 		}
 }

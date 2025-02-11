@@ -1,3 +1,4 @@
+<%@page import="user.UserVO"%>
 <%@page import="reply.ReplyVO"%>
 <%@page import="reply.ReplyDAO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
@@ -5,9 +6,18 @@
 <%
 	String text = request.getParameter("reply");
 	String no = request.getParameter("no");
-	String author = "hong";
+	UserVO user = (UserVO)session.getAttribute("user");
 	
-	if(text == null || no == null || author == null){
+	String author = null;
+	if(user == null) {
+		author = null;
+	}else {
+		author = user.getId();
+	}
+	
+	
+	if(text == null || no == null || user == null){
+		response.sendRedirect("page.jsp");
 		return;
 	}
 	

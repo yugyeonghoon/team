@@ -1,6 +1,9 @@
+<%@page import="user.UserVO"%>
 <%@page import="reply.ReplyVO"%>
 <%@page import="java.util.List"%>
 <%@page import="reply.ReplyDAO"%>
+<%@page import="board.BoardDAO" %>
+<%@page import="board.BoardVO" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ include file="header_main.jsp" %>
@@ -8,8 +11,22 @@
 	//게시글 번호 받아오기
 	String no = request.getParameter("no");
 
+	if(no == null){
+		response.sendRedirect("calendar.jsp");
+		return;
+	}
+
 	//게시글 상세 조회
 	//게시판 번호, 게시판 작성자, 게시판 제목, 게시판 본문
+	BoardDAO dao = new BoardDAO();
+	BoardVO vo = dao.view(no);
+	vo.getTitle(); //일정2
+	
+	//댓글 여러건 조회
+	UserVO id = (UserVO)session.getAttribute("id");
+	ReplyDAO rdao = new ReplyDAO();
+	List<ReplyVO> list = rdao.select(no);
+	
 	
 %>
 <!DOCTYPE html>
@@ -204,6 +221,8 @@
 		<div class="menu-container">
 			<!-- 현재 날짜 및 시간 -->
 			<h5 id="clock" style="color:black; display: inline;">clock</h5>
+			<div>제목 : <%= vo.getTitle() %></div>
+			<div>작성자 : <%= vo.getAuthor() %></div>
 			
 			<!-- 일정등록 버튼 -->	
 			<div class="dropdown">
@@ -211,8 +230,8 @@
 			    +
 			  </button>
 			  <ul class="dropdown-menu">
-			    <li><a class="dropdown-item" href="studyPlan.jsp">스터디 계획</a></li>
-			    <li><a class="dropdown-item" href="dailyPlan.jsp">일정 계획</a></li>
+			    <li><a class="dropdown-item" href="StdPlanPost.jsp">스터디 계획</a></li>
+			    <li><a class="dropdown-item" href="planPost.jsp">일정 계획</a></li>
 			  </ul>
 			</div>
 			<!-- <div class="hover">
@@ -242,21 +261,10 @@
 	<div class="list">
 		<ul class="planList">
 			<li>
-				<input type="text" id="studyPlan1" class="studyPlan">
+				<input type="text" id="studyPlan1" class="studyPlan" value="<%= vo.getContent() %>">
 				<input type="checkbox" id="check1" class="checkbox">
 				<label for="check1"></label>
-				<!-- <input type="button" value="추가" onclick="addList()"> -->
  				
-			</li>
-			<li>
-				<input type="text" id="studyPlan2" class="studyPlan">
-				<input type="checkbox" id="check2" class="checkbox">
- 				<label for="check2"></label>
-			</li>
-			<li>
-				<input type="text" id="studyPlan3" class="studyPlan">
- 				<input type="checkbox" id="check3" class="checkbox">
- 				<label for="check3"></label>
 			</li>
 			
 			<li>
@@ -270,58 +278,49 @@
 			</li>
 		</ul>
 	</div>
-	
-	
-	<!-- 댓글 쓰기 -->
-	<%-- <div class="divReply">
-		<div id="todayReply">TODAY Reply</div>
-		<div class="inputReply">
-			<!-- 확인 버튼을 눌렀을 때 나와야 함 -->
-			 <%
-				for(int i = 0; i < list.size(); i ++) {
-					ReplyVO rvo = list.get(i);
-					String rno = rvo.getBno();
-					String rauthor = rvo.getRauthor();
-					String rcontent = rvo.getRcontent();
-					String createDate = rvo.getCreateDate();
-					%>
-						<div class="writeReply">작성자: <%=rauthor %> | 작성일: <%= createDate %></div>
-	                			<p><%= rcontent %></p>
-	                	<%
-	                		//댓글 작성자가 로그인한 사용자의 아이디와 같으면 수정 삭제 버튼을 보여주는 작업 이걸 정말 꼭 해야겠지
-	                		//BoardVO, BoardDAO import 안 해놓음
-	                	%>
-					<%
-				}
-			%> 
-			<div class="writeReply">
-			<button id="btnModify" class="replyBtn" type="button" onclick="replyModifyok">수정</button>
-			<button id="btnDelete" class="replyBtn" type="button" onclick="replyDeleteok">삭제</button>
-			<textarea rows="2" cols="200%" placeholder="댓글을 입력하세요" id="content"></textarea>
-			<button id="btnSave" type="button" onclick="replyok">확인</button>
-		</div>
-		</div>
-		
-	</div> --%>
-	
 
 	<div class="divReply">
 		<div class="ReplyList"><span id="replyText">댓글 리스트</span><br>
-			<ul id="replyList">
-				<li>
-					<div class="reWriter">작성자 : 홍길동</div>
-					<div class="writeContent">댓글 내용입니다.</div>
-					<div>
-						<button class="replyBtn" id="btnModify">수정</button>
-						<button class="replyBtn" id="btnDelete">삭제</button>
-					</div>
-				</li>
-			</ul>
+		
+		<%-- <%
+			for(int i = 0; i < list.size(); i++) {
+				ReplyVO rvo = list.get(i);
+				String rno = rvo.getRno();
+				String rcontent = rvo.getRcontent();
+				String rauthor = rvo.getRauthor();
+				String rcreateDate = rvo.getCreateDate();
+					
+				%>
+					<ul id="replyList">
+						<li>
+							<div class="reWriter">작성자 : <%=rauthor %> | 작성일: <%= rcreateDate %></div>
+							<div class="writeContent"><%=rcontent %></div>
+				<%
+				if(id != null) {
+					%>
+						<div>
+							<button class="replyBtn" id="btnModify">수정</button>
+							<button class="replyBtn" id="btnDelete">삭제</button>
+						</div>
+					<%
+				}
+				%>
+						</li>
+					</ul>
+				<%
+			}
+			%> --%>
 		</div>
-		<div class="writeInput">
-			<div class="panel-body"><textarea class="content" id="content" cols="100%" rows="2"></textarea></div>
-			<div class="writeReplyBtn"><button class="replyBtn" id="btnOk">확인</button></div>
-		</div>		
+		<%
+			if(id != null) {
+				%>
+					<div class="writeInput">
+						<div class="panel-body"><textarea class="content" id="content" cols="100%" rows="2"></textarea></div>
+						<div class="writeReplyBtn"><button class="replyBtn" id="btnOk">확인</button></div>
+					</div>
+				<%
+			}
+		%>
 	</div>
 </div>
 </body>
@@ -460,11 +459,6 @@
 		});
 	});
 	
-	/* //목록 자동화
-	function addList() {
-		
-		let studyPlan1 = $("#studyPlan1").val();
-	} */
 	
 	/* 댓글 */
 	//댓글 수정 함수
@@ -472,53 +466,6 @@
 	console.log(rno);
 }
 
-//댓글 id = btnSave인 확인 버튼 클릭했을 때
-
-	/* $(document).ready(function(){
-		ReplyList();
-	});
-
-	$("#btnSave").click(function() {
-		$.ajax({
-			//replyok
-			url : "replyok.jsp",
-			type : "post",
-			data : {
-				//게시글 번호 맞나..?
-				no : "",
-				//로그인한 사용자의 아이디
-				rauthor : rauthor,
-				//rcontent input에 입력한 텍스트
-				rcontent : $("#rcontent").val()
-			},
-			success : function(result) {
-				/* let time = getTime();
-				console.log(result);
-				
-			if(result.trim() != "0") {
-				let rcontent = $("#rcontent");
-				
-			
-			}else {
-				
-			}
-		},
-		error : function() {
-			console.log("에러 발생");
-		}
-	})
-})
-
-/* 	$("#dropdown").click(function(){
-		let display = $(".menu").css("display");
-		//display : 안보일 때 none, 보일 때 block
-		//안보일 때 보이게, 보일 때 안보이게
-		if(display == "none"){
-			$(".menu").css("display", "block");
-		}else{
-			$(".menu").css("display", "none");
-		}
-	}); */
 	$("#btnOk").click(function(){
 		let content = $("#content").val();
 		if(content == "") {
@@ -535,6 +482,7 @@
 			},
 			success: function(result) {
 				console.log(result);
+				let rcontent = $("#rcontent");
 			},
 			error: function() {
 				console.log("에러 발생");

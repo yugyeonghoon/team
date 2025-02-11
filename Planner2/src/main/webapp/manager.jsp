@@ -8,16 +8,16 @@
 		response.sendRedirect("calendar.jsp");
 		return;
 	}
-
+	
 	UserDAO dao = new UserDAO();
-	List<UserVO> list = dao.getAllUser();
-%>
+	List<UserVO> list = dao.getAllManager();
+%>    
 <!DOCTYPE html>
 <html>
 	<head>
 		<meta charset="UTF-8">
-		<title>회원 관리</title>
-			<style>
+		<title>매니저 관리</title>
+		<style>
 				body{
 					font-family: 'Source Sans Pro', sans-serif;
 					background: white;
@@ -32,8 +32,6 @@
 					background: white;
 					border-radius: 10px;
 					box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-					border-top: 10px solid #79a6fe;
-					border-bottom: 10px solid #8BD17C;
 				}
 				h2{
 					color: #0073e6;
@@ -81,7 +79,7 @@
 		</head>
 	<body>
 		<div class="user-container">
-			<h2>회원 관리</h2>
+			<h2>매니저 관리</h2>
 			<table>
 				<thead>
 					<tr>
@@ -104,7 +102,7 @@
 							String nick = vo.getNick();
 							String email = vo.getEmail();
 					%>
-						<tr style="color:<%= userType == 1 ? "black" : "red" %>;">
+						<tr style="color:<%= userType == 0 ? "black" : "red" %>;">
 							<td><%= userType %></td>
 							<td><%= i+1 %></td>
 							<td><%= id %></td>	
@@ -113,7 +111,7 @@
 							<td><%= nick %></td>
 							<td><%= email %></td>
 							<td class="action-buttons">
-								<button onclick="location.href='user_update.jsp?id=<%= id %>'">수정</button>
+								<button onclick="location.href='manager_update.jsp?id=<%= id %>'">수정</button>
 								<button class="delete" onclick="deleteUser('<%= id %>')">삭제</button>
 							</td>
 						</tr>				
@@ -124,9 +122,4 @@
 			</table>
 		</div>
 	</body>
-	<script>
-	function deleteUser(userId){
-		location.href = "userOut.jsp?userId="+userId;
-	}
-</script>
 </html>
