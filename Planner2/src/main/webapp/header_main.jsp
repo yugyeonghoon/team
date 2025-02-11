@@ -46,10 +46,10 @@
 	            cursor: pointer;
 	        }
 	        .menu-toggle:hover {
-	            background: blue;
+	            background: #1d243d;
 	        }
 	        .group-toggle:hover {
-	            background: blue;
+	            background: #1d243d;
 	        }
 	        .dropdown-menu {
 	            display: none;
