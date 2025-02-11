@@ -32,6 +32,8 @@
 					background: white;
 					border-radius: 10px;
 					box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+					border-top: 10px solid #79a6fe;
+					border-bottom: 10px solid #8BD17C;
 				}
 				h2{
 					color: #0073e6;
