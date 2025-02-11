@@ -194,7 +194,7 @@ public class UserDAO extends DBManager{
 		}
 		
 	//9. 회원조회 한명
-		public void getOneUser(String id) {
+		public UserVO getOneUser(String id) {
 				
 			driverLoad();
 			DBConnect();
@@ -205,6 +205,26 @@ public class UserDAO extends DBManager{
 						
 			System.out.println(sql);
 			
-			DBDisConnect();
+			if(next()) {
+				String uid = getString("id");
+				String name = getString("name");
+				String nick = getString("nick");
+				String email = getString("email");
+				int userType = getInt("user_type");
+				
+				UserVO uvo = new UserVO();
+				uvo.setId(uid);
+				uvo.setName(name);
+				uvo.setNick(nick);
+				uvo.setEmail(email);
+				uvo.setUserType(userType);
+				
+				DBDisConnect();
+				return uvo;
+			}else {
+				DBDisConnect();
+				return null;
+			}
+			
 		}
 }
