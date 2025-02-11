@@ -1,4 +1,3 @@
-<%@page import="user.UserVO"%>
 <%@page import="reply.ReplyVO"%>
 <%@page import="java.util.List"%>
 <%@page import="reply.ReplyDAO"%>
@@ -23,11 +22,9 @@
 	vo.getTitle(); //일정2
 	
 	//댓글 여러건 조회
-	UserVO id = (UserVO)session.getAttribute("id");
 	ReplyDAO rdao = new ReplyDAO();
 	List<ReplyVO> list = rdao.select(no);
-	
-	
+
 %>
 <!DOCTYPE html>
 <html>
@@ -84,33 +81,23 @@
 		list-style: none;
 		
 	}
-	.studyPlan {
+	.Plan {
 		/* padding : 10px; */
 		margin : 10px;
 		width : 50rem;
-		height : 4rem;
+		height : 7rem;
 		box-shadow: 4px 4px 4px 4px gray;
 		border : 0;
 		outline : 0;
 		border-radius : 15px;
 	}
 	
-	.studyPlanModify {
+	.PlanModify {
 		margin : 10px;
 		width : 50rem;
-		height : 4rem;
+		height : 7rem;
 		text-decoration: line-through;
 		background-color : lightgray;
-		border : 0;
-		outline : 0;
-		border-radius : 15px;
-	}
-	.Plan {
-		/* padding : 10px; */
-		margin : 10px;
-		width : 50rem;
-		height : 4rem;
-		box-shadow: 4px 4px 4px 4px gray;
 		border : 0;
 		outline : 0;
 		border-radius : 15px;
@@ -214,6 +201,9 @@
   		#replyList {
   			list-style-type: none;
   		}
+  		.dpnone {
+        	display : none;
+        }
 </style>
 </head>
 <body>
@@ -221,8 +211,7 @@
 		<div class="menu-container">
 			<!-- 현재 날짜 및 시간 -->
 			<h5 id="clock" style="color:black; display: inline;">clock</h5>
-			<div>제목 : <%= vo.getTitle() %></div>
-			<div>작성자 : <%= vo.getAuthor() %></div>
+			
 			
 			<!-- 일정등록 버튼 -->	
 			<div class="dropdown">
@@ -261,28 +250,24 @@
 	<div class="list">
 		<ul class="planList">
 			<li>
-				<input type="text" id="studyPlan1" class="studyPlan" value="<%= vo.getContent() %>">
+				<%-- <input type="text" id="Plan" class="Plan" value="<%= vo.getContent() %>"> --%>
+				<textarea id="Plan" class="Plan" >
+					제목 : <%= vo.getTitle() %>
+					작성자 : <%= vo.getAuthor() %>
+					내용 : <%= vo.getContent() %>
+				</textarea>
 				<input type="checkbox" id="check1" class="checkbox">
 				<label for="check1"></label>
- 				
-			</li>
-			
-			<li>
-				<input type="text" id="Plan1" class="Plan">
-			</li>
-			<li>
-				<input type="text" id="Plan2" class="Plan">
-			</li>
-			<li>
-				<input type="text" id="Plan3" class="Plan">
 			</li>
 		</ul>
 	</div>
 
 	<div class="divReply">
-		<div class="ReplyList"><span id="replyText">댓글 리스트</span><br>
+	<span id="replyText">댓글 리스트</span><br>
+		<div class="ReplyList">
+			
 		
-		<%-- <%
+		<%
 			for(int i = 0; i < list.size(); i++) {
 				ReplyVO rvo = list.get(i);
 				String rno = rvo.getRno();
@@ -294,14 +279,17 @@
 					<ul id="replyList">
 						<li>
 							<div class="reWriter">작성자 : <%=rauthor %> | 작성일: <%= rcreateDate %></div>
-							<div class="writeContent"><%=rcontent %></div>
+							<div><%=rcontent %></div>
 				<%
-				if(id != null) {
+				if(user != null && (user.getId().equals(rauthor) || user.getUserType() == 99)) {
 					%>
-						<div>
-							<button class="replyBtn" id="btnModify">수정</button>
-							<button class="replyBtn" id="btnDelete">삭제</button>
-						</div>
+							<div>
+								<button class="replyBtn" id="btnModify" onclick="modifyBtn(this)">수정</button>
+								<input type="hidden">
+	                    		<button class="dpnone" onclick="modifyReply(<%= rno %>, this)">확인</button>
+	                    		<button class="dpnone" onclick="cancelBtn(this, <%= rcontent %>)">취소</button>
+								<button class="replyBtn" id="btnDelete" onclick="deleteReply(<%=rno %>, this)">삭제</button>
+							</div>
 					<%
 				}
 				%>
@@ -309,13 +297,13 @@
 					</ul>
 				<%
 			}
-			%> --%>
+			%>
 		</div>
 		<%
-			if(id != null) {
+			if(user != null) {
 				%>
 					<div class="writeInput">
-						<div class="panel-body"><textarea class="content" id="content" cols="100%" rows="2"></textarea></div>
+						<div class="panel-body"><textarea class="content" id="rcontent" cols="100%" rows="2"></textarea></div>
 						<div class="writeReplyBtn"><button class="replyBtn" id="btnOk">확인</button></div>
 					</div>
 				<%
@@ -325,6 +313,9 @@
 </div>
 </body>
 <script>
+	let userId = "<%= user == null ? "" : user.getId() %>"
+	console.log(userId);
+	
 	/* 현재 날짜 및 실시간 표시*/
 	var Target = document.getElementById("clock");
 	function clock() {
@@ -454,20 +445,36 @@
 		$("[id^=check]").change(function() {
 			let num = this.id.replace("check", "");
 			
-			let target = $("#studyPlan" + num);
-			$(target).toggleClass("studyPlanModify", this.checked);
+			let target = $("#Plan");
+			$(target).toggleClass("PlanModify", this.checked);
 		});
 	});
 	
-	
 	/* 댓글 */
-	//댓글 수정 함수
-	function modifyReply(rno, obj) {
+	
+	//댓글 작성 시간
+	function getTime() {
+		let date = new Date();
+		console.log(date);
+		
+		let year = date.getFullYear();
+		let month = (date.getMonth() + 1).toString().padStart(2,"0");
+		let day = date.getDate().toString().padStart(2,"0");
+		let hour = date.getHours().toString().padStart(2,"0");
+		let minute = date.getMinutes().toString().padStart(2,"0");
+		let second = date.getSeconds().toString().padStart(2,"0");
+		
+		let time = year + "-" + month + "-" + day + " " + hour + ":" + minute + ":" + second
+		return time;
+	}
+	
+	//댓글 확인
+	function Replyok(rno, obj) {
 	console.log(rno);
-}
+	}
 
 	$("#btnOk").click(function(){
-		let content = $("#content").val();
+		let content = $("#rcontent").val();
 		if(content == "") {
 			console.log("빈문자");
 			return;
@@ -481,13 +488,128 @@
 				no: <%= no %>
 			},
 			success: function(result) {
+				let time = getTime();
 				console.log(result);
-				let rcontent = $("#rcontent");
+				
+				let rno = result.trim();
+				if(rno == "fail") {
+					return;
+				}
+				let html = "";
+					html += "<ul id='replyList'>";
+					html += "	<li>";
+					html += "	<div class='reWriter'>작성자 : "+userId+" | 작성일: "+time+"</div>";
+					html += "		<div>"+content+"</div>";
+					html += "		<div>";
+					html += "			<button class='replyBtn' id='btnModify' onclick='modifyBtn(this)'>수정</button>";
+					html += "			<input type='hidden'>";
+            		/* html += "			<button class='dpnone' onclick='modifyReply("+result.trim()+", this)'>확인</button>";
+					html += "			<button class='dpnone' onclick='cancelBtn(this, "+content.val()+")'>취소</button>"; */
+					html += "			<button class='replyBtn' id='btnDelete' onclick='deleteReply("+rno+", this)'>삭제</button>";
+					html += "		</div>";
+					html += "	</li>";
+					html += "</ul>	";
+					
+					$(".ReplyList").prepend(html);
+					$("#rcontent").val("");
 			},
 			error: function() {
 				console.log("에러 발생");
 			}
 		})
 	})
+	
+	//댓글 삭제
+	function deleteReply(rno, obj) {
+		console.log(rno + "번 댓글 삭제");
+		
+		$.ajax({
+			url: "deleteReplyok.jsp",
+			type: "post",
+			data: {
+				rno: rno
+			},
+			success: function(result) {
+				if(result.trim() == "success") {
+					$(obj).parent().parent().parent().remove();
+				}
+			},
+			error: function() {
+				console.log("에러 발생");
+			}
+			
+		})
+	}
+
+	//수정 버튼 클릭하면 3개의 text type 나오고 수정 확인, 취소 버튼이 없음 왜 그러는 걸까?
+	
+	function cancelBtn(obj, text) {
+		let input = $(obj).parent().parent().children("input");
+		console.log(input);
+		input.replaceWith("<div>"+text+"</div>");
+		
+		$(obj).prev().prev().prev().css("display", "inline");
+		$(obj).parent().children(".dpnone").css("display", "none");
+		
+	}
+	
+	function modifyBtn(obj) {
+		let el = $(".replyList");
+		for(let i = 0; i < el.length; i++) {
+			//hidden 찾기
+			let value = el.eq(i).children("input").val();
+			console.log(value);
+			let input = el.eq(i).children("input");
+			input.replaceWith("<div>"+value+"</div>");
+			
+			el.eq(i).children().children().eq(0).css("display", "inline");
+			el.eq(i).children().children(".dpnone").css("display", "none");
+		}
+		
+		let div = $(obj).parent().parent().children("div");
+		$(obj).next().val(div.text());
+		
+		div.replaceWith("<input type='text' value='"+div.text()+"'>");
+		
+		$(obj).css("display", "none");
+		$(obj).parent().children(".dpnone").css("display", "inline");
+		
+	}
+	
+	//댓글 수정
+	function modifyReply(rno, obj) {
+		console.log(rno);
+		
+		let input = $(obj).parent().parent().parent().children().children("textarea");
+		
+		let reply = input.val();
+		
+		if(reply != null && reply.trim() != "") {
+			let cresult = confirm("댓글을 수정하시겠습니까?");
+			if(cresult == true) {
+				$.ajax({
+					url: "modifyReplyok.jsp",
+					type: "post",
+					data: {
+						rno: rno,
+						rcontent: rcontent
+					},
+					success: function(result) {
+						console.log(result);
+						if(result.trim() == "success") {
+							input.replaceWith("<div>"+rcontent+"</div>");
+							$(obj).parent().children(".dpnone").css("display", "none");
+							$(obj).prev().prev().css("display", "inline");
+							$(obj).next().attr("onclick", "modifyReply(this, '"+reply+"')");
+						}
+						
+					},
+					error: function() {
+						console.log("에러 발생");
+					}
+				})
+			}
+		}	
+	}
 </script>
 </html>

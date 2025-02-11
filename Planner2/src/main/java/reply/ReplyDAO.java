@@ -11,14 +11,14 @@ public class ReplyDAO extends DBManager{
 	//insert into reply ~
 	public int write(ReplyVO vo) {
 		String rauthor = vo.getRauthor();
-		String bno = vo.getNo();
+		String no = vo.getNo();
 		String rcontent = vo.getRcontent();
 		
 		driverLoad();
 		DBConnect();
 		
 		String sql = "insert into reply(rauthor, no, rcontent) ";
-		sql += "values('"+rauthor+"', '"+bno+"', '"+rcontent+"')";
+		sql += "values('"+rauthor+"', '"+no+"', '"+rcontent+"')";
 		
 		String selectSql = "select last_insert_id() as rno";
 		executeUpdate(sql);
@@ -64,13 +64,15 @@ public class ReplyDAO extends DBManager{
 	
 	//4. 댓글 조회
 	//select * from reply where bno = "
-	public List<ReplyVO> select(String bno) {
+	public List<ReplyVO> select(String no) {
 		
 		driverLoad();
 		DBConnect();
 		
-		String sql = "select * from reply where no = " + bno;
-		sql += "order by rno desc";
+		String sql = "select * from reply where no = " + no;
+		sql += " order by rno desc";
+		
+		//select * from reply where no = 2 order
 		
 		executeQuery(sql);
 		

@@ -17,7 +17,7 @@
 	
 	
 	if(text == null || no == null || user == null){
-		response.sendRedirect("page.jsp");
+		out.print("fail");
 		return;
 	}
 	
@@ -27,5 +27,6 @@
 	vo.setNo(no);
 	vo.setRauthor(author);
 	
-	dao.write(vo);
+	int rno = dao.write(vo);
+	out.print(rno);
 %>
