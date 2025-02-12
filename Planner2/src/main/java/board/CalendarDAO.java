@@ -98,7 +98,7 @@ public class CalendarDAO extends DBManager{
 			//select * from board where author in(select id from groupmember where groupnum = (select groupnum from groupmember where id = 'hong'));
 			//select * from board where author = 'hong' or author = 'sung' or author = 'summer' or author = 'winter';
 			
-			String sql = "select * from board where author in(select id from groupmember where groupnum = (select groupnum from groupmember where id = '"+id+"'));";
+			String sql = "select * from board where author in(select id from groupmember where groupnum = (select groupnum from groupmember where id = '"+id+"')) or author =  '"+id+"';";
 			executeQuery(sql);
 			
 			List<BoardVO> list = new ArrayList<>();
