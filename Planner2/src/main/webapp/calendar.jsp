@@ -243,7 +243,7 @@ $(function(){
     					title : "<%= title %>",
     					start : "<%=start%>",
     					end : "<%=end %>",
-    					url : "modify.jsp?no=<%=no%>",
+    					url : "page.jsp?no=<%=no%>",
     					
     				<%	if(boardType == 1){
 					%>	backgroundColor: '#0000ff',<%

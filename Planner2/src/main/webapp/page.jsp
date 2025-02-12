@@ -3,6 +3,8 @@
 <%@page import="reply.ReplyDAO"%>
 <%@page import="board.BoardDAO" %>
 <%@page import="board.BoardVO" %>
+<%@page import="group.groupDAO" %>
+<%@page import="group.groupVO" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ include file="header_main.jsp" %>
@@ -25,6 +27,9 @@
 	ReplyDAO rdao = new ReplyDAO();
 	List<ReplyVO> list = rdao.select(no);
 
+	//같은 그룹 멤버 name 다 불어오기
+	//로그인한 아이디의 name과 같은 groupnum을 가지고 있는 유저 테이블에 있는 user를 다 불러오게 하기
+	
 %>
 <!DOCTYPE html>
 <html>
@@ -61,7 +66,7 @@
 		float: right;
 	}
 	
-	div.box {
+	 #timebox {
 		float: right;
 		border: 3px solid black;
 		border-radius: 10px;
@@ -103,6 +108,8 @@
 		border-radius : 15px;
 	}
 	
+	
+     
 	.checkbox {
 		vertical-align: middle;
 		position: relative;
@@ -170,13 +177,7 @@
 			border-right: 2px solid black;
 			border-bottom: 2px solid black;	
 		}
-	
-		/* .replyBtn {
-			float: right;
-			border: 0;
-	  		background-color: transparent;
-	  		font-size: 15px;
-	  	} */
+		
 	  	
 	  	.replyBtn {
 	 		background-color: #555555;
@@ -203,6 +204,38 @@
   		}
   		.dpnone {
         	display : none;
+        	background-color: #555555;
+			border: none;
+			color: white;
+			padding: 10px;
+			text-align: center;
+			text-decoration: none;
+			font-size: 16px;
+        }
+        
+        .dpnone:hover {
+        	background-color: #e7e7e7; color: black;
+ 			color: black;
+        }
+        
+        #backBtn {
+        	background-color: #555555;
+			border: none;
+			color: white;
+			padding: 10px;
+			text-align: center;
+			text-decoration: none;
+			display: inline-block;
+			font-size: 16px;
+        }
+        
+        #backBtn:hover {
+        	background-color: #e7e7e7; color: black;
+ 			color: black;
+        }
+        
+        #inputReply {
+        	resize: none;
         }
 </style>
 </head>
@@ -214,7 +247,7 @@
 			
 			
 			<!-- 일정등록 버튼 -->	
-			<div class="dropdown">
+			<!-- <div class="dropdown">
 			  <button class="Btn" type="button" data-bs-toggle="dropdown" aria-expanded="false">
 			    +
 			  </button>
@@ -222,27 +255,15 @@
 			    <li><a class="dropdown-item" href="StdPlanPost.jsp">스터디 계획</a></li>
 			    <li><a class="dropdown-item" href="planPost.jsp">일정 계획</a></li>
 			  </ul>
-			</div>
-			<!-- <div class="hover">
-				<a href="studyPlanPage.jsp"><span>스터디 계획</span></a><br>
-				<a href="PlanPage.jsp"><span>일정 계획</span></a><br>
 			</div> -->
 			
 			<!-- 상단 공부시간 표시 -->
-			<div class="box">
+			<div class="box" id="timebox">
 				<p id="studyTime">TODAY 공부시간</p>
-				<div class="time"><span id="hour">00</span>:<span id="min">00</span>:<span id="sec">00</span></div>
+				<div class="time"><%=user.getName()%>: 2H</div>
 				<div class="time">3H 40M</div>
 				<div class="time">5H</div>
 			</div>
-		   	
-		   	<div style="text-align: right;">
-	        <h5>Stopwatch</h5>
-	        <!-- <h1><span id="hour">00</span>:<span id="min">00</span>:<span id="sec">00</span><span id="micro">00</span></h1> -->
-	        <button class="w-btn w-btn-green" id="start">start</button>
-	        <button class="w-btn w-btn-indigo" id="stop">stop</button>
-	        <button class="w-btn w-btn-indigo" id="clear">clear</button>
-	    	</div>
 		</div>
 	
 	
@@ -250,21 +271,22 @@
 	<div class="list">
 		<ul class="planList">
 			<li>
-				<%-- <input type="text" id="Plan" class="Plan" value="<%= vo.getContent() %>"> --%>
-				<textarea id="Plan" class="Plan" >
-					제목 : <%= vo.getTitle() %>
-					작성자 : <%= vo.getAuthor() %>
-					내용 : <%= vo.getContent() %>
+				<textarea id="Plan" class="Plan" onclick="location.href='modify.jsp?no=<%= no %>'">
+				제목 : <%= vo.getTitle() %>
+				작성자 : <%= vo.getAuthor() %>
+				내용 : <%= vo.getContent() %>
 				</textarea>
 				<input type="checkbox" id="check1" class="checkbox">
 				<label for="check1"></label>
+				<button id="backBtn" onclick="location.href='calendar.jsp'">뒤로가기</button>
 			</li>
 		</ul>
+		
 	</div>
 
 	<div class="divReply">
 	<span id="replyText">댓글 리스트</span><br>
-		<div class="ReplyList">
+		<div class="RpyList">
 			
 		
 		<%
@@ -276,10 +298,10 @@
 				String rcreateDate = rvo.getCreateDate();
 					
 				%>
-					<ul id="replyList">
+					<ul class="replyList">
 						<li>
 							<div class="reWriter">작성자 : <%=rauthor %> | 작성일: <%= rcreateDate %></div>
-							<div><%=rcontent %></div>
+							<div class="reply-content"><%=rcontent %></div>
 				<%
 				if(user != null && (user.getId().equals(rauthor) || user.getUserType() == 99)) {
 					%>
@@ -287,7 +309,7 @@
 								<button class="replyBtn" id="btnModify" onclick="modifyBtn(this)">수정</button>
 								<input type="hidden">
 	                    		<button class="dpnone" onclick="modifyReply(<%= rno %>, this)">확인</button>
-	                    		<button class="dpnone" onclick="cancelBtn(this, <%= rcontent %>)">취소</button>
+	                    		<button class="dpnone" onclick="cancelBtn(this, '<%= rcontent %>')">취소</button>
 								<button class="replyBtn" id="btnDelete" onclick="deleteReply(<%=rno %>, this)">삭제</button>
 							</div>
 					<%
@@ -303,8 +325,8 @@
 			if(user != null) {
 				%>
 					<div class="writeInput">
-						<div class="panel-body"><textarea class="content" id="rcontent" cols="100%" rows="2"></textarea></div>
-						<div class="writeReplyBtn"><button class="replyBtn" id="btnOk">확인</button></div>
+						<div class="panel-body"><textarea id="inputReply" cols="100%" rows="2"></textarea></div>
+						<div class="RinputBtn"><button class="replyBtn" id="btnOk">확인</button></div>
 					</div>
 				<%
 			}
@@ -337,93 +359,7 @@
 	clock();
 	setInterval(clock, 1000);
 	 
-	//스톱워치
-	window.onload = function(){
-        
-        let timer_sec;
-        let timer_min;
-        let timer_hour;
-
-        let timer = 0;
-
-        //click start button
-        document.getElementById("start").addEventListener("click", function(){
-            //console.log(timer);
-            if(timer > 0){
-                return;
-            }
-
-            var sec = parseInt(document.getElementById("sec").innerText);
-            var min = parseInt(document.getElementById("min").innerText);
-            var hour = parseInt(document.getElementById("hour").innerText);
-
-            //start seconds
-            timer_sec = setInterval(function(){
-                //console.log(i);
-                sec++;
-                if(sec == 60) {
-                    sec = "00";
-                } else if(sec < 10){
-                    sec = "0" + sec;
-                }
-                document.getElementById("sec").innerText = sec;
-            }, 1000);
-
-            //start minutes
-            timer_min = setInterval(function(){
-                min++;
-
-                if(min == 60) {
-                    min = 0;
-                } else if(min < 10){
-                    min = "0" + min;
-                }
-
-                document.getElementById("min").innerText = min;
-            }, 60000);
-
-            //start hours
-            timer_hour = setInterval(function(){
-                //console.log(hour);
-                hour++;
-
-                if(hour < 10){
-                    hour = "0" + hour;
-                }
-
-                document.getElementById("hour").innerText = hour;
-
-            }, 3600000);
-
-            timer++;
-            //console.log(timer);
-        });
-
-        //click stop button
-        document.getElementById("stop").addEventListener("click", function(){
-            stop();
-        });
-
-        function stop(){
-            /* clearInterval(timer_micro); */
-            clearInterval(timer_sec);
-            clearInterval(timer_min);
-            clearInterval(timer_hour);
-
-            timer--;
-            if(timer < 0)
-                timer = 0;
-        }
-
-        //click clear button
-        document.getElementById("clear").addEventListener("click", function(){
-            stop();
-            /* document.getElementById("micro").innerText = "00"; */
-            document.getElementById("sec").innerText = "00";
-            document.getElementById("min").innerText = "00";
-            document.getElementById("hour").innerText = "00";
-        });
-    };
+	
 	
 	/* 공부 시간 확인 박스 */
 	function startTimer() { // 1초, 2초......시간 계산하는 함수
@@ -474,8 +410,8 @@
 	}
 
 	$("#btnOk").click(function(){
-		let content = $("#rcontent").val();
-		if(content == "") {
+		let rcontent = $("#inputReply").val();
+		if(rcontent == "") {
 			console.log("빈문자");
 			return;
 		}
@@ -484,7 +420,7 @@
 			url: "replyok.jsp",
 			type: "post",
 			data: {
-				reply: content,
+				reply: rcontent,
 				no: <%= no %>
 			},
 			success: function(result) {
@@ -496,22 +432,22 @@
 					return;
 				}
 				let html = "";
-					html += "<ul id='replyList'>";
+					html += "<ul class='replyList'>";
 					html += "	<li>";
 					html += "	<div class='reWriter'>작성자 : "+userId+" | 작성일: "+time+"</div>";
-					html += "		<div>"+content+"</div>";
+					html += "		<div class='reply-content'>"+rcontent+"</div>";
 					html += "		<div>";
 					html += "			<button class='replyBtn' id='btnModify' onclick='modifyBtn(this)'>수정</button>";
 					html += "			<input type='hidden'>";
-            		/* html += "			<button class='dpnone' onclick='modifyReply("+result.trim()+", this)'>확인</button>";
-					html += "			<button class='dpnone' onclick='cancelBtn(this, "+content.val()+")'>취소</button>"; */
+            		html += "			<button class='dpnone' onclick='modifyReply("+rno+", this)'>확인</button>";
+					html += "			<button class='dpnone' onclick='cancelBtn(this, '"+rcontent+"')'>취소</button>";
 					html += "			<button class='replyBtn' id='btnDelete' onclick='deleteReply("+rno+", this)'>삭제</button>";
 					html += "		</div>";
 					html += "	</li>";
 					html += "</ul>	";
 					
-					$(".ReplyList").prepend(html);
-					$("#rcontent").val("");
+					$(".RpyList").prepend(html);
+					$("#inputReply").val("");
 			},
 			error: function() {
 				console.log("에러 발생");
@@ -541,7 +477,6 @@
 		})
 	}
 
-	//수정 버튼 클릭하면 3개의 text type 나오고 수정 확인, 취소 버튼이 없음 왜 그러는 걸까?
 	
 	function cancelBtn(obj, text) {
 		let input = $(obj).parent().parent().children("input");
@@ -553,20 +488,23 @@
 		
 	}
 	
+	//댓글 수정 버튼
 	function modifyBtn(obj) {
-		let el = $(".replyList");
+ 		let el = $(".replyList");
+ 		
 		for(let i = 0; i < el.length; i++) {
 			//hidden 찾기
-			let value = el.eq(i).children("input").val();
+			let value = el.eq(i).children().children("input").val();
 			console.log(value);
-			let input = el.eq(i).children("input");
+			let input = el.eq(i).children().children("input");
 			input.replaceWith("<div>"+value+"</div>");
 			
-			el.eq(i).children().children().eq(0).css("display", "inline");
-			el.eq(i).children().children(".dpnone").css("display", "none");
+			el.eq(i).children().children().children().eq(0).css("display", "inline");
+			el.eq(i).children().children().children(".dpnone").css("display", "none");
 		}
 		
-		let div = $(obj).parent().parent().children("div");
+		
+		let div = $(obj).parent().parent().children(".reply-content");
 		$(obj).next().val(div.text());
 		
 		div.replaceWith("<input type='text' value='"+div.text()+"'>");
@@ -576,11 +514,15 @@
 		
 	}
 	
+	//댓글 입력 후 확인 버튼 클릭하면 rcontent.val is not a function 에러남
+	//댓글 수정하고 확인 버튼 누른 후 다시 수정 버튼 클릭했을 때 input 창 안 뜸
+	
 	//댓글 수정
+	//댓글 확인 버튼
 	function modifyReply(rno, obj) {
 		console.log(rno);
 		
-		let input = $(obj).parent().parent().parent().children().children("textarea");
+		let input = $(obj).parent().parent().children("input");
 		
 		let reply = input.val();
 		
@@ -592,12 +534,12 @@
 					type: "post",
 					data: {
 						rno: rno,
-						rcontent: rcontent
+						rcontent: reply
 					},
 					success: function(result) {
 						console.log(result);
 						if(result.trim() == "success") {
-							input.replaceWith("<div>"+rcontent+"</div>");
+							input.replaceWith("<div>"+reply+"</div>");
 							$(obj).parent().children(".dpnone").css("display", "none");
 							$(obj).prev().prev().css("display", "inline");
 							$(obj).next().attr("onclick", "modifyReply(this, '"+reply+"')");
