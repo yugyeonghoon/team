@@ -93,7 +93,7 @@
 			</div>
 			<div class="profile-field">
 				<label for="email">이메일</label>
-				<input type="text" id="email" name="email" value="<%= user.getEmail() %>" readonly>
+				<input type="text" id="email" name="email" value="<%=user.getEmail() %>" readonly>
 			</div>
 			<div class="profile-field">
 				<label for="password">새 비밀번호</label>

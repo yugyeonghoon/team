@@ -3,6 +3,8 @@ package group;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.catalina.valves.RemoteAddrValve;
+
 import db.DBManager;
 
 public class memberDAO extends DBManager{
@@ -21,6 +23,7 @@ public class memberDAO extends DBManager{
 		List<memberVO> list = new ArrayList<>();
 		
 		while(next()) {
+			int no = getInt("no");
 			String id2 = getString("id");
 			int gnum = getInt("groupnum");
 			int gtype = getInt("grouptype");
@@ -29,6 +32,7 @@ public class memberDAO extends DBManager{
 					
 			memberVO vo = new memberVO();
 			
+			vo.setNo(no);
 			vo.setGroupnum(gnum);
 			vo.setGrouptype(gtype);
 			vo.setId(id2);
@@ -59,4 +63,16 @@ public class memberDAO extends DBManager{
 		executeUpdate(sql);
 		DBDisConnect();
 	}
+	
+	//멤버 추방(삭제)
+	public void deleteMember(String id) {
+		driverLoad();
+		DBConnect();
+		
+		String sql ="delete from groupmember where no = "+id;
+		executeUpdate(sql);
+		DBDisConnect();
+		
+	}
+	
 }

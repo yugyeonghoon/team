@@ -6,9 +6,14 @@
     pageEncoding="UTF-8"%>
 <%
 	UserVO user = (UserVO)session.getAttribute("user");
-	memberDAO dao1 = new memberDAO();
-	memberVO vo1 = new memberVO();
-	List<memberVO> list1 = dao1.view(user.getId());
+	if(user ==null){
+		response.sendRedirect("login.jsp");
+		return;
+	}
+	memberDAO mdao = new memberDAO();
+	memberVO mvo = new memberVO();
+	
+	List<memberVO> mlist = mdao.view(user.getId());
 %>   
 <!DOCTYPE html>
 <html>
@@ -18,6 +23,10 @@
  		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
    			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css" />
 		<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+		 <link
+		    rel="stylesheet"
+		    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css"
+		  />
 	    <style>
 	        header {
 	        	height : 20px;
@@ -198,13 +207,14 @@
 		<div><p><%= user == null ? "사용자" : user.getNick() %>님! 어서오세요.</p></div>
 		<button class="group-toggle" onclick="toggleMenu2()">그룹</button>
 			<div class="dropdown-menu2" id="dropdown-menu2">
-				<%for(int i = 0; i < list1.size(); i++){
-					memberVO vo2 = list1.get(i);
-					String name = vo2.getName();
-					%>
-					<a><%= name %></a>
-					<%
-					} %>
+			<% for(int i = 0; i < mlist.size(); i++){
+					memberVO vo2 = mlist.get(i);
+					String name = vo2.getName();		
+				%>
+				<a><%= vo2.getName() %></a>
+				<%
+			}
+			%>	
 			</div>
 			<div class="overlay2" id="overlay2" onclick="closeMenu2()"></div>
 				<button class="menu-toggle" onclick="toggleMenu()">메뉴</button>
@@ -227,12 +237,12 @@
 							<%
 						}else{
 							%>
-								<a href="login.jsp">로그인</a>
-								<a href="signup.jsp">회원가입</a>
-							<%
-						}
-					%>
-					
+							<a href="login.jsp">로그인</a>
+							<a href="signup.jsp">회원가입</a>
+						<%
+					}
+				%>
+				
 				</div>
 				<div class="overlay" id="overlay" onclick="closeMenu()"></div>
 		    	<div class="box">

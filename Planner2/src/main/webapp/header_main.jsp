@@ -6,6 +6,10 @@
     pageEncoding="UTF-8"%>
 <%
 	UserVO user = (UserVO)session.getAttribute("user");
+	if(user ==null){
+		response.sendRedirect("login.jsp");
+		return;
+	}
 	memberDAO dao1 = new memberDAO();
 	memberVO vo1 = new memberVO();
 	List<memberVO> list1 = dao1.view(user.getId());
@@ -18,6 +22,10 @@
 	 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 	   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css" />
 	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+	 <link
+	    rel="stylesheet"
+	    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css"
+	  />
 	    <style>
 	        header {
 	        	height : 55px;
@@ -154,6 +162,17 @@
 	    		margin-top: 10px;
 	    		font-size: 15px;
 	    	}
+	    	
+	    	.fa-bell{
+				position: absolute;
+			    top: 6px;
+			    right: 150px;
+			    background: black;
+			    color: white;
+			    border: none;
+			    padding: 12px;
+			    border-radius: 5px;
+	    	}
 	    </style>
 		<script>
 	        function toggleMenu() {
@@ -196,6 +215,7 @@
 	<body>
 	<header>
 	<div><p><%= user == null ? "사용자" : user.getNick() %>님! 어서오세요.</p></div>
+	<i class="far fa-bell"></i>
 	<button class="group-toggle" onclick="toggleMenu2()">그룹</button>
 		<div class="dropdown-menu2" id="dropdown-menu2">
 			<%for(int i = 0; i < list1.size(); i++){
