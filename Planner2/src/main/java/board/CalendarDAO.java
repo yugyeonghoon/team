@@ -82,46 +82,58 @@ public class CalendarDAO extends DBManager{
 	
 	
 	//일정 조회
-	public List<BoardVO> listView() {
-		driverLoad();
-		DBConnect();
-		
-		String sql = "select * from board";
-		executeQuery(sql);
-		
-		List<BoardVO> list = new ArrayList<>();
-		while(next()) {
-			String author = getString("author");
-			String title = getString("title");
-			String content = getString("content");
-			String start = getString("start_date");
-			String end = getString("end_date");
-			int no = getInt("bno");
-			int boardType = getInt("board_type");
+		public List<BoardVO> listView(String id) {
+			driverLoad();
+			DBConnect();
 			
-			BoardVO vo = new BoardVO();
-			vo.setAuthor(author);
-			vo.setContent(content);
-			vo.setTitle(title);
-			vo.setStartTime(start);
-			vo.setEndTime(end);
-			vo.setNo(no);
-			vo.setBoardType(boardType);
+			//select groupnum from groupmember where id = 'hong'
+			//로그인한 사용자가 속해있는 그룹 번호
+			//ex) 10
 			
-			list.add(vo);
+			//select id from groupmember where groupnum = 10;
+			//select id from groupmember where groupnum = (select groupnum from groupmember where id = 'hong');
+			//10번 그룹에 속한 사용자의 아이디만 가져오는 쿼리
+			//ex) hong, sung, winter, summer
+			
+			//select * from board where author in(select id from groupmember where groupnum = (select groupnum from groupmember where id = 'hong'));
+			//select * from board where author = 'hong' or author = 'sung' or author = 'summer' or author = 'winter';
+			
+			String sql = "select * from board where author in(select id from groupmember where groupnum = (select groupnum from groupmember where id = '"+id+"')) or author =  '"+id+"';";
+			executeQuery(sql);
+			
+			List<BoardVO> list = new ArrayList<>();
+			while(next()) {
+				String author = getString("author");
+				String title = getString("title");
+				String content = getString("content");
+				String start = getString("start_date");
+				String end = getString("end_date");
+				int no = getInt("bno");
+				int boardType = getInt("board_type");
+				
+				BoardVO vo = new BoardVO();
+				vo.setAuthor(author);
+				vo.setContent(content);
+				vo.setTitle(title);
+				vo.setStartTime(start);
+				vo.setEndTime(end);
+				vo.setNo(no);
+				vo.setBoardType(boardType);
+				
+				list.add(vo);
+			}
+			DBDisConnect();
+			return list;
 		}
-		DBDisConnect();
-		return list;
-	}
-	
-	//일정 삭제
-	public void delete(String no) {
-		driverLoad();
-		DBConnect();
 		
-		String sql ="delete from board where no ="+ no ;
-		executeQuery(sql);
-		DBDisConnect();
-	}
+		//일정 삭제
+		public void delete(String no) {
+			driverLoad();
+			DBConnect();
+			
+			String sql ="delete from board where no ="+ no ;
+			executeQuery(sql);
+			DBDisConnect();
+		}
 
 }

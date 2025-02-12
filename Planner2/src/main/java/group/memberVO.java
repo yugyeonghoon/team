@@ -1,12 +1,19 @@
 package group;
 
 public class memberVO {
+	private int no;
 	private String id;
 	private int groupnum;
 	private int grouptype;
 	private String name;
 	private String email;
 	
+	public int getNo() {
+		return no;
+	}
+	public void setNo(int no) {
+		this.no = no;
+	}
 	public String getName() {
 		return name;
 	}

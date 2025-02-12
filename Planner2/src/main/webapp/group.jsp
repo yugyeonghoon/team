@@ -11,7 +11,9 @@
 	memberDAO dao = new memberDAO();
 	memberVO vo = new memberVO();
 	
+	
 	List<memberVO> list = dao.view(user1.getId());
+	int grouptype = vo.getGrouptype();
 %>
 <!DOCTYPE html>
 <html>
@@ -100,20 +102,24 @@
 			<tbody>
 			<%for(int i = 0; i < list.size(); i++){
 					memberVO vo2 = list.get(i);
+					int no = vo2.getNo();
 					String id = vo2.getId();
 					String name = vo2.getName();
 					String email = vo2.getEmail();
+					int gnum = vo2.getGroupnum();
 					%>
+				
 				<tr>
 					<td><%= id%></td>
 					<td><%= name %></td>
 					<td><%= email %></td>
 					<td class="action-buttons">
 						<button>수정</button>
-						<button class="delete">삭제</button>
-						<button>초대</button>
+						<button type="submit" class="delete" onclick="deletemember(<%= no %>, this)">삭제</button>
+						<button type="submit" class="invite" onclick="invite(<%= gnum %>)">초대</button>
 					</td>
 				</tr>
+				
 					<%
 				}
 				%>
@@ -121,4 +127,51 @@
 		</table>
 	</div>
 </body>
+<script>
+function invite(gnum){
+	let result = prompt('초대하실 id를 입력해주세요', 'id');
+	console.log(result);
+		$.ajax({
+			url : "invite.jsp",
+			type : "post",
+			data :{
+				id : result,
+				gnum : gnum
+			},
+			success : function(result){
+				console.log(result);
+			},
+			error : function(){
+				console.log("에러발생");
+			}
+		});
+}
+function deletemember(no, obj){
+	console.log(no);
+	
+	let result = confirm("삭제하시겠습니까?");
+	if(result == true){
+		$.ajax({
+			url : "delete.jsp",
+			type : "post",
+			data :{
+				id : no
+			},
+			success : function(result){
+				if(result.trim() == "success"){
+					//버튼이 눌린 순서와 동일한 tr 전체 삭제
+					$(obj).parent().parent().remove();
+				}
+			},
+			error : function(){
+				console.log("error");
+			}
+		});
+	}else{
+		
+	}
+}
+
+
+</script>
 </html>

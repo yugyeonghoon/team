@@ -108,7 +108,7 @@
 			<form >
 				<div class="find-box">
 					<label><%= name %> 님의 아이디는</label>
-						<input type="text" value="<%= id %>">
+						<input type="text" value="<%=id %>">
 					<label>입니다.</label>
 				</div>	
 			</form>

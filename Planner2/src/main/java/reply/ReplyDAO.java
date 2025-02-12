@@ -39,7 +39,7 @@ public class ReplyDAO extends DBManager{
 	//update reply set rcontent = '', update_date = now() where rno = ;
 	public void modify(ReplyVO vo) {
 		String rcontent = vo.getRcontent();
-		String rno = vo.getRno();
+		String rno = vo.getNo();
 		
 		driverLoad();
 		DBConnect();
