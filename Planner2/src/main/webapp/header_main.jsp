@@ -6,10 +6,12 @@
     pageEncoding="UTF-8"%>
 <%
 	UserVO user = (UserVO)session.getAttribute("user");
-	memberDAO dao1 = new memberDAO();
-	memberVO vo1 = new memberVO();
-	List<memberVO> list1 = dao1.view(user.getId());
-%>    
+
+	memberDAO mdao = new memberDAO();
+	memberVO mvo = new memberVO();
+	
+	List<memberVO> mlist = mdao.view(user.getId());
+%>
 <!DOCTYPE html>
 <html>
 	<head>
@@ -198,14 +200,17 @@
 	<div><p><%= user == null ? "사용자" : user.getNick() %>님! 어서오세요.</p></div>
 	<button class="group-toggle" onclick="toggleMenu2()">그룹</button>
 		<div class="dropdown-menu2" id="dropdown-menu2">
-			<%for(int i = 0; i < list1.size(); i++){
-				memberVO vo2 = list1.get(i);
-				String name = vo2.getName();
-			%>
-				<a><%= name %></a>
-			<%
-				} %>
-		</div>
+			<% for(int i = 0; i < mlist.size(); i++){
+					memberVO vo2 = mlist.get(i);
+					String id = vo2.getId();
+					String name = vo2.getName();
+					String email = vo2.getEmail();			
+				%>
+				<a><%= vo2.getName() %></a>
+				<%
+			}
+			%>	
+			</div>
 		<div class="overlay2" id="overlay2" onclick="closeMenu2()"></div>
 	<button class="menu-toggle" onclick="toggleMenu()">메뉴</button>
 			<div class="dropdown-menu" id="dropdown-menu">
