@@ -1,8 +1,14 @@
+<%@page import="java.util.List"%>
+<%@page import="group.memberVO"%>
+<%@page import="group.memberDAO"%>
 <%@page import="user.UserVO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%
 	UserVO user = (UserVO)session.getAttribute("user");
+	memberDAO dao1 = new memberDAO();
+	memberVO vo1 = new memberVO();
+	List<memberVO> list1 = dao1.view(user.getId());
 %>    
 <!DOCTYPE html>
 <html>
@@ -192,10 +198,13 @@
 	<div><p><%= user == null ? "사용자" : user.getNick() %>님! 어서오세요.</p></div>
 	<button class="group-toggle" onclick="toggleMenu2()">그룹</button>
 		<div class="dropdown-menu2" id="dropdown-menu2">
-			<a>그룹원 1</a>
-			<a>그룹원 2</a>
-			<a>그룹원 3</a>
-			<a>그룹원 4</a>
+			<%for(int i = 0; i < list1.size(); i++){
+				memberVO vo2 = list1.get(i);
+				String name = vo2.getName();
+			%>
+				<a><%= name %></a>
+			<%
+				} %>
 		</div>
 		<div class="overlay2" id="overlay2" onclick="closeMenu2()"></div>
 	<button class="menu-toggle" onclick="toggleMenu()">메뉴</button>
