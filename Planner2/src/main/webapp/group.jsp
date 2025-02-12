@@ -11,6 +11,7 @@
 	memberDAO dao = new memberDAO();
 	memberVO vo = new memberVO();
 	
+	
 	List<memberVO> list = dao.view(user1.getId());
 	int grouptype = vo.getGrouptype();
 %>
@@ -105,6 +106,7 @@
 					String id = vo2.getId();
 					String name = vo2.getName();
 					String email = vo2.getEmail();
+					int gnum = vo2.getGroupnum();
 					%>
 				
 				<tr>
@@ -114,7 +116,7 @@
 					<td class="action-buttons">
 						<button>수정</button>
 						<button type="submit" class="delete" onclick="deletemember(<%= no %>, this)">삭제</button>
-						<button onclick="javascript:btn()">초대</button>
+						<button type="submit" class="invite" onclick="invite(<%= gnum %>)">초대</button>
 					</td>
 				</tr>
 				
@@ -126,9 +128,23 @@
 	</div>
 </body>
 <script>
-function btn(){
+function invite(gnum){
 	let result = prompt('초대하실 id를 입력해주세요', 'id');
-	alert(result);
+	console.log(result);
+		$.ajax({
+			url : "invite.jsp",
+			type : "post",
+			data :{
+				id : result,
+				gnum : gnum
+			},
+			success : function(result){
+				console.log(result);
+			},
+			error : function(){
+				console.log("에러발생");
+			}
+		});
 }
 function deletemember(no, obj){
 	console.log(no);
