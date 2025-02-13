@@ -177,7 +177,7 @@ public class UserDAO extends DBManager{
 			DBConnect();
 			
 			String sql = "";
-			sql += "select * from user where user_type != 1";
+			sql += "select * from user where user_type = 0";
 			executeQuery(sql);
 			List<UserVO> list = new ArrayList<>();
 			while(next()) {
