@@ -31,6 +31,6 @@
 	vo2.setId(user1.getId());
 	dao2.insertMember(vo2);
 	
-	response.sendRedirect("makegroup.jsp");
+	response.sendRedirect("group.jsp");
 	
 %>

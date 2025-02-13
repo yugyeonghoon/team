@@ -14,6 +14,7 @@
 	List<memberVO> list = dao.view(user1.getId());
 	
 	int grouptype = 0;
+	String mid = user1.getId();
 	
 	for(int i = 0; i < list.size(); i ++){
 		//그룹원 전체를 순회하며 로그인한 사용자의 아이디랑 동일한 그룹원의 그룹타입을 꺼낸다.
@@ -23,10 +24,10 @@
 		
 		if(id.equals(user1.getId())){
 			grouptype = gtype;
+			
 		}
 	}
-	
-	int gnum = list.get(0).getGroupnum();
+	int gnum = list.size() > 0 ? list.get(0).getGroupnum() : 0;
 	
 %>
 <!DOCTYPE html>
@@ -95,14 +96,35 @@
 	.group_buttons{
 		text-align: right;
 	}
+	.group, .invite {
+		margin:5px;
+	}
 </style>
 </head>
 <body>
 	<div class="group-container">
 	<h2>my group</h2>
-		<div class="group_buttons">
-			<button type="button" class="invite" onclick="invite(<%= gnum %>)">초대하기</button>
-			<button class="group"  onclick="location.href='makegroup.jsp'">그룹만들기</button>
+		<div class="action-buttons">
+			<%if(gnum == 0){
+				%>
+				<button class="group"  onclick="location.href='makegroup.jsp'">그룹만들기</button>
+			<%
+				}%>
+			<%if(gnum != 0){
+				%>
+				<button type="button" class="invite" onclick="invite(<%= gnum %>)">초대하기</button>
+				<%if(grouptype == 1){
+					%>
+					<button class="delete" onclick="deleteGroup(<%= gnum%>, this)">그룹삭제</button>
+				<%
+					}else{
+					%>
+					<button class="delete" onclick="outmember('<%= mid %>')">그룹나가기</button>
+						<%
+					}%>
+			<%
+				}%>
+			
 		</div>
 		<table>
 			<thead>
@@ -136,7 +158,7 @@
 						<td class="action-buttons">
 							<% if(!id.equals(user1.getId())) {
 								%>
-									<button type="submit" class="delete" onclick="deletemember(<%= no %>, this)">삭제</button>
+									<button type="submit" class="delete" onclick="deleteMember(<%= no %>, this)">삭제</button>
 								<%
 							}%>
 						</td>
@@ -178,7 +200,7 @@ function invite(gnum){
 			}
 		});
 }
-function deletemember(no, obj){
+function deleteMember(no, obj){
 	console.log(no);
 	
 	let result = confirm("삭제하시겠습니까?");
@@ -203,7 +225,48 @@ function deletemember(no, obj){
 		
 	}
 }
-
+function deleteGroup(gnum, obj){
+	console.log(gnum);
+	let result = confirm("그룹을 삭제하시겠습니까 ?");
+	if(result == true){
+		$.ajax({
+			url : "deletegroup.jsp",
+			type : "post",
+			data : {
+				gnum : gnum
+			},
+			success: function(result){
+				if(result.trim() == "success"){
+					$(obj).parent().parent().children("table").children("tbody").remove();
+				}
+			},
+			error : function(){
+				console.log("error");
+			}
+		});
+	}
+}
+function outmember(mid){
+	console.log(mid);
+	let result = confirm("그룹을 나가시겠습니까 ?");
+	if(result == true){
+		$.ajax({
+			url : "outmember.jsp",
+			type : "post",
+			data : {
+				mid : mid
+			},
+			success : function(data){
+				if(data.trim() == "success"){
+					location.href="calendar.jsp";
+				}
+			},
+			error : function(){
+				console.log("error");
+			}
+		});
+	}
+}
 
 </script>
 </html>

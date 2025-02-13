@@ -69,16 +69,15 @@
 		padding: 7px 10px;
 	}
 	.group_buttons{
-		text-align: right;
+		padding: 10px 30px;
 	}
 </style>
 </head>
 <body>
 	<div class="group-container">
 	<h2>그룹 만들기</h2>
-		<div class="group_buttons">
-			<button onclick="location.href='group.jsp'">My Group</button>
-			<button class="group">그룹만들기</button>
+		<div class="action-buttons">
+			<button class="group"onclick="location.href='group.jsp'">My Group</button>
 		</div>
 		<form action="makegroupok.jsp" method="post">
 			<table>

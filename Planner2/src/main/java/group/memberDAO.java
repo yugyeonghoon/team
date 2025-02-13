@@ -93,5 +93,17 @@ public class memberDAO extends DBManager{
 			return 0;
 		}
 	}
+
+	//멤버 그룹나가기
+	public void outmember(String id) {
+		driverLoad();
+		DBConnect();
+		
+		String sql = "";
+		sql += "delete from groupmember where id = '"+id+"'";
+		executeUpdate(sql);
+		DBDisConnect();
+	}
+	
 	
 }

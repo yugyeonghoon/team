@@ -72,4 +72,5 @@ public class groupDAO extends DBManager{
 		executeUpdate(sql);
 		DBDisConnect();
 	}
+	
 }
