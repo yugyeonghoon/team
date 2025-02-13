@@ -3,12 +3,15 @@
 <%@page import="reply.ReplyDAO"%>
 <%@page import="board.BoardDAO" %>
 <%@page import="board.BoardVO" %>
+<%@page import="board.CalendarDAO" %>
+<%@page import="group.memberDAO" %>
+<%@page import="group.memberVO" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ include file="header_main.jsp" %>
 <%
-	//게시글 번호 받아오기
 	String no = request.getParameter("no");
+	String author = request.getParameter("author");
 
 	if(no == null){
 		response.sendRedirect("calendar.jsp");
@@ -19,12 +22,25 @@
 	//게시판 번호, 게시판 작성자, 게시판 제목, 게시판 본문
 	BoardDAO dao = new BoardDAO();
 	BoardVO vo = dao.view(no);
+	vo.getAuthor();
 	vo.getTitle(); //일정2
+	vo.getBoardType();
+	
+	CalendarDAO cdao = new CalendarDAO();
+	vo.getStartTime();
+	vo.getEndTime();
 	
 	//댓글 여러건 조회
 	ReplyDAO rdao = new ReplyDAO();
 	List<ReplyVO> list = rdao.select(no);
 
+	//같은 그룹 멤버 name 다 불어오기
+	//로그인한 아이디의 name과 같은 groupnum을 가지고 있는 유저 테이블에 있는 user를 다 불러오게 하기	
+	String id = user.getId();
+	
+	memberDAO mdao = new memberDAO();
+	List<memberVO> mlist = mdao.view(id);
+	
 %>
 <!DOCTYPE html>
 <html>
@@ -61,7 +77,7 @@
 		float: right;
 	}
 	
-	div.box {
+	 #timebox {
 		float: right;
 		border: 3px solid black;
 		border-radius: 10px;
@@ -70,6 +86,10 @@
 		padding : 10px;
 	}
 
+	.Stopwatch {
+		float: inline-end;
+	}
+	
 	#studyTime {
 		text-align: center;
 		font-weight: bold;
@@ -103,6 +123,8 @@
 		border-radius : 15px;
 	}
 	
+	
+     
 	.checkbox {
 		vertical-align: middle;
 		position: relative;
@@ -170,13 +192,7 @@
 			border-right: 2px solid black;
 			border-bottom: 2px solid black;	
 		}
-	
-		/* .replyBtn {
-			float: right;
-			border: 0;
-	  		background-color: transparent;
-	  		font-size: 15px;
-	  	} */
+		
 	  	
 	  	.replyBtn {
 	 		background-color: #555555;
@@ -198,51 +214,79 @@
   			font-weight: bold;
   		}
   		
-  		#replyList {
+  		.replyList {
   			list-style-type: none;
   		}
   		.dpnone {
         	display : none;
+        	background-color: #555555;
+			border: none;
+			color: white;
+			padding: 10px;
+			text-align: center;
+			text-decoration: none;
+			font-size: 16px;
+        }
+        
+        .dpnone:hover {
+        	background-color: #e7e7e7; color: black;
+ 			color: black;
+        }
+        
+        #backBtn {
+        	background-color: #555555;
+			border: none;
+			color: white;
+			padding: 10px;
+			text-align: center;
+			text-decoration: none;
+			display: inline-block;
+			font-size: 16px;
+        }
+        
+        #backBtn:hover {
+        	background-color: #e7e7e7; color: black;
+ 			color: black;
+        }
+        
+        #inputReply {
+        	resize: none;
         }
 </style>
 </head>
 <body>
 	<div style="height: max-content">
 		<div class="menu-container">
-			<!-- 현재 날짜 및 시간 -->
-			<h5 id="clock" style="color:black; display: inline;">clock</h5>
+			<!-- 상단 스톱워치 및 공부시간 표시 -->
+			<% if(vo.getBoardType() == 2) {
+				%>
+					<div>
+	        			
+	        			<div class="box" id="timebox">
+						<p id="studyTime">TODAY 공부시간</p>
+					<%
+						for(int i = 0; i < mlist.size(); i++) {
+						memberVO mvo = mlist.get(i);
+						String mName = mvo.getName();
+						%>
+							<div class="time"><%=mName %></div>
+						<%
+						}
+						%>
+						</div>
+						<div class="Stopwatch">
+						<h5>Stopwatch</h5>
+	        			<h1><span id="hour">00</span>:<span id="min">00</span>:<span id="sec">00</span></h1>
+	        			<button class="w-btn w-btn-green" id="start">start</button>
+	        			<button class="w-btn w-btn-indigo" id="stop">stop</button>
+	        			<button class="w-btn w-btn-indigo" id="clear">clear</button>
+	        			</div>
+	    			</div>
+					
+				<%
+				}	
+			%>
 			
-			
-			<!-- 일정등록 버튼 -->	
-			<div class="dropdown">
-			  <button class="Btn" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-			    +
-			  </button>
-			  <ul class="dropdown-menu">
-			    <li><a class="dropdown-item" href="StdPlanPost.jsp">스터디 계획</a></li>
-			    <li><a class="dropdown-item" href="planPost.jsp">일정 계획</a></li>
-			  </ul>
-			</div>
-			<!-- <div class="hover">
-				<a href="studyPlanPage.jsp"><span>스터디 계획</span></a><br>
-				<a href="PlanPage.jsp"><span>일정 계획</span></a><br>
-			</div> -->
-			
-			<!-- 상단 공부시간 표시 -->
-			<div class="box">
-				<p id="studyTime">TODAY 공부시간</p>
-				<div class="time"><span id="hour">00</span>:<span id="min">00</span>:<span id="sec">00</span></div>
-				<div class="time">3H 40M</div>
-				<div class="time">5H</div>
-			</div>
-		   	
-		   	<div style="text-align: right;">
-	        <h5>Stopwatch</h5>
-	        <!-- <h1><span id="hour">00</span>:<span id="min">00</span>:<span id="sec">00</span><span id="micro">00</span></h1> -->
-	        <button class="w-btn w-btn-green" id="start">start</button>
-	        <button class="w-btn w-btn-indigo" id="stop">stop</button>
-	        <button class="w-btn w-btn-indigo" id="clear">clear</button>
-	    	</div>
 		</div>
 	
 	
@@ -250,23 +294,24 @@
 	<div class="list">
 		<ul class="planList">
 			<li>
-				<%-- <input type="text" id="Plan" class="Plan" value="<%= vo.getContent() %>"> --%>
-				<textarea id="Plan" class="Plan" >
-					제목 : <%= vo.getTitle() %>
-					작성자 : <%= vo.getAuthor() %>
-					내용 : <%= vo.getContent() %>
-				</textarea>
-				<input type="checkbox" id="check1" class="checkbox">
+				<div id="Plan" class="Plan" onclick="location.href='modify.jsp?no=<%= no %>'">
+					<div id="plantime"></div>
+					<div>제목 : <%= vo.getTitle() %></div>
+					<div>작성자 : <%= vo.getAuthor() %></div>
+					<div>내용 : <%= vo.getContent() %></div>
+				</div>
+				<%= vo.getBoardType() == 2 ? "<input type='checkbox' id='check1' class='checkbox'>" : "<span></span>" %>
 				<label for="check1"></label>
+				<button id="backBtn" onclick="location.href='calendar.jsp'">뒤로가기</button>
 			</li>
 		</ul>
+		
 	</div>
 
 	<div class="divReply">
 	<span id="replyText">댓글 리스트</span><br>
-		<div class="ReplyList">
+		<div class="RpyList">
 			
-		
 		<%
 			for(int i = 0; i < list.size(); i++) {
 				ReplyVO rvo = list.get(i);
@@ -276,10 +321,10 @@
 				String rcreateDate = rvo.getCreateDate();
 					
 				%>
-					<ul id="replyList">
+					<ul class="replyList">
 						<li>
 							<div class="reWriter">작성자 : <%=rauthor %> | 작성일: <%= rcreateDate %></div>
-							<div><%=rcontent %></div>
+							<div class="reply-content"><%=rcontent %></div>
 				<%
 				if(user != null && (user.getId().equals(rauthor) || user.getUserType() == 99)) {
 					%>
@@ -287,7 +332,7 @@
 								<button class="replyBtn" id="btnModify" onclick="modifyBtn(this)">수정</button>
 								<input type="hidden">
 	                    		<button class="dpnone" onclick="modifyReply(<%= rno %>, this)">확인</button>
-	                    		<button class="dpnone" onclick="cancelBtn(this, <%= rcontent %>)">취소</button>
+	                    		<button class="dpnone" onclick="cancelBtn(this, '<%= rcontent %>')">취소</button>
 								<button class="replyBtn" id="btnDelete" onclick="deleteReply(<%=rno %>, this)">삭제</button>
 							</div>
 					<%
@@ -303,8 +348,8 @@
 			if(user != null) {
 				%>
 					<div class="writeInput">
-						<div class="panel-body"><textarea class="content" id="rcontent" cols="100%" rows="2"></textarea></div>
-						<div class="writeReplyBtn"><button class="replyBtn" id="btnOk">확인</button></div>
+						<div class="panel-body"><textarea id="inputReply" cols="100%" rows="2"></textarea></div>
+						<div class="RinputBtn"><button class="replyBtn" id="btnOk">확인</button></div>
 					</div>
 				<%
 			}
@@ -316,27 +361,12 @@
 	let userId = "<%= user == null ? "" : user.getId() %>"
 	console.log(userId);
 	
-	/* 현재 날짜 및 실시간 표시*/
-	var Target = document.getElementById("clock");
-	function clock() {
-	    var time = new Date();
+	//일정 시간 뭐라하지
+	let daliytime = "<%=vo.getStartTime().equals(vo.getEndTime()) ? "종일" : vo.getStartTime() + " ~ " + vo.getEndTime()%>"
+	document.getElementById("plantime").innerHTML = daliytime;
 	
-	    var month = time.getMonth();
-	    var date = time.getDate();
-	    var day = time.getDay();
-	    var week = ['일', '월', '화', '수', '목', '금', '토'];
+	//로그인 한 사용자와 게시글 작성자가 같아야 상세 페이지 클릭 가능
 	
-	    var hours = time.getHours();
-	    var minutes = time.getMinutes();
-	    var seconds = time.getSeconds();
-	
-	    Target.innerText = 
-	    (month + 1) + "월 " + date + "일 " + week[day] + "요일 " +
-	    (hours < 10 ? "0"+hours : hours) + ":" + (minutes < 10 ? "0" + minutes : minutes) + ":" + (seconds < 10 ? "0" + seconds : seconds)	        
-	}
-	clock();
-	setInterval(clock, 1000);
-	 
 	//스톱워치
 	window.onload = function(){
         
@@ -347,7 +377,7 @@
         let timer = 0;
 
         //click start button
-        document.getElementById("start").addEventListener("click", function(){
+         document.getElementById("start").addEventListener("click", function(){
             //console.log(timer);
             if(timer > 0){
                 return;
@@ -425,6 +455,7 @@
         });
     };
 	
+	
 	/* 공부 시간 확인 박스 */
 	function startTimer() { // 1초, 2초......시간 계산하는 함수
 	  centiseconds++;  // 1증가 // centiseconds = centiseconds + 1
@@ -474,8 +505,8 @@
 	}
 
 	$("#btnOk").click(function(){
-		let content = $("#rcontent").val();
-		if(content == "") {
+		let rcontent = $("#inputReply").val();
+		if(rcontent == "") {
 			console.log("빈문자");
 			return;
 		}
@@ -484,7 +515,7 @@
 			url: "replyok.jsp",
 			type: "post",
 			data: {
-				reply: content,
+				reply: rcontent,
 				no: <%= no %>
 			},
 			success: function(result) {
@@ -496,22 +527,22 @@
 					return;
 				}
 				let html = "";
-					html += "<ul id='replyList'>";
+					html += "<ul class='replyList'>";
 					html += "	<li>";
 					html += "	<div class='reWriter'>작성자 : "+userId+" | 작성일: "+time+"</div>";
-					html += "		<div>"+content+"</div>";
+					html += "		<div class='reply-content'>"+rcontent+"</div>";
 					html += "		<div>";
 					html += "			<button class='replyBtn' id='btnModify' onclick='modifyBtn(this)'>수정</button>";
 					html += "			<input type='hidden'>";
-            		/* html += "			<button class='dpnone' onclick='modifyReply("+result.trim()+", this)'>확인</button>";
-					html += "			<button class='dpnone' onclick='cancelBtn(this, "+content.val()+")'>취소</button>"; */
+            		html += "			<button class='dpnone' onclick='modifyReply("+rno+", this)'>확인</button>";
+					html += "			<button class='dpnone' onclick='cancelBtn(this, '"+rcontent+"')'>취소</button>";
 					html += "			<button class='replyBtn' id='btnDelete' onclick='deleteReply("+rno+", this)'>삭제</button>";
 					html += "		</div>";
 					html += "	</li>";
 					html += "</ul>	";
 					
-					$(".ReplyList").prepend(html);
-					$("#rcontent").val("");
+					$(".RpyList").prepend(html);
+					$("#inputReply").val("");
 			},
 			error: function() {
 				console.log("에러 발생");
@@ -541,7 +572,6 @@
 		})
 	}
 
-	//수정 버튼 클릭하면 3개의 text type 나오고 수정 확인, 취소 버튼이 없음 왜 그러는 걸까?
 	
 	function cancelBtn(obj, text) {
 		let input = $(obj).parent().parent().children("input");
@@ -553,20 +583,23 @@
 		
 	}
 	
+	//댓글 수정 버튼
 	function modifyBtn(obj) {
-		let el = $(".replyList");
+ 		let el = $(".replyList");
+ 		
 		for(let i = 0; i < el.length; i++) {
 			//hidden 찾기
-			let value = el.eq(i).children("input").val();
+			let value = el.eq(i).children().children("input").val();
 			console.log(value);
-			let input = el.eq(i).children("input");
+			let input = el.eq(i).children().children("input");
 			input.replaceWith("<div>"+value+"</div>");
 			
-			el.eq(i).children().children().eq(0).css("display", "inline");
-			el.eq(i).children().children(".dpnone").css("display", "none");
+			el.eq(i).children().children().children().eq(0).css("display", "inline");
+			el.eq(i).children().children().children(".dpnone").css("display", "none");
 		}
 		
-		let div = $(obj).parent().parent().children("div");
+		
+		let div = $(obj).parent().parent().children(".reply-content");
 		$(obj).next().val(div.text());
 		
 		div.replaceWith("<input type='text' value='"+div.text()+"'>");
@@ -576,11 +609,15 @@
 		
 	}
 	
+	//댓글 입력 후 확인 버튼 클릭하면 rcontent.val is not a function 에러남
+	//댓글 수정하고 확인 버튼 누른 후 다시 수정 버튼 클릭했을 때 input 창 안 뜸
+	
 	//댓글 수정
+	//댓글 확인 버튼
 	function modifyReply(rno, obj) {
 		console.log(rno);
 		
-		let input = $(obj).parent().parent().parent().children().children("textarea");
+		let input = $(obj).parent().parent().children("input");
 		
 		let reply = input.val();
 		
@@ -592,12 +629,12 @@
 					type: "post",
 					data: {
 						rno: rno,
-						rcontent: rcontent
+						rcontent: reply
 					},
 					success: function(result) {
 						console.log(result);
 						if(result.trim() == "success") {
-							input.replaceWith("<div>"+rcontent+"</div>");
+							input.replaceWith("<div>"+reply+"</div>");
 							$(obj).parent().children(".dpnone").css("display", "none");
 							$(obj).prev().prev().css("display", "inline");
 							$(obj).next().attr("onclick", "modifyReply(this, '"+reply+"')");

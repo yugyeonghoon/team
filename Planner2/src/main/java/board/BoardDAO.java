@@ -130,6 +130,7 @@ public class BoardDAO extends DBManager{
 			String author = getString("author");
 			String startDate = getString("start_date");
 			String endDate = getString("end_date");
+			int boardType = getInt("board_type");
 			
 			BoardVO vo = new BoardVO();
 			vo.setNo(no);
@@ -138,6 +139,7 @@ public class BoardDAO extends DBManager{
 			vo.setAuthor(author);
 			vo.setStartTime(startDate);
 			vo.setEndTime(endDate);
+			vo.setBoardType(boardType);
 			
 			DBDisConnect();
 			return vo;
