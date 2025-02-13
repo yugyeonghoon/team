@@ -6,7 +6,15 @@
     pageEncoding="UTF-8"%>
 <%@ include file="header.jsp" %>
 <% 
+	if(user == null || user.getUserType() != 0){
+		response.sendRedirect("calendar.jsp");
+		return;
+	}
 
+	groupDAO dao = new groupDAO();
+	
+	List<groupVO> list = dao.view();
+	
 %>
 <!DOCTYPE html>
 <html>
@@ -78,35 +86,36 @@
 </head>
 <body>
 	<div class="group-container">
-	<h2>관리자그룹페이지</h2>
+	<h2>그룹 관리</h2>
 		<table>
 			<thead>
 				<tr>	
+					<th>그룹번호</th>
 					<th>그룹명</th>
 					<th>그룹장</th>
-					<th>이름</th>
 					<th>관리</th>
 				</tr>
 			</thead>
 			<tbody>
-				<tr>
-					<td>그룹1</td>
-					<td>hong</td>
-					<td>홍길동</td>
-					<td class="action-buttons">
-						<button>그룹 이름 변경</button>
-						<button class="delete">그룹 삭제</button>
-					</td>
-				</tr>
-				<tr>
-					<td>그룹2</td>
-					<td>jeon</td>
-					<td>전우치</td>
-					<td class="action-buttons">
-						<button>그룹 이름 변경</button>
-						<button class="delete">그룹 삭제</button>
-					</td>
-				</tr>
+				<%
+					for(int i = 0; i < list.size(); i++){
+						groupVO gvo = list.get(i);
+						int no = gvo.getGroupNum();
+						String gname = gvo.getGroupName();
+						int groupType = gvo.getGroupType();
+						String id = gvo.getId();
+						%>
+						<tr style="color:<%= groupType == 1 ? "black" : "red" %>;">
+							<td><%= no %></td>
+							<td><%= gname %></td>
+							<td><%= id %></td>
+							<td class="action-buttons">
+								<button class="delete" onclick="location.href='groupDelete.jsp?no=<%= no %>'">그룹 삭제</button>
+							</td>
+						</tr>
+						<%
+					}
+				%>
 			</tbody>
 		</table>
 	</div>

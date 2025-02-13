@@ -1,28 +1,52 @@
 package group;
 
 public class groupVO {
-	private int groupnum;
-	private String groupname;
-	private String gcreate_date;
+	private String id;
+	private int groupNum;
+	private String groupName;
+	private String gcreateDate;
+	private String gdeleteDate;
+	private int groupType;
 	
+	public String getId() {
+		return id;
+	}
+	public void setId(String id) {
+		this.id = id;
+	}
 	public int getGroupNum() {
-		return groupnum;
+		return groupNum;
 	}
 	public void setGroupNum(int groupNum) {
-		this.groupnum = groupNum;
+		this.groupNum = groupNum;
 	}
 	public String getGroupName() {
-		return groupname;
+		return groupName;
 	}
 	public void setGroupName(String groupName) {
-		this.groupname = groupName;
+		this.groupName = groupName;
 	}
-	public String getGcreate_date() {
-		return gcreate_date;
+	public String getGcreateDate() {
+		return gcreateDate;
 	}
-	public void setGcreate_date(String gcreate_date) {
-		this.gcreate_date = gcreate_date;
+	public void setGcreateDate(String gcreateDate) {
+		this.gcreateDate = gcreateDate;
 	}
+	public String getGdeleteDate() {
+		return gdeleteDate;
+	}
+	public void setGdeleteDate(String gdeleteDate) {
+		this.gdeleteDate = gdeleteDate;
+	}
+	public int getGroupType() {
+		return groupType;
+	}
+	public void setGroupType(int groupType) {
+		this.groupType = groupType;
+	}
+	
+	
+	
 	
 	
 }
