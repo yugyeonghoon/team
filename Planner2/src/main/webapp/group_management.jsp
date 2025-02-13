@@ -105,7 +105,7 @@
 						int groupType = gvo.getGroupType();
 						String id = gvo.getId();
 						%>
-						<tr style="color:<%= groupType == 1 ? "black" : "red" %>;">
+						<tr>
 							<td><%= no %></td>
 							<td><%= gname %></td>
 							<td><%= id %></td>

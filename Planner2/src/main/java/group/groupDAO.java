@@ -67,7 +67,7 @@ public class groupDAO extends DBManager{
 		DBConnect();
 		
 		String sql = "";
-		sql += "update calendargroup set gdelete_date = now(), group_type = 0 where groupnum = "+ no;
+		sql += "delete from groupmember where groupnum = "+ no;
 		
 		executeUpdate(sql);
 		DBDisConnect();
