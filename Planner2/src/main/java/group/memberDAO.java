@@ -75,4 +75,23 @@ public class memberDAO extends DBManager{
 		
 	}
 	
+	//그룹초대 중복검사
+	public int groupCheck(memberVO vo){
+		driverLoad();
+		DBConnect();
+		String id = vo.getId();
+		int gnum = vo.getGroupnum();
+		
+		String sql = "select count(*) as cnt from groupmember where id = '"+id+"' and groupnum = "+ gnum;
+		executeQuery(sql);
+		if(next()) {
+			int cnt = getInt("cnt");
+			DBDisConnect();
+			return cnt;
+		}else {
+			DBDisConnect();
+			return 0;
+		}
+	}
+	
 }

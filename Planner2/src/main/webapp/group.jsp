@@ -138,8 +138,15 @@ function invite(gnum){
 				id : result,
 				gnum : gnum
 			},
-			success : function(result){
-				console.log(result);
+			success : function(data){
+				console.log(data);
+				alert("초대하였습니다.");
+				if(data.trim() == "nouser"){
+					alert("없는 사용자입니다.");
+				}else if(data.trim() == "inUser"){
+					alert("이미 그룹에 속한 사용자 입니다.");
+				}
+				
 			},
 			error : function(){
 				console.log("에러발생");
