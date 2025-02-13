@@ -124,7 +124,8 @@
 						<%-- <input type="text" id="type" name="type" value="<%= uvo.getUserType() %>" readonly> --%>
 						<select class="profile-field" name="changeType">				
 							<option value="0" <%= uvo.getUserType() == 0 ? "selected" : "" %>>관리자</option>		
-							<option value="1" <%= uvo.getUserType() == 1 ? "selected" : "" %>>일반</option>							
+							<option value="1" <%= uvo.getUserType() == 1 ? "selected" : "" %>>일반</option>
+							<option value="2" <%= uvo.getUserType() == 2 ? "selected" : "" %>>탈퇴 유저</option>								
 						</select>	
 						<div class="profile-actions">
 							<button type="submit">저장</button>

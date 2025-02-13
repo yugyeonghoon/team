@@ -240,7 +240,7 @@
 									%>
 										<a href="user_management.jsp">회원 관리</a>
 										<a href="group_management.jsp">그룹 관리</a>
-										<!-- <a href="manager.jsp">관리자 목록</a> -->
+										<a href="manager.jsp">관리자 목록</a>
 									<%
 								}
 						%>
