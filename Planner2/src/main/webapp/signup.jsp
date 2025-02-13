@@ -187,6 +187,7 @@
 	
 	let name = $("#name");
 	let nameFeedback = $("#name-feedback");
+	let nameRegex = /^[ㄱ-ㅎㅏ-ㅣ가-핳]{2,15}$/;
 	
 	$("#mailBtn").click(function(){
 		let mail = $("#mail");
