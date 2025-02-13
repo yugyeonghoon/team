@@ -7,7 +7,14 @@ public class memberVO {
 	private int grouptype;
 	private String name;
 	private String email;
+	private String groupname;
 	
+	public String getGroupname() {
+		return groupname;
+	}
+	public void setGroupname(String groupname) {
+		this.groupname = groupname;
+	}
 	public int getNo() {
 		return no;
 	}

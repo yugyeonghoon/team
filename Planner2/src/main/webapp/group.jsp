@@ -10,23 +10,26 @@
 	UserVO user1 = (UserVO)session.getAttribute("user");
 	memberDAO dao = new memberDAO();
 	memberVO vo = new memberVO();
-	
+
 	List<memberVO> list = dao.view(user1.getId());
 	
 	int grouptype = 0;
 	String mid = user1.getId();
+	String gname = "";
 	
 	for(int i = 0; i < list.size(); i ++){
 		//그룹원 전체를 순회하며 로그인한 사용자의 아이디랑 동일한 그룹원의 그룹타입을 꺼낸다.
 		memberVO vo2 = list.get(i);
 		String id = vo2.getId();
 		int gtype = vo2.getGrouptype();
+		gname = vo2.getGroupname();
 		
 		if(id.equals(user1.getId())){
 			grouptype = gtype;
 			
 		}
 	}
+	
 	int gnum = list.size() > 0 ? list.get(0).getGroupnum() : 0;
 	
 %>
@@ -103,7 +106,7 @@
 </head>
 <body>
 	<div class="group-container">
-	<h2>my group</h2>
+	<h2><%= gname %></h2>
 		<div class="action-buttons">
 			<%if(gnum == 0){
 				%>
@@ -113,6 +116,7 @@
 			<%if(gnum != 0){
 				%>
 				<button type="button" class="invite" onclick="invite(<%= gnum %>)">초대하기</button>
+				<button type="button" class="updategname" onclick="">그룹이름변경</button>
 				<%if(grouptype == 1){
 					%>
 					<button class="delete" onclick="deleteGroup(<%= gnum%>, this)">그룹삭제</button>
@@ -258,7 +262,7 @@ function outmember(mid){
 			},
 			success : function(data){
 				if(data.trim() == "success"){
-					location.href="calendar.jsp";
+					location.href="calendar.jsp"
 				}
 			},
 			error : function(){

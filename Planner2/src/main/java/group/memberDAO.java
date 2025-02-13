@@ -14,8 +14,8 @@ public class memberDAO extends DBManager{
 		DBConnect();
 		
 		String sql = "";
-		sql += "select g.*, u.name, u.email from groupmember g";
-		sql += " inner join user u on g.id = u.id where groupnum = ";
+		sql += "select g.*, u.name, u.email, c.groupname from groupmember g";
+		sql += " inner join calendargroup c on g.groupnum = c.groupnum inner join user u on g.id = u.id where g.groupnum = ";
 		sql += " (select groupnum from groupmember where id = '"+id+"')";
 		
 		executeQuery(sql);
@@ -29,6 +29,7 @@ public class memberDAO extends DBManager{
 			int gtype = getInt("grouptype");
 			String name = getString("name");
 			String email = getString("email");
+			String gname = getString("groupname");
 					
 			memberVO vo = new memberVO();
 			
@@ -38,6 +39,7 @@ public class memberDAO extends DBManager{
 			vo.setId(id2);
 			vo.setEmail(email);
 			vo.setName(name);
+			vo.setGroupname(gname);
 			
 			list.add(vo);
 		}
