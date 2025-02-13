@@ -11,9 +11,23 @@
 	memberDAO dao = new memberDAO();
 	memberVO vo = new memberVO();
 	
-	
 	List<memberVO> list = dao.view(user1.getId());
-	int grouptype = vo.getGrouptype();
+	
+	int grouptype = 0;
+	
+	for(int i = 0; i < list.size(); i ++){
+		//그룹원 전체를 순회하며 로그인한 사용자의 아이디랑 동일한 그룹원의 그룹타입을 꺼낸다.
+		memberVO vo2 = list.get(i);
+		String id = vo2.getId();
+		int gtype = vo2.getGrouptype();
+		
+		if(id.equals(user1.getId())){
+			grouptype = gtype;
+		}
+	}
+	
+	int gnum = list.get(0).getGroupnum();
+	
 %>
 <!DOCTYPE html>
 <html>
@@ -87,7 +101,7 @@
 	<div class="group-container">
 	<h2>my group</h2>
 		<div class="group_buttons">
-			<button class="invite">초대하기</button>
+			<button type="button" class="invite" onclick="invite(<%= gnum %>)">초대하기</button>
 			<button class="group"  onclick="location.href='makegroup.jsp'">그룹만들기</button>
 		</div>
 		<table>
@@ -96,7 +110,11 @@
 					<th>아이디</th>
 					<th>이름</th>
 					<th>이메일</th>
-					<th>관리</th>
+					<% if(grouptype == 1){
+						%>
+							<th>관리</th>
+						<%
+					}%>
 				</tr>
 			</thead>
 			<tbody>
@@ -106,18 +124,23 @@
 					String id = vo2.getId();
 					String name = vo2.getName();
 					String email = vo2.getEmail();
-					int gnum = vo2.getGroupnum();
 					%>
 				
 				<tr>
 					<td><%= id%></td>
 					<td><%= name %></td>
 					<td><%= email %></td>
-					<td class="action-buttons">
-						<button>수정</button>
-						<button type="submit" class="delete" onclick="deletemember(<%= no %>, this)">삭제</button>
-						<button type="submit" class="invite" onclick="invite(<%= gnum %>)">초대</button>
-					</td>
+					<%if(grouptype == 1){
+						%>
+					
+						<td class="action-buttons">
+							<% if(!id.equals(user1.getId())) {
+								%>
+									<button type="submit" class="delete" onclick="deletemember(<%= no %>, this)">삭제</button>
+								<%
+							}%>
+						</td>
+					<%}%>
 				</tr>
 				
 					<%
@@ -140,11 +163,13 @@ function invite(gnum){
 			},
 			success : function(data){
 				console.log(data);
-				alert("초대하였습니다.");
+				//alert("초대하였습니다.");
 				if(data.trim() == "nouser"){
 					alert("없는 사용자입니다.");
 				}else if(data.trim() == "inUser"){
 					alert("이미 그룹에 속한 사용자 입니다.");
+				}else{
+					location.reload();
 				}
 				
 			},

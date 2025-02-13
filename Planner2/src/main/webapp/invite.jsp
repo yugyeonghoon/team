@@ -8,7 +8,6 @@
 <%
 	String id = request.getParameter("id");
 	String gnum = request.getParameter("gnum");
-	
 	if(id == null || gnum == null){
 		out.print("fail");
 		return;
