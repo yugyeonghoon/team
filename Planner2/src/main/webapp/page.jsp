@@ -25,6 +25,7 @@
 	vo.getAuthor();
 	vo.getTitle(); //일정2
 	vo.getBoardType();
+	vo.getCreateDate();
 	
 	CalendarDAO cdao = new CalendarDAO();
 	vo.getStartTime();
@@ -53,6 +54,9 @@
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 <style>
+	/* .content-container{
+		text-align: center;
+	} */
 	.Btn {
 	/* 버튼 클릭했을 때 리스트 뜨기 */
 		float: right;
@@ -72,7 +76,6 @@
 		padding : 15px; */
 		
 	}
-	
 	#wrapper {
 		float: right;
 	}
@@ -85,27 +88,23 @@
 		margin-right: 2%;
 		padding : 10px;
 	}
-
 	.Stopwatch {
 		float: inline-end;
-	}
-	
+	}	
 	#studyTime {
 		text-align: center;
 		font-weight: bold;
-	}
-	
+	}	
 	.planList {
 		/* font-size: 2rem; */
 		/* margin-left: 2rem; */
-		list-style: none;
-		
+		list-style: none;		
 	}
 	.Plan {
 		/* padding : 10px; */
 		margin : 10px;
 		width : 50rem;
-		height : 7rem;
+		height : 400px;
 		box-shadow: 4px 4px 4px 4px gray;
 		border : 0;
 		outline : 0;
@@ -121,10 +120,7 @@
 		border : 0;
 		outline : 0;
 		border-radius : 15px;
-	}
-	
-	
-     
+	}   
 	.checkbox {
 		vertical-align: middle;
 		position: relative;
@@ -178,6 +174,7 @@
 	    
 	    .menu-container{
 	    	overflow: auto;
+	    	text-align: center;
 	    }
 
  	    .divReply {
@@ -255,107 +252,105 @@
 </style>
 </head>
 <body>
-	<div style="height: max-content">
-		<div class="menu-container">
-			<!-- 상단 스톱워치 및 공부시간 표시 -->
-			<% if(vo.getBoardType() == 2) {
-				%>
-					<div>
-	        			
-	        			<div class="box" id="timebox">
-						<p id="studyTime">TODAY 공부시간</p>
-					<%
-						for(int i = 0; i < mlist.size(); i++) {
-						memberVO mvo = mlist.get(i);
-						String mName = mvo.getName();
-						%>
-							<div class="time"><%=mName %></div>
+	<form class="content-container">
+		<div style="height: max-content">
+			<div class="menu-container">
+				<!-- 상단 스톱워치 및 공부시간 표시 -->
+				<% if(vo.getBoardType() == 2) {
+					%>
+						<div>
+		        			
+		        			<div class="box" id="timebox">
+							<p id="studyTime">TODAY 공부시간</p>
 						<%
+							for(int i = 0; i < mlist.size(); i++) {
+							memberVO mvo = mlist.get(i);
+							String mName = mvo.getName();
+							%>
+								<div class="time"><%=mName %></div>
+							<%
+							}
+							%>
+							</div>
+							<div class="Stopwatch">
+							<h5>Stopwatch</h5>
+		        			<h1><span id="hour">00</span>:<span id="min">00</span>:<span id="sec">00</span></h1>
+		        			<button class="w-btn w-btn-green" id="start">start</button>
+		        			<button class="w-btn w-btn-indigo" id="stop">stop</button>
+		        			<button class="w-btn w-btn-indigo" id="clear">clear</button>
+		        			</div>
+		    			</div>
+						
+					<%
+					}	
+				%>
+				
+			</div>	
+			<!-- 목록 -->
+			<div class="list">
+				<ul class="planList">
+					<li>
+						<div>작성자 : <%= vo.getAuthor() %> | 작성일 : <%= vo.getCreateDate() %></div>
+						<div>제목 : <%= vo.getTitle() %></div> 				
+						<div id="Plan" class="Plan" onclick="location.href='modify.jsp?no=<%= no %>'">				
+							<div id="plantime"></div>
+							<div>내용 : <%= vo.getContent() %></div>
+						</div>
+						<%= vo.getBoardType() == 2 ? "<input type='checkbox' id='check1' class='checkbox'>" : "<span></span>" %>
+						<label for="check1"></label>
+						<button id="backBtn" onclick="location.href='calendar.jsp'">뒤로가기</button>
+					</li>
+				</ul>		
+			</div>	
+			<div class="divReply">
+			<span id="replyText">댓글 리스트</span><br>
+				<div class="RpyList">
+					
+				<%
+					for(int i = 0; i < list.size(); i++) {
+						ReplyVO rvo = list.get(i);
+						String rno = rvo.getRno();
+						String rcontent = rvo.getRcontent();
+						String rauthor = rvo.getRauthor();
+						String rcreateDate = rvo.getCreateDate();
+							
+						%>
+							<ul class="replyList">
+								<li>
+									<div class="reWriter">작성자 : <%=rauthor %> | 작성일: <%= rcreateDate %></div>
+									<div class="reply-content"><%=rcontent %></div>
+						<%
+						if(user != null && (user.getId().equals(rauthor) || user.getUserType() == 99)) {
+							%>
+									<div>
+										<button class="replyBtn" id="btnModify" onclick="modifyBtn(this)">수정</button>
+										<input type="hidden">
+			                    		<button class="dpnone" onclick="modifyReply(<%= rno %>, this)">확인</button>
+			                    		<button class="dpnone" onclick="cancelBtn(this, '<%= rcontent %>')">취소</button>
+										<button class="replyBtn" id="btnDelete" onclick="deleteReply(<%=rno %>, this)">삭제</button>
+									</div>
+							<%
 						}
 						%>
-						</div>
-						<div class="Stopwatch">
-						<h5>Stopwatch</h5>
-	        			<h1><span id="hour">00</span>:<span id="min">00</span>:<span id="sec">00</span></h1>
-	        			<button class="w-btn w-btn-green" id="start">start</button>
-	        			<button class="w-btn w-btn-indigo" id="stop">stop</button>
-	        			<button class="w-btn w-btn-indigo" id="clear">clear</button>
-	        			</div>
-	    			</div>
-					
-				<%
-				}	
-			%>
-			
-		</div>
-	
-	
-	<!-- 목록 -->
-	<div class="list">
-		<ul class="planList">
-			<li>
-				<div id="Plan" class="Plan" onclick="location.href='modify.jsp?no=<%= no %>'">
-					<div id="plantime"></div>
-					<div>제목 : <%= vo.getTitle() %></div>
-					<div>작성자 : <%= vo.getAuthor() %></div>
-					<div>내용 : <%= vo.getContent() %></div>
-				</div>
-				<%= vo.getBoardType() == 2 ? "<input type='checkbox' id='check1' class='checkbox'>" : "<span></span>" %>
-				<label for="check1"></label>
-				<button id="backBtn" onclick="location.href='calendar.jsp'">뒤로가기</button>
-			</li>
-		</ul>
-		
-	</div>
-
-	<div class="divReply">
-	<span id="replyText">댓글 리스트</span><br>
-		<div class="RpyList">
-			
-		<%
-			for(int i = 0; i < list.size(); i++) {
-				ReplyVO rvo = list.get(i);
-				String rno = rvo.getRno();
-				String rcontent = rvo.getRcontent();
-				String rauthor = rvo.getRauthor();
-				String rcreateDate = rvo.getCreateDate();
-					
-				%>
-					<ul class="replyList">
-						<li>
-							<div class="reWriter">작성자 : <%=rauthor %> | 작성일: <%= rcreateDate %></div>
-							<div class="reply-content"><%=rcontent %></div>
-				<%
-				if(user != null && (user.getId().equals(rauthor) || user.getUserType() == 99)) {
+								</li>
+							</ul>
+						<%
+					}
 					%>
-							<div>
-								<button class="replyBtn" id="btnModify" onclick="modifyBtn(this)">수정</button>
-								<input type="hidden">
-	                    		<button class="dpnone" onclick="modifyReply(<%= rno %>, this)">확인</button>
-	                    		<button class="dpnone" onclick="cancelBtn(this, '<%= rcontent %>')">취소</button>
-								<button class="replyBtn" id="btnDelete" onclick="deleteReply(<%=rno %>, this)">삭제</button>
+				</div>
+				<%
+					if(user != null) {
+						%>
+							<div class="writeInput">
+								<div class="panel-body"><textarea id="inputReply" cols="100%" rows="2"></textarea></div>
+								<div class="RinputBtn"><button class="replyBtn" id="btnOk">확인</button></div>
 							</div>
-					<%
-				}
+						<%
+					}
 				%>
-						</li>
-					</ul>
-				<%
-			}
-			%>
-		</div>
-		<%
-			if(user != null) {
-				%>
-					<div class="writeInput">
-						<div class="panel-body"><textarea id="inputReply" cols="100%" rows="2"></textarea></div>
-						<div class="RinputBtn"><button class="replyBtn" id="btnOk">확인</button></div>
-					</div>
-				<%
-			}
-		%>
-	</div>
-</div>
+			</div>
+		</div>	
+	</form>	
 </body>
 <script>
 	let userId = "<%= user == null ? "" : user.getId() %>"
@@ -370,7 +365,7 @@
 	//스톱워치
 	window.onload = function(){
         
-        let timer_sec;
+        /* let timer_sec;
         let timer_min;
         let timer_hour;
 
@@ -435,7 +430,7 @@
         });
 
         function stop(){
-            /* clearInterval(timer_micro); */
+            clearInterval(timer_micro);
             clearInterval(timer_sec);
             clearInterval(timer_min);
             clearInterval(timer_hour);
@@ -448,11 +443,11 @@
         //click clear button
         document.getElementById("clear").addEventListener("click", function(){
             stop();
-            /* document.getElementById("micro").innerText = "00"; */
+            document.getElementById("micro").innerText = "00";
             document.getElementById("sec").innerText = "00";
             document.getElementById("min").innerText = "00";
             document.getElementById("hour").innerText = "00";
-        });
+        }); */
     };
 	
 	
