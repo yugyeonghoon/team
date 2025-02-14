@@ -213,190 +213,142 @@
 		</style>
 	</head>
 		<script>
-		
-		window.onload = function(){
-			var pwd = document.getElementById('pwd');
-			var eye = document.getElementById('eye');
-			
-			eye.addEventListener('click',togglePass);
-			
-			function togglePass(){
-			
-			   eye.classList.toggle('active');
-			
-			   (pwd.type == 'password') ? pwd.type = 'text' : pwd.type = 'password';
-			}
-			
-			// Form Validation
-			
-			function checkStuff() {
-			  var id = document.form1.id;
-			  var password = document.form1.password;
-			  var msg = document.getElementById('msg');
-			  
-			  if (id.value == "") {
-			    msg.style.display = 'block';
-			    msg.innerHTML = "아이디를 입력해주세요.";
-			    id.focus();
-			    return false;
-			  } else {
-			    msg.innerHTML = "";
-			  }
-			  
-			   if (password.value == "") {
-			    msg.innerHTML = "비밀번호를 입력해주세요.";
-			    password.focus();
-			    return false;
-			  } else {
-			    msg.innerHTML = "";
-			  }
-			   var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-			  if (!re.test(id.value)) {
-			    msg.innerHTML = "사용불가능한 아이디입니다.";
-			    id.focus();
-			    return false;
-			  } else {
-			    msg.innerHTML = "";
-			  }
-			}
-			
-			// ParticlesJS
-			
-			// ParticlesJS Config.
-			/* particlesJS("particles-js", {
-			  "particles": {
-			    "number": {
-			      "value": 60,
-			      "density": {
-			        "enable": true,
-			        "value_area": 800
+			//이상한 아이디 저장 스크립트
+			/* window.onload = function() {
+				let pwd = document.getElementById('pwd');
+				let eye = document.getElementById('eye');
+				let usernameInput = document.querySelector('input[name="username"]');
+				let rememberMeCheckbox = document.querySelector('input[type="checkbox"]');
+	
+			    eye.addEventListener('click', togglePass);
+			    function togglePass() {
+			      eye.classList.toggle('active');
+			      (pwd.type === 'password') ? pwd.type = 'text' : pwd.type = 'password';
+			    }
+	
+			    function checkStuff() {
+			      let id = document.form1.id;
+			      let password = document.form1.password;
+			      let msg = document.getElementById('msg');
+			      
+			      if (id.value == "") {
+			        msg.style.display = 'block';
+			        msg.innerHTML = "아이디를 입력해주세요.";
+			        id.focus();
+			        return false;
+			      } else {
+			        msg.innerHTML = "";
 			      }
-			    },
-			    "color": {
-			      "value": "#ffffff"
-			    },
-			    "shape": {
-			      "type": "circle",
-			      "stroke": {
-			        "width": 0,
-			        "color": "#000000"
-			      },
-			      "polygon": {
-			        "nb_sides": 5
-			      },
-			      "image": {
-			        "src": "img/github.svg",
-			        "width": 100,
-			        "height": 100
+	
+			      if (password.value == "") {
+			        msg.innerHTML = "비밀번호를 입력해주세요.";
+			        password.focus();
+			        return false;
+			      } else {
+			        msg.innerHTML = "";
 			      }
-			    },
-			    "opacity": {
-			      "value": 0.1,
-			      "random": false,
-			      "anim": {
-			        "enable": false,
-			        "speed": 1,
-			        "opacity_min": 0.1,
-			        "sync": false
-			      }
-			    },
-			    "size": {
-			      "value": 6,
-			      "random": false,
-			      "anim": {
-			        "enable": false,
-			        "speed": 40,
-			        "size_min": 0.1,
-			        "sync": false
-			      }
-			    },
-			    "line_linked": {
-			      "enable": true,
-			      "distance": 150,
-			      "color": "#ffffff",
-			      "opacity": 0.1,
-			      "width": 2
-			    },
-			    "move": {
-			      "enable": true,
-			      "speed": 1.5,
-			      "direction": "top",
-			      "random": false,
-			      "straight": false,
-			      "out_mode": "out",
-			      "bounce": false,
-			      "attract": {
-			        "enable": false,
-			        "rotateX": 600,
-			        "rotateY": 1200
+			      
+			      let re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+			      if (!re.test(id.value)) {
+			        msg.innerHTML = "사용불가능한 아이디입니다.";
+			        id.focus();
+			        return false;
+			      } else {
+			        msg.innerHTML = "";
 			      }
 			    }
-			  },
-			  "interactivity": {
-			    "detect_on": "canvas",
-			    "events": {
-			      "onhover": {
-			        "enable": false,
-			        "mode": "repulse"
-			      },
-			      "onclick": {
-			        "enable": false,
-			        "mode": "push"
-			      },
-			      "resize": true
-			    },
-			    "modes": {
-			      "grab": {
-			        "distance": 400,
-			        "line_linked": {
-			          "opacity": 1
-			        }
-			      },
-			      "bubble": {
-			        "distance": 400,
-			        "size": 40,
-			        "duration": 2,
-			        "opacity": 8,
-			        "speed": 3
-			      },
-			      "repulse": {
-			        "distance": 200,
-			        "duration": 0.4
-			      },
-			      "push": {
-			        "particles_nb": 4
-			      },
-			      "remove": {
-			        "particles_nb": 2
+	
+			    rememberMeCheckbox.addEventListener('change', function() {
+			      if (this.checked) {
+			        localStorage.setItem('username', usernameInput.value);
+			      } else {
+			        localStorage.removeItem('username');
 			      }
+			    });
+	
+			    if (localStorage.getItem('username')) {
+			      usernameInput.value = localStorage.getItem('username');
+			      rememberMeCheckbox.checked = true;
 			    }
-			  },
-			  "retina_detect": true
-			}); */
-		}
+			  } */
 		</script>
-	<body id="particles-js"></body>
-		<div class="animated bounceInDown">
-			<div class="container">
-				<span class="error animated tada" id="msg"></span>
-				<form method="post" name="form1" class="box" onsubmit="return checkStuff()" action="loginok.jsp">
-			<h4>로그인 페이지<span></span></h4>
-			<h5></h5>
-				<input type="text" name="username" placeholder="Id" autocomplete="off">
-				<i class="typcn typcn-eye" id="eye"></i>
-				<input type="password" name="password" placeholder="Passsword" id="pwd" autocomplete="off">
+		<body id="particles-js"></body>
+			<div class="animated bounceInDown">
+				<div class="container">
+					<span class="error animated tada" id="msg"></span>
+					<form method="post" name="form1" class="box" onsubmit="return checkStuff()" action="loginok.jsp">
+				<h4>로그인 페이지<span></span></h4>
+				<h5></h5>
+					<input type="text" id="username" name="username" placeholder="Id" autocomplete="off">
+					<i class="typcn typcn-eye" id="eye"></i>
+					<input type="password" name="password" placeholder="Passsword" id="pwd" autocomplete="off">
+					
+					<!-- <span class="rmb">
+					    <input type="checkbox" id="checkId" name="checkId">                                         
+					    <label for="checkId"></label>
+					    아이디 저장
+					</span> -->
+					<label>
+						<input type="checkbox" id="checkId" name="checkId">
+						<span></span>
+						<small class="rmb">아이디 저장</small>
+					</label>
+						<a href="findid.jsp" class="forgetid">아이디 찾기</a>
+						<a href="findpw.jsp" class="forgetpass">비밀번호찾기</a>
+						<input type="submit" value="로그인" class="btn1" >
+					</form>
+						<a href="signup.jsp" class="dnthave">회원가입</a>
+				</div> 	
+			</div>
+		</body>
+		<script>
+			$(document).ready(function(){
+				let cookieId = getCookie("key");
 				
-				<label>
-					<input type="checkbox">
-					<span></span>
-					<small class="rmb">아이디 저장</small>
-				</label>
-					<a href="findid.jsp" class="forgetid">아이디 찾기</a>
-					<a href="findpw.jsp" class="forgetpass">비밀번호찾기</a>
-					<input type="submit" value="로그인" class="btn1" >
-				</form>
-					<a href="signup.jsp" class="dnthave">회원가입</a>
-			</div> 	
-		</div>
-	</body>
+				if(cookieId != ""){
+					$("#username").val(cookieId);
+					$("#checkId").attr("checked", true);		
+				}
+				
+				function getCookie(key) {
+		            key = key + "=";
+		            let cookieData = document.cookie;
+		            let firstCookie = cookieData.indexOf(key);
+		            let cookieValue = "";
+
+		            if(firstCookie != -1){
+		                firstCookie += key.length;
+		                let endCookie = cookieData.indexOf(';', firstCookie);
+		                if(endCookie == -1){
+		                    endCookie = cookieData.length;
+		                    cookieValue = cookieData.substring(firstCookie , endCookie);
+		                }
+		            }
+		            return unescape(cookieValue);
+		        }
+
+		        function setCookie(key , value , day){
+		            let currentTime = new Date();
+		            currentTime.setDate(currentTime.getDate() + day);
+		            let cookieValue = escape(value) + ((day == null) ? "" : "; expires=" + currentTime.toGMTString());
+
+		            document.cookie = key + "=" + cookieValue;
+		        }
+
+		        function deleteCookie(key){
+		            let currentTime = new Date();
+		            currentTime.setDate(currentTime.getDate() - 1);
+		            document.cookie = key + "=" + "; expires=" + currentTime.toGMTString();
+		        }
+
+		        $("#btn1").click(function (){
+		            if($("#checkId").is(":checked")){
+		                setCookie("key" , $("#username").val() , 3);
+		            }else{
+		                deleteCookie("key");
+		            }
+		            document.form.submit();
+		        })
+			});
+		</script>
 </html>

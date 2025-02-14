@@ -5,6 +5,7 @@
 <%
 	String id = request.getParameter("username");
 	String pw = request.getParameter("password");
+	String check = request.getParameter("checkId");
 	
 	if(id == null || pw == null){
 		response.sendRedirect("login.jsp");
@@ -15,6 +16,8 @@
 		response.sendRedirect("login.jsp");
 		return;
 	}
+	
+	
 	
 	UserDAO dao = new UserDAO();
 	UserVO vo = new UserVO();
