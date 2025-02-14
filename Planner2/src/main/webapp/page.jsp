@@ -6,6 +6,8 @@
 <%@page import="board.CalendarDAO" %>
 <%@page import="group.memberDAO" %>
 <%@page import="group.memberVO" %>
+<%@page import="studytime.studytimeDAO" %>
+<%@page import="studytime.studytimeVO" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ include file="header_main.jsp" %>
@@ -41,7 +43,10 @@
 	
 	memberDAO mdao = new memberDAO();
 	List<memberVO> mlist = mdao.view(id);
-	
+
+	//공부 시간 
+	/* studytimeDAO stdao = new studytimeDAO();
+	List<studytimeVO> slist = stdao.view(id); */
 %>
 <!DOCTYPE html>
 <html>
@@ -291,11 +296,31 @@
 				<ul class="planList">
 					<li>
 						<div>작성자 : <%= vo.getAuthor() %> | 작성일 : <%= vo.getCreateDate() %></div>
-						<div>제목 : <%= vo.getTitle() %></div> 				
-						<div id="Plan" class="Plan" onclick="location.href='modify.jsp?no=<%= no %>'">				
+						<div>제목 : <%= vo.getTitle() %></div>
+						
+						<%-- <div id="Plan" class="Plan" <%= user.getId().equals(vo.getAuthor()) ? "onclick=location.href='modify.jsp?no="+vo.getNo()+"'" : "" %>>
 							<div id="plantime"></div>
 							<div>내용 : <%= vo.getContent() %></div>
-						</div>
+						</div> --%>
+						
+						<%
+							if(user.getId().equals(vo.getAuthor())){
+								%>
+									<div id="Plan" class="Plan" onclick="location.href='modify.jsp?no=<%=vo.getNo()%>'">
+										<div id="plantime"></div>
+										<div>내용 : <%= vo.getContent() %></div>
+									</div>
+								<%
+							}else{
+								%>
+								<div id="Plan" class="Plan">
+									<div id="plantime"></div>
+									<div>내용 : <%= vo.getContent() %></div>
+								</div>
+							<%
+							}
+						%>
+						
 						<%= vo.getBoardType() == 2 ? "<input type='checkbox' id='check1' class='checkbox'>" : "<span></span>" %>
 						<label for="check1"></label>
 						<button id="backBtn" onclick="location.href='calendar.jsp'">뒤로가기</button>
@@ -361,8 +386,14 @@
 	document.getElementById("plantime").innerHTML = daliytime;
 	
 	//로그인 한 사용자와 게시글 작성자가 같아야 상세 페이지 클릭 가능
-	let pageclick = "<%=user.getId() == vo.getAuthor() ? "같음" : "다름" %>"
-	console.log(pageclick)
+	$("#Plan").click(function() {
+		let no = <%= no %>;
+		<%-- let pageclick = "<%=user.getId() == vo.getAuthor() ? 'onclick="location.href = 'modify.jsp?no=' + no'";"' : null %>";
+		if(userId == ) --%>
+	});
+	
+	//스터디 게시글에 들어가서 스톱워치를 클릭하면 공부 시간 측정되는 함수
+	
 	
 	//스톱워치
 	window.onload = function(){
@@ -605,9 +636,6 @@
 		$(obj).parent().children(".dpnone").css("display", "inline");
 		
 	}
-	
-	//댓글 입력 후 확인 버튼 클릭하면 rcontent.val is not a function 에러남
-	//댓글 수정하고 확인 버튼 누른 후 다시 수정 버튼 클릭했을 때 input 창 안 뜸
 	
 	//댓글 수정
 	//댓글 확인 버튼
