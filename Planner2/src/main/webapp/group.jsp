@@ -106,7 +106,7 @@
 </head>
 <body>
 	<div class="group-container">
-	<h2><%= gname %></h2>
+	<h2 id="group-name"><%= gname %></h2>
 		<div class="action-buttons">
 			<%if(gnum == 0){
 				%>
@@ -116,7 +116,7 @@
 			<%if(gnum != 0){
 				%>
 				<button type="button" class="invite" onclick="invite(<%= gnum %>)">초대하기</button>
-				<button type="button" class="updategname" onclick="">그룹이름변경</button>
+				<button type="submit" class="updategname" onclick="updategname('<%=gname%>', <%=gnum%>)">그룹이름변경</button>
 				<%if(grouptype == 1){
 					%>
 					<button class="delete" onclick="deleteGroup(<%= gnum%>, this)">그룹삭제</button>
@@ -270,6 +270,29 @@ function outmember(mid){
 			}
 		});
 	}
+}
+function updategname(gname, gnum){
+	let result = prompt('변경하실 그룹명을 적어주세요', '변경하실 그룹이름');
+	console.log(result)
+	if(result == null){
+		return;
+	}
+	$.ajax({
+		url : "updategroupgname.jsp",
+		type : "post",
+		data : {
+			gname : result,
+			gnum : gnum
+		},
+		success : function(data){
+			if(data.trim() == "success"){
+				$("#group-name").text(result);
+			}
+		},
+		error : function(){
+			console.log("error");
+		}
+	});
 }
 
 </script>
