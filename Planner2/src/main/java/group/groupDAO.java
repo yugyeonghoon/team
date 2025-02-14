@@ -73,4 +73,16 @@ public class groupDAO extends DBManager{
 		DBDisConnect();
 	}
 	
+	//4. 그룹이름 변경
+	public void updateGname(groupVO vo) {
+		int gnum = vo.getGroupNum();
+		String gname = vo.getGroupName();
+		driverLoad();
+		DBConnect();
+		
+		String sql = "update calendargroup set groupname = '"+gname+"' where groupnum = " +gnum;
+		
+		executeUpdate(sql);
+		DBDisConnect();
+	}
 }

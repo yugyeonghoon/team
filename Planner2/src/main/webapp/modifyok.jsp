@@ -23,6 +23,12 @@
 		return;
 	}
 	
+	start = start.replace("시", "");
+	start = start.replace("분", "");
+	
+	end  = end.replace("시", "");
+	end  = end.replace("분", "");
+	
 	int noNum = Integer.parseInt(no);
 	
 	CalendarDAO dao = new CalendarDAO();

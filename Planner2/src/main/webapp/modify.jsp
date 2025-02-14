@@ -128,6 +128,7 @@ $(document).ready(function(){
 		step:1,
 		scrollMonth: false,
 		onShow: function (ct) {
+			console.log(ct);
             this.setOptions({
                 maxDate: $('#datetimepicker_end_time').val() ? $('#datetimepicker_end_time').val() : false
             })
@@ -188,7 +189,7 @@ $(document).ready(function(){
 			<% if(user != null && (user.getId().equals(author)|| user.getUserType() == 0)){
 			%>
 			<div class="action-buttons">
-				<button>수정</button>
+				<button type="submit">수정</button>
 				<button class="delete">삭제</button>
 			</div>
 			<% } %>

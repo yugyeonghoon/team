@@ -25,7 +25,7 @@
 				border-top: 10px solid #79a6fe;
 				border-bottom: 10px solid #8BD17C;
 				width: 500px;
-				height: 700px;
+				height: 750px;
 				box-shadow: 1px 1px 108.8px 19.2px rgb(25,31,53);
 			}
 			h1{
@@ -172,6 +172,7 @@
 	let nick = $("#nickname");
 	let nickFeedback = $("#nickname-feedback");
 	let nickCheckFlag = false;
+	let nickRegex = /^[a-zA-z0-9가-핳]{2,10}$/;
 	
 	let emailCheckFlag = false;
 	let mailCode = "";
@@ -187,7 +188,7 @@
 	
 	let name = $("#name");
 	let nameFeedback = $("#name-feedback");
-	let nameRegex = /^[ㄱ-ㅎㅏ-ㅣ가-핳]{2,15}$/;
+	let nameRegex = /^[가-핳]{2,5}$/;
 	
 	$("#mailBtn").click(function(){
 		let mail = $("#mail");
@@ -289,6 +290,44 @@
 		
 	$("#nickname").keyup(function(e){
 		let nick = e.target.value;
+		
+		let nickFeedback = $("#nickname-feedback");
+		nickFeedback.css("display", "block");
+		nickFeedback.removeClass("success");
+		nickFeedback.text("닉네임은 2 ~ 10자리만 사용가능합니다.");
+		nickCheckFlag = false;
+		
+		if(!nickRegex.test(nick)){
+			return;
+		}
+		
+		$.ajax({
+			url : "nickCheck.jsp",
+			type : "post",
+			data : {
+				nick : nick
+			},
+			success : function(result){
+				if(result.trim() == "0"){
+					nickCheckFlag = true;
+					nickFeedback.css("display", "block");
+					nickFeedback.addClass("success");
+					nickFeedback.text("사용 가능한 닉네임입니다.");
+				}else{
+					nickCheckFlag = false;
+					nickFeedback.css("display", "block");
+					nickFeedback.removeClass("success");
+					nickFeedback.text("닉네임이 중복됩니다.")
+				}
+			},
+			error : function(){
+				console.log("에러 발생");
+			}
+		});
+	});
+	
+	/* $("#nickname").keyup(function(e){
+		let nick = e.target.value;
 		let nickFeedback = $("#nickname-feedback");
 		nickFeedback.css("display", "block");
 		nickFeedback.removeClass("success");
@@ -322,7 +361,7 @@
 				console.log("에러 발생");
 			}
 		});
-	});
+	}); */
 
 	function formCheck(){
 		let id = $("#username");
@@ -367,9 +406,21 @@
 			return false;
 		}
 		
-		idFeedback.css("display", "none");
 		
-		nameFeedback.css("display", "none");
+		if(!nameRegex.test(name.val())){
+			name.focus();
+			name.val("");
+			nameFeedback.css("display", "block");
+			nameFeedback.text("정확한 이름을 작성해주세요.");
+			nameFeedback.removeClass("success");
+			return false;
+		}
+		
+		nameFeedback.css("display", "block");
+		nameFeedback.addClass("success");
+		nameFeedback.text("확인되었습니다.");
+		
+		idFeedback.css("display", "none");
 		
 		if(pw.val().trim() == ""){
 			pw.focus();
@@ -380,6 +431,7 @@
 			return false;
 		}
 		
+		nameFeedback.css("display", "none");
 		
 		if(pwc.val().trim() == ""){
 			pwc.focus();
@@ -408,6 +460,15 @@
 			nick.val("");
 			nickFeedback.css("display", "block");
 			nickFeedback.text("닉네임을 입력해주세요.");
+			nickFeedback.removeClass("success");
+			return false;
+		}
+		
+		if(!nickRegex.test(nick.val())){
+			nick.focus();
+			nick.val("");
+			nickFeedback.css("display", "block");
+			nickFeedback.text("닉네임은 2 ~ 10자리만 사용 가능합니다.");
 			nickFeedback.removeClass("success");
 			return false;
 		}
