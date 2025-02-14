@@ -367,7 +367,7 @@
 	//스톱워치
 	window.onload = function(){
         
-        /* let timer_sec;
+        let timer_sec;
         let timer_min;
         let timer_hour;
 
@@ -449,7 +449,7 @@
             document.getElementById("sec").innerText = "00";
             document.getElementById("min").innerText = "00";
             document.getElementById("hour").innerText = "00";
-        }); */
+        });
     };
 	
 	
