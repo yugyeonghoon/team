@@ -11,7 +11,7 @@ public class studytimeDAO extends DBManager {
 	//stopwatch start 버튼 눌렀을 때 starttime 칼럼에 현재 시간 입력
 	//insert into studytime(bno, id, startTime) value(?, '??', now())
 	public int stime(studytimeVO vo) {
-		int bno = vo.getBno();
+		String no = vo.getNo();
 		String id = vo.getId();
 		String startTime = vo.getStartTime();
 		
@@ -20,7 +20,7 @@ public class studytimeDAO extends DBManager {
 		
 		String sql = "";
 		sql += "insert into studytime(bno, id, startTime) ";
-		sql += "values('"+bno+"', '"+id+"', '"+startTime+"')";
+		sql += "values('"+no+"', '"+id+"', '"+startTime+"')";
 		
 		String selectSql = "select last_insert_id() as stdno";
 		executeUpdate(sql);
@@ -54,42 +54,70 @@ public class studytimeDAO extends DBManager {
 		
 		String sql = "";
 		sql += "update studytime set endTime = now(), ";
-		sql += "totalTime =  ROUND(TIMESTAMPDIFF(SECOND, '"+startTime+"', now()) / 60) ";
+		sql += "'"+totalTime+"' =  ROUND(TIMESTAMPDIFF(SECOND, '"+startTime+"', '"+endTime+"') / 60) ";
 		sql += "where stdno = '"+stdno+"'";
 		
 		executeUpdate(sql);
 		DBDisConnect();
 	}
 	
-	//3. 공부 시간 조회
-	//select * from studytime where id = "
-	public List<studytimeVO> view(String id) {
-		driverLoad();
-		DBConnect();
-		
-		String sql = "select * from reply where id = " + id;
-		
-		executeQuery(sql);
-		
-		List<studytimeVO> list = new ArrayList<>();
-		
-		while(next()) {
-			int stdno = getInt("stdno");
-			int bno = getInt("bno");
-			String startTime = getString("startTime");
-			String endTime = getString("endTime");
-			String totalTime = getString("totalTime");
+	//3. 공부 시간 조회(단건)
+		//select * from studytime where no =  and id = ''"
+		public studytimeVO view(String no, String id) {
+			driverLoad();
+			DBConnect();
 			
-			studytimeVO svo = new studytimeVO();
-			svo.setStdno(stdno);
-			svo.setBno(bno);
-			svo.setStartTime(startTime);
-			svo.setEndTime(endTime);
-			svo.setTotalTime(stdno);
+			String sql = "";
+			sql += "select * from studytime where bno = " + no;
+			sql += " and id = '"+id+"'";
+			
+			executeQuery(sql);
+			
+			if(next()) {
+				int stdno = getInt("stdno");
+				String startTime = getString("start_time");
+				String endTime = getString("end_time");
+				int totalTime = getInt("total_time");
+				
+				studytimeVO svo = new studytimeVO();
+				svo.setStdno(stdno);
+				svo.setStartTime(startTime);
+				svo.setEndTime(endTime);
+				svo.setTotalTime(totalTime);
+				
+				DBDisConnect();
+				return svo;
+			}else {
+				DBDisConnect();
+				return null;
+			}
 			
 		}
-		DBDisConnect();
-		return list;
-		
-	}
+	
+	//4. 공부 시간 조회(여러 건)
+	//select * from studytime where no = "
+	/*
+	 * public List<studytimeVO> listview(String no) { driverLoad(); DBConnect();
+	 * 
+	 * String sql = "select * from reply where no = " + no;
+	 * 
+	 * executeQuery(sql);
+	 * 
+	 * List<studytimeVO> list = new ArrayList<>();
+	 * 
+	 * while(next()) { int stdno = getInt("stdno"); String id = getString("id");
+	 * String startTime = getString("startTime"); String endTime =
+	 * getString("endTime"); int totalTime = getInt("totalTime");
+	 * 
+	 * studytimeVO svo = new studytimeVO(); svo.setStdno(stdno); svo.setId(id);
+	 * svo.setStartTime(startTime); svo.setEndTime(endTime);
+	 * svo.setTotalTime(totalTime);
+	 * 
+	 * } DBDisConnect(); return list;
+	 * 
+	 * }
+	 */
+	
+	
+	
 }

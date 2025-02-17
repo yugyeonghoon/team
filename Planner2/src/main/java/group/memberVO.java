@@ -8,6 +8,7 @@ public class memberVO {
 	private String name;
 	private String email;
 	private String groupname;
+	private int studyTime;
 	
 	public String getGroupname() {
 		return groupname;
@@ -51,4 +52,11 @@ public class memberVO {
 	public void setGrouptype(int grouptype) {
 		this.grouptype = grouptype;
 	}
+	public int getStudyTime() {
+		return studyTime;
+	}
+	public void setStudyTime(int studyTime) {
+		this.studyTime = studyTime;
+	}
+	
 }

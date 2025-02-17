@@ -2,23 +2,22 @@ package studytime;
 
 public class studytimeVO {
 	private int stdno;
-	private int bno;
+	private String no;
 	private String id;
 	private String startTime;
 	private String endTime;
 	private int totalTime;
-	
 	public int getStdno() {
 		return stdno;
 	}
 	public void setStdno(int stdno) {
 		this.stdno = stdno;
 	}
-	public int getBno() {
-		return bno;
+	public String getNo() {
+		return no;
 	}
-	public void setBno(int bno) {
-		this.bno = bno;
+	public void setNo(String no) {
+		this.no = no;
 	}
 	public String getId() {
 		return id;
@@ -45,6 +44,7 @@ public class studytimeVO {
 		this.totalTime = totalTime;
 	}
 	
+
 	
 	
 }

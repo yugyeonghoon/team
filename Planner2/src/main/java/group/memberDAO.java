@@ -51,6 +51,49 @@ public class memberDAO extends DBManager{
 		
 	}
 	
+	//그룹 멤버 스터디 시간 조회
+	public List<memberVO> memberList(String id, String bno) {
+		driverLoad();
+		DBConnect();
+		
+		String sql = "";
+		sql += "select (select sum(total_time) from studytime where id = g.id and bno = '"+bno+"') as cnt, g.*, u.name, u.email, c.groupname from groupmember g";
+		sql += " inner join calendargroup c on g.groupnum = c.groupnum inner join user u on g.id = u.id where g.groupnum in ";
+		sql += " (select groupnum from groupmember where id = '"+id+"')";
+		
+		executeQuery(sql);
+		
+		List<memberVO> list = new ArrayList<>();
+		
+		while(next()) {
+			int no = getInt("no");
+			String id2 = getString("id");
+			int gnum = getInt("groupnum");
+			int gtype = getInt("grouptype");
+			String name = getString("name");
+			String email = getString("email");
+			String gname = getString("groupname");
+			int cnt = getInt("cnt");
+					
+			memberVO vo = new memberVO();
+			
+			vo.setNo(no);
+			vo.setGroupnum(gnum);
+			vo.setGrouptype(gtype);
+			vo.setId(id2);
+			vo.setEmail(email);
+			vo.setName(name);
+			vo.setGroupname(gname);
+			vo.setStudyTime(cnt);
+			
+			list.add(vo);
+		}
+		
+		DBDisConnect();
+		return list;
+		
+	}
+	
 	//그룹멤버 추가
 	public void insertMember(memberVO vo) {
 		String id = vo.getId();

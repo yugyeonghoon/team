@@ -42,11 +42,8 @@
 	String id = user.getId();
 	
 	memberDAO mdao = new memberDAO();
-	List<memberVO> mlist = mdao.view(id);
-
-	//공부 시간 
-	/* studytimeDAO stdao = new studytimeDAO();
-	List<studytimeVO> slist = stdao.view(id); */
+	List<memberVO> mlist = mdao.memberList(id, no);
+	
 %>
 <!DOCTYPE html>
 <html>
@@ -62,20 +59,6 @@
 	/* .content-container{
 		text-align: center;
 	} */
-	.Btn {
-	/* 버튼 클릭했을 때 리스트 뜨기 */
-		float: right;
-		margin-right: 2%;
-		background-color: #0a0a23;
-		color: #fff;
-		border-radius: 50%;
-		font-size: 50px;
-		display: flex;
-		text-align: center;
-		align-items: center;
-		justify-content: center;
-		width: 45px;
-		height:45px;
 		
 /* 		margin: 5px;
 		padding : 15px; */
@@ -179,7 +162,7 @@
 	    
 	    .menu-container{
 	    	overflow: auto;
-	    	text-align: center;
+	    	/* text-align: center; */
 	    }
 
  	    .divReply {
@@ -271,14 +254,18 @@
 							for(int i = 0; i < mlist.size(); i++) {
 							memberVO mvo = mlist.get(i);
 							String mName = mvo.getName();
+							String mId = mvo.getId();
+							int toTime = mvo.getStudyTime();
+				
 							%>
-								<div class="time"><%=mName %></div>
-							<%
+								<div class="gname"><%=mName %></div>
+								<div class="totime"><%=toTime %>분</div>
+								<%
 							}
 							%>
 							</div>
 							<div class="Stopwatch">
-							<h5>Stopwatch</h5>
+							<h5 style="text-align:center;">Stopwatch</h5>
 		        			<h1><span id="hour">00</span>:<span id="min">00</span>:<span id="sec">00</span></h1>
 		        			<button class="w-btn w-btn-green" id="start">start</button>
 		        			<button class="w-btn w-btn-indigo" id="stop">stop</button>
@@ -385,20 +372,10 @@
 	let daliytime = "<%=vo.getStartTime().equals(vo.getEndTime()) ? "종일" : vo.getStartTime() + " ~ " + vo.getEndTime()%>"
 	document.getElementById("plantime").innerHTML = daliytime;
 	
-	//로그인 한 사용자와 게시글 작성자가 같아야 상세 페이지 클릭 가능
-	$("#Plan").click(function() {
-		let no = <%= no %>;
-		<%-- let pageclick = "<%=user.getId() == vo.getAuthor() ? 'onclick="location.href = 'modify.jsp?no=' + no'";"' : null %>";
-		if(userId == ) --%>
-	});
-	
-	//스터디 게시글에 들어가서 스톱워치를 클릭하면 공부 시간 측정되는 함수
-	
-	
 	//스톱워치
 	window.onload = function(){
         
-        let timer_sec;
+		let timer_sec;
         let timer_min;
         let timer_hour;
 
@@ -410,11 +387,12 @@
             if(timer > 0){
                 return;
             }
-
+            
             var sec = parseInt(document.getElementById("sec").innerText);
             var min = parseInt(document.getElementById("min").innerText);
             var hour = parseInt(document.getElementById("hour").innerText);
 
+            
             //start seconds
             timer_sec = setInterval(function(){
                 //console.log(i);
@@ -455,15 +433,37 @@
 
             timer++;
             //console.log(timer);
+            
+             //ajax로 다른 jsp에 요청해서
+            //studytime 테이블에 insert
+            //bno, id, start_time
+            
+			$.ajax ({
+				url: "stdStartTime.jsp",
+				type: "post",
+				data: {
+					no: <%=no%>,
+					id: "<%=id%>",
+					start_time: new Date().toISOString()
+				},
+				success: function(result) {
+					console.log(result);
+				},
+				error: function() {
+					console.log("에러 발생");
+					
+				}
+			})
         });
 
         //click stop button
         document.getElementById("stop")?.addEventListener("click", function(){
             stop();
+            
+            //a.jax로 update end_time = now(), total_time ROUND(TIMESTAMPDIFF(SECOND, start_time, now()) / 60)
         });
 
         function stop(){
-            clearInterval(timer_micro);
             clearInterval(timer_sec);
             clearInterval(timer_min);
             clearInterval(timer_hour);
@@ -476,7 +476,6 @@
         //click clear button
         document.getElementById("clear")?.addEventListener("click", function(){
             stop();
-            document.getElementById("micro").innerText = "00";
             document.getElementById("sec").innerText = "00";
             document.getElementById("min").innerText = "00";
             document.getElementById("hour").innerText = "00";
