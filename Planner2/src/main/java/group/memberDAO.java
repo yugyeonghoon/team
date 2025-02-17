@@ -11,7 +11,7 @@ import db.DBManager;
 
 public class memberDAO extends DBManager{
 	//그룹 멤버 조회
-	public List<memberVO> view(String id) {
+	public List<memberVO> view(String id, String groupnum) {
 		driverLoad();
 		DBConnect();
 		
@@ -19,6 +19,9 @@ public class memberDAO extends DBManager{
 		sql += "select g.*, u.name, u.email, c.groupname from groupmember g";
 		sql += " inner join calendargroup c on g.groupnum = c.groupnum inner join user u on g.id = u.id where g.groupnum in ";
 		sql += " (select groupnum from groupmember where id = '"+id+"')";
+		if(groupnum != null) {
+			sql += " and g.groupnum = " + groupnum;
+		}
 		
 		executeQuery(sql);
 		

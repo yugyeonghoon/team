@@ -59,6 +59,20 @@
 	/* .content-container{
 		text-align: center;
 	} */
+	.Btn {
+	/* 버튼 클릭했을 때 리스트 뜨기 */
+		float: right;
+		margin-right: 2%;
+		background-color: #0a0a23;
+		color: #fff;
+		border-radius: 50%;
+		font-size: 50px;
+		display: flex;
+		text-align: center;
+		align-items: center;
+		justify-content: center;
+		width: 45px;
+		height:45px;
 		
 /* 		margin: 5px;
 		padding : 15px; */
