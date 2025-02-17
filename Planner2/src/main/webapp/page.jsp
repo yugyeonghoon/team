@@ -42,7 +42,7 @@
 	String id = user.getId();
 	
 	memberDAO mdao = new memberDAO();
-	List<memberVO> mlist = mdao.view(id);
+	List<memberVO> mlist = mdao.view(id, groupNum);
 
 	//공부 시간 
 	/* studytimeDAO stdao = new studytimeDAO();

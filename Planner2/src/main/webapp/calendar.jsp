@@ -7,7 +7,7 @@
 <%
 	CalendarDAO dao = new CalendarDAO();
 
-	List<BoardVO> list = dao.listView(user.getId());
+	List<BoardVO> list = dao.listView(user.getId(), groupNum);
 %>
 <!DOCTYPE html>
 <html>
@@ -173,7 +173,7 @@
 			nextDayThreshold: '00:00',
 		    height: '700px', // calendar 높이 설정
 		    expandRows: true, // 화면에 맞게 높이 재설정
-		    displayEventTime: false, // 일정 시간삭제
+		    displayEventTime: true, // 일정표시 시간
 		    slotMinTime: '00:00', // Day 캘린더에서 시작 시간
 		    slotMaxTime: '23:59', // Day 캘린더에서 종료 시간
 		    //해더에 표시할 툴바

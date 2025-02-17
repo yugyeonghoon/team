@@ -13,7 +13,7 @@
 
 	groupDAO dao = new groupDAO();
 	
-	List<groupVO> list = dao.view();
+	List<groupVO> list = dao.view(null);
 	
 %>
 <!DOCTYPE html>
@@ -99,11 +99,11 @@
 			<tbody>
 				<%
 					for(int i = 0; i < list.size(); i++){
-						groupVO gvo = list.get(i);
-						int no = gvo.getGroupNum();
-						String gname = gvo.getGroupName();
-						int groupType = gvo.getGroupType();
-						String id = gvo.getId();
+						groupVO vo = list.get(i);
+						int no = vo.getGroupNum();
+						String gname = vo.getGroupName();
+						int groupType = vo.getGroupType();
+						String id = vo.getId();
 						%>
 						<tr>
 							<td><%= no %></td>
