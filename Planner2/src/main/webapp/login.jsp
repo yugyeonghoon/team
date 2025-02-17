@@ -279,9 +279,9 @@
 					<form method="post" name="form1" class="box" onsubmit="return checkStuff()" action="loginok.jsp">
 				<h4>로그인 페이지<span></span></h4>
 				<h5></h5>
-					<input type="text" id="username" name="username" placeholder="Id" autocomplete="off">
+					<input value="hong" type="text" id="username" name="username" placeholder="Id" autocomplete="off">
 					<i class="typcn typcn-eye" id="eye"></i>
-					<input type="password" name="password" placeholder="Passsword" id="pwd" autocomplete="off">
+					<input value="12345" type="password" name="password" placeholder="Passsword" id="pwd" autocomplete="off">
 					
 					<!-- <span class="rmb">
 					    <input type="checkbox" id="checkId" name="checkId">                                         

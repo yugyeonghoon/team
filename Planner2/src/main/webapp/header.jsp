@@ -1,3 +1,8 @@
+<%@page import="java.util.ArrayList"%>
+<%@page import="invate.inviteVO"%>
+<%@page import="invate.inviteDAO"%>
+<%@page import="group.groupDAO"%>
+<%@page import="group.groupVO"%>
 <%@page import="java.util.List"%>
 <%@page import="group.memberVO"%>
 <%@page import="group.memberDAO"%>
@@ -10,10 +15,32 @@
 		response.sendRedirect("login.jsp");
 		return;
 	}
+	String groupNum = request.getParameter("groupnum");
+	
 	memberDAO mdao = new memberDAO();
 	memberVO mvo = new memberVO();
 	
-	List<memberVO> mlist = mdao.view(user.getId());
+	List<memberVO> mlist = mdao.view(user.getId(), null);
+	
+	groupDAO gdao = new groupDAO();
+	groupVO gvo = new groupVO();
+	
+	List<groupVO> glist = gdao.view(user.getId());
+	
+	inviteDAO iDao = new inviteDAO();
+	inviteVO iVo = new inviteVO();
+	
+	List<inviteVO> invitelist = iDao.listinvite(user.getId());
+	
+	for(int i = 0; i < invitelist.size(); i++){
+		inviteVO vo = invitelist.get(i);
+		System.out.println(vo.getInviteno());
+		System.out.println(vo.getGroupnum());
+		System.out.println(vo.getGroupname());
+	}
+	
+	
+	
 %>   
 <!DOCTYPE html>
 <html>
@@ -60,10 +87,24 @@
 	            border-radius: 5px;
 	            cursor: pointer;
 	        }
+	        .groupnum-toggle {
+	            position: absolute;
+	            top: 3px;
+	            right: 165px;
+	            background:black;
+	            color: white;
+	            border: none;
+	            padding: 13px;
+	            border-radius: 5px;
+	            cursor: pointer;
+	        }
 	        .menu-toggle:hover {
 	            background: #1d243d;
 	        }
 	        .group-toggle:hover {
+	            background: #1d243d;
+	        }
+	        .groupnum-toggle:hover {
 	            background: #1d243d;
 	        }
 	        .dropdown-menu {
@@ -88,6 +129,17 @@
 	            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 	            z-index: 1000;
 	        }
+	        .dropdown-menu3 {
+	            display: none;
+	            position: absolute;
+	            top: 60px;
+	            right: 120px;
+	            background: white;
+	            border: 1px solid #ddd;
+	            border-radius: 5px;
+	            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+	            z-index: 1000;
+	        }
 	        .dropdown-menu a {
 	            display: block;
 	            padding: 10px;
@@ -102,16 +154,29 @@
 	            text-decoration: none;
 	            border-bottom: 1px solid #ddd;
 	        }
+	        .dropdown-menu3 a {
+	            display: block;
+	            padding: 10px;
+	            color: #333;
+	            text-decoration: none;
+	            border-bottom: 1px solid #ddd;
+	        }
 	        .dropdown-menu a:last-child {
 	            border-bottom: none;
 	        }
 	        .dropdown-menu2 a:last-child {
 	            border-bottom: none;
 	        }
+	        .dropdown-menu a:last-child {
+	            border-bottom: none;
+	        }
 	        .dropdown-menu a:hover {
 	            background: #f4f4f4;
 	        }
 	        .dropdown-menu2 a:hover {
+	            background: #f4f4f4;
+	        }
+	         .dropdown-menu3 a:hover {
 	            background: #f4f4f4;
 	        }
 	        .overlay {
@@ -134,6 +199,7 @@
 	            background: rgba(0, 0, 0, 0.1);
 	            z-index: 999;
 	        }
+	        
 	        .input{
 	        	background:black;
 	            color: white;
@@ -142,10 +208,7 @@
 	            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 	        }
 	        .ui-datepicker-calendar { display: none; }
-	        
-	        .group{
-	        	
-	        }
+	    
 	        .ui-datepicker-calendar {
 	        display: none;
 	    	}
@@ -200,21 +263,70 @@
 	            menu2.style.display = 'none';
 	            overlay2.style.display = 'none';
 	        };
+
+	        function toggleMenu3() {
+	            var menu3 = document.getElementById('dropdown-menu3');
+	            var overlay2 = document.getElementById('overlay2');
+	            if (menu3.style.display === 'block') {
+	                menu3.style.display = 'none';
+	                overlay2.style.display = 'none';
+	            } else {
+	                menu3.style.display = 'block';
+	                overlay2.style.display = 'block';
+	            }
+	        }
+	        function closeMenu3() {
+	            var menu3 = document.getElementById('dropdown-menu3');
+	            var overlay2 = document.getElementById('overlay2');
+	            menu3.style.display = 'none';
+	            overlay2.style.display = 'none';
+	        };
 		</script>
 	</head>
 	<body style="padding:30px;">
 		<header>
 		<div><p><%= user == null ? "사용자" : user.getNick() %>님! 어서오세요.</p></div>
-		<button class="group-toggle" onclick="toggleMenu2()">그룹</button>
-			<div class="dropdown-menu2" id="dropdown-menu2">
-			<% for(int i = 0; i < mlist.size(); i++){
-					memberVO vo2 = mlist.get(i);
-					String name = vo2.getName();		
+		<button class="groupnum-toggle" onclick="toggleMenu3()">그룹</button>
+		<div class="dropdown-menu3" id="dropdown-menu3">
+			<% for(int i = 0; i<glist.size(); i++){
+				groupVO vo2 = glist.get(i);
+				String gname = vo2.getGroupName();
+				int gnum = vo2.getGroupNum();
 				%>
-				<a><%= vo2.getName() %></a>
+				<a href ="group.jsp?groupnum=<%=gnum%>"><%=gname %></a>
 				<%
-			}
-			%>	
+			}%>
+		</div>
+		<div class="overlay2" id="overlay2" onclick="closeMenu3()"></div>
+		<button class="group-toggle" onclick="toggleMenu2()">그룹원</button>
+			<div class="dropdown-menu2" id="dropdown-menu2">
+			<%
+				//중복된 그룹번호 저장	
+				List<Integer> glist1 = new ArrayList<>();
+			
+				for(int i = 0; i < mlist.size(); i ++){
+					//그룹번호 꺼내오기
+					memberVO vo = mlist.get(i);
+					int gnum = vo.getGroupnum();
+					String name = vo.getName();
+					String groupName = vo.getGroupname();
+					
+					//glist에 gnum이 포함되어있으면(중복) 그룹 번호를 다시 출력할 필요 x
+					if(glist1.contains(gnum)){
+						%>
+							<a>&nbsp;&nbsp;&nbsp;&nbsp;- <%= name %></a>
+						<%
+					}else{
+						//glist에 gnum이 포함되어있지 않으면 glist에 gnum을 추가하고, 그룹번호 출력
+						glist1.add(gnum);
+						%>
+							<a href="calendar.jsp?groupnum=<%=gnum%>"><%= groupName %></a>
+							<a>&nbsp;&nbsp;&nbsp;&nbsp;- <%= name %></a>
+						<%
+					}
+					
+				}
+			%>
 			</div>
 			<div class="overlay2" id="overlay2" onclick="closeMenu2()"></div>
 				<button class="menu-toggle" onclick="toggleMenu()">메뉴</button>

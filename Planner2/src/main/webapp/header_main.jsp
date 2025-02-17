@@ -1,3 +1,4 @@
+<%@page import="java.util.ArrayList"%>
 <%@page import="invate.inviteVO"%>
 <%@page import="invate.inviteDAO"%>
 <%@page import="java.util.List"%>
@@ -8,14 +9,32 @@
     pageEncoding="UTF-8"%>
 <%
 	UserVO user = (UserVO)session.getAttribute("user");
+
+	String groupNum = request.getParameter("groupnum");
 	if(user ==null){
 		response.sendRedirect("login.jsp");
 		return;
 	}
 	memberDAO dao1 = new memberDAO();
 	memberVO vo1 = new memberVO();
-	List<memberVO> list1 = dao1.view(user.getId());
+	List<memberVO> list1 = dao1.view(user.getId(), null);
 	
+	//중복된 그룹넘버 저장
+	/* List<Integer> glist = new ArrayList<>();
+	
+	for(int i = 0; i < list1.size(); i++){
+		memberVO vo = list1.get(i);
+		int gnum = vo.getGroupnum();
+		
+		if(glist.contains(gnum)){
+			System.out.println(vo.getId());
+		}else{
+			glist.add(gnum);
+			System.out.println(gnum);
+			System.out.println(vo.getId());
+		}
+		
+	} */
 	
 	inviteDAO iDao = new inviteDAO();
 	inviteVO iVo = new inviteVO();
@@ -213,7 +232,7 @@
 	    	.fa-bell{
 				position: absolute;
 			    top: 3px;
-			    right: 150px;
+			    right: 170px;
 			    background: black;
 			    color: white;
 			    border: none;
@@ -302,15 +321,35 @@
 		}%>
 		</div>
 		<div class="overlay3" id="overlay3" onclick="closeMenu3()"></div>
-	<button class="group-toggle" onclick="toggleMenu2()">그룹</button>
+	<button class="group-toggle" onclick="toggleMenu2()">그룹원</button>
 		<div class="dropdown-menu2" id="dropdown-menu2">
-			<%for(int i = 0; i < list1.size(); i++){
-				memberVO vo2 = list1.get(i);
-				String name = vo2.getName();
-			%>
-				<a><%= name %></a>
 			<%
-				} %>
+				//중복된 그룹번호 저장	
+				List<Integer> glist = new ArrayList<>();
+			
+				for(int i = 0; i < list1.size(); i ++){
+					//그룹번호 꺼내오기
+					memberVO vo = list1.get(i);
+					int gnum = vo.getGroupnum();
+					String name = vo.getName();
+					String groupName = vo.getGroupname();
+					
+					//glist에 gnum이 포함되어있으면(중복) 그룹 번호를 다시 출력할 필요 x
+					if(glist.contains(gnum)){
+						%>
+							<a>&nbsp;&nbsp;&nbsp;&nbsp;- <%= name %></a>
+						<%
+					}else{
+						//glist에 gnum이 포함되어있지 않으면 glist에 gnum을 추가하고, 그룹번호 출력
+						glist.add(gnum);
+						%>
+							<a href="calendar.jsp?groupnum=<%=gnum%>"><%= groupName %></a>
+							<a>&nbsp;&nbsp;&nbsp;&nbsp;- <%= name %></a>
+						<%
+					}
+					
+				}
+			%>
 		</div>
 		<div class="overlay2" id="overlay2" onclick="closeMenu2()"></div>
 	<button class="menu-toggle" onclick="toggleMenu()">메뉴</button>

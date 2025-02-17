@@ -82,7 +82,7 @@ public class CalendarDAO extends DBManager{
 	
 	
 	//일정 조회
-		public List<BoardVO> listView(String id) {
+		public List<BoardVO> listView(String id, String groupnum) {
 			driverLoad();
 			DBConnect();
 			
@@ -98,7 +98,17 @@ public class CalendarDAO extends DBManager{
 			//select * from board where author in(select id from groupmember where groupnum = (select groupnum from groupmember where id = 'hong'));
 			//select * from board where author = 'hong' or author = 'sung' or author = 'summer' or author = 'winter';
 			
-			String sql = "select * from board where author in(select id from groupmember where groupnum = (select groupnum from groupmember where id = '"+id+"')) or author =  '"+id+"';";
+			String sql = "";
+			//파라미터로 넘어온 groupnum이 null이면 id에 해당하는 게시글만
+			//파라미터로 넘어온 groupnum이 null이 아니면 해당 그룹 포함하는 게시글
+			if(groupnum != null) {
+				sql = "select * from board where author in(select id from groupmember where groupnum = "+groupnum+") or author =  '"+id+"';";
+			}else {
+				sql = "select * from board where author = '"+id+"'";
+			}
+			
+			System.out.println(sql);
+			
 			executeQuery(sql);
 			
 			List<BoardVO> list = new ArrayList<>();

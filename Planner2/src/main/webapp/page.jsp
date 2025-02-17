@@ -43,7 +43,6 @@
 	
 	memberDAO mdao = new memberDAO();
 	List<memberVO> mlist = mdao.memberList(id, no);
-	
 %>
 <!DOCTYPE html>
 <html>

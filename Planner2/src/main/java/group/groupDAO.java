@@ -32,11 +32,17 @@ public class groupDAO extends DBManager{
 	
 	}
 	//2. 그룹 목록 조회
-	public List<groupVO> view(){
+	public List<groupVO> view(String uid){
 		driverLoad();
 		DBConnect();
 		
-		String sql = "select * from calendargroup c inner join groupmember g on c.groupnum = g.groupnum where g.grouptype =1;";
+		String sql = "";
+		
+		if(uid != null) {
+			sql = "select * from calendargroup where groupnum in (select groupnum from groupmember where id = '"+uid+"')";
+		}else {
+			sql = "select * from calendargroup";
+		}
 		
 		executeQuery(sql);
 		
