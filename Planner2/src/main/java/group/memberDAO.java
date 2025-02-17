@@ -1,7 +1,9 @@
 package group;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.catalina.valves.RemoteAddrValve;
 
@@ -15,7 +17,7 @@ public class memberDAO extends DBManager{
 		
 		String sql = "";
 		sql += "select g.*, u.name, u.email, c.groupname from groupmember g";
-		sql += " inner join calendargroup c on g.groupnum = c.groupnum inner join user u on g.id = u.id where g.groupnum = ";
+		sql += " inner join calendargroup c on g.groupnum = c.groupnum inner join user u on g.id = u.id where g.groupnum in ";
 		sql += " (select groupnum from groupmember where id = '"+id+"')";
 		
 		executeQuery(sql);
