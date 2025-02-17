@@ -1,3 +1,5 @@
+<%@page import="invate.inviteDAO"%>
+<%@page import="invate.inviteVO"%>
 <%@page import="javax.websocket.SendResult"%>
 <%@page import="group.memberVO"%>
 <%@page import="user.UserVO"%>
@@ -6,6 +8,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%
+	UserVO user = (UserVO)session.getAttribute("user");
 	String id = request.getParameter("id");
 	String gnum = request.getParameter("gnum");
 	if(id == null || gnum == null){
@@ -30,16 +33,26 @@
 	};
 	
 	//같은 그룹이 아닌 사람만 초대
-	int inUser= dao.groupCheck(vo);
+	int inUser = dao.groupCheck(vo);
 	if(inUser == 1){
 		out.print("inUser");
 		return;
 	}
 	
 	//멤버초대
-	vo.setId(id);
+	/* vo.setId(id);
 	vo.setGrouptype(2);
 	vo.setGroupnum(groupnum);
-	dao.insertMember(vo);
+	dao.insertMember(vo); */
+	
+	//멤버를 초대 테이블에 저장
+	inviteVO iVo = new inviteVO();
+	inviteDAO iDao = new inviteDAO();
+	
+	iVo.setReceiver(id);
+	iVo.setGroupnum(groupnum);
+	iVo.setSender(user.getId());
+	iDao.insert(iVo);
+	
 	out.print("success");
 %>
