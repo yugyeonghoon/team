@@ -188,7 +188,7 @@
 	
 	let name = $("#name");
 	let nameFeedback = $("#name-feedback");
-	let nameRegex = /^[가-핳]{2,5}$/;
+	let nameRegex = /^[가-힣]{2,5}$/;
 	
 	$("#mailBtn").click(function(){
 		let mail = $("#mail");
@@ -487,6 +487,7 @@
 		nickFeedback.css("display", "block");
 		nickFeedback.addClass("success");
 		nickFeedback.text("닉네임 확인이 완료되었습니다.");
+		nickFeedback.css("display", "none");
 		
 		if(email.val().trim() == ""){
 			email.focus();
@@ -497,8 +498,6 @@
 			return false;
 		}
 			
-		nickFeedback.css("display", "none");
-		
 		if(emc.val().trim() == ""){
 			emc.focus();
 			emc.val("");
