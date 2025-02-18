@@ -104,7 +104,7 @@
 	            display: none;
 	            position: absolute;
 	            top: 60px;
-	            right: 80px;
+	            right: -10px;
 	            background: white;
 	            border: 1px solid #ddd;
 	            border-radius: 0px;
@@ -115,7 +115,7 @@
 	            display: none;
 	            position: absolute;
 	            top: 60px;
-	            right: 80px;
+	            right: 70px;
 	            background: white;
 	            border: 1px solid #ddd;
 	            border-radius: 0px;
@@ -333,18 +333,19 @@
 					int gnum = vo.getGroupnum();
 					String name = vo.getName();
 					String groupName = vo.getGroupname();
+					String id = vo.getId();
 					
 					//glist에 gnum이 포함되어있으면(중복) 그룹 번호를 다시 출력할 필요 x
 					if(glist.contains(gnum)){
 						%>
-							<a>&nbsp;&nbsp;&nbsp;&nbsp;- <%= name %></a>
+							<a href="user_profile.jsp?id=<%=id%>">&nbsp;&nbsp;&nbsp;&nbsp;- <%= name %></a>
 						<%
 					}else{
 						//glist에 gnum이 포함되어있지 않으면 glist에 gnum을 추가하고, 그룹번호 출력
 						glist.add(gnum);
 						%>
 							<a href="calendar.jsp?groupnum=<%=gnum%>"><%= groupName %></a>
-							<a>&nbsp;&nbsp;&nbsp;&nbsp;- <%= name %></a>
+							<a href="user_profile.jsp?id=<%=id%>">&nbsp;&nbsp;&nbsp;&nbsp;- <%= name %></a>
 						<%
 					}
 					

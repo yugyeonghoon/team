@@ -23,6 +23,10 @@
 		<script src='https://unpkg.com/popper.js/dist/umd/popper.min.js'></script>
 		<script src='https://unpkg.com/tooltip.js/dist/umd/tooltip.min.js'></script>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/dayjs/1.11.13/dayjs.min.js" integrity="sha512-FwNWaxyfy2XlEINoSnZh1JQ5TRRtGow0D6XcmAWmYCRgvqOUTnzCxPc9uF35u5ZEpirk1uhlPVA19tflhvnW1g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+		
+		<link rel="stylesheet" href="./jquery.datetimepicker.min.css" />
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+		<script src="./jquery.datetimepicker.full.js"></script>
 		<style>
 			.fc-day-grid{
 				color : black;
@@ -163,6 +167,10 @@
 				padding-left: 1em;
 				padding-right: 1em;
 			}
+			#choose-date, #choose-end-date, #start-time, #end-time {
+				display: inline;
+    			width: 120px;
+			}
 		</style>
 		</head>
 		<script>
@@ -258,6 +266,17 @@
 		    ]
 		
 		  });
+		  
+			jQuery('#start-time').datetimepicker({
+				datepicker:false,
+				format:'H:i',
+				step: 30
+			});
+			jQuery('#end-time').datetimepicker({
+				datepicker:false,
+				format:'H:i',
+				step: 30
+			});
 		  //모달창 이벤트
 		  $("#saveChanges").on("click", function () {
 		  	  var eventData = {
@@ -265,14 +284,18 @@
 		  	    content: $("#content").val(),
 		  	    start: $("#choose-date").val(),
 		  	    end: $("#choose-real-end-date").val(),
-		  	  	boardType : $("#boardType").val()
+		  	  	boardType : $("#boardType").val(),
+		  	  	st : $("#start-time").val(),
+		  	  	et : $("#end-time").val()
 		  	  };
 		  	  //빈값입력시 오류
 		  	  if (
 		  	    eventData.title == "" ||
 		  	    eventData.content == "" ||
 		  	    eventData.start == "" ||
-		  	    eventData.end == ""
+		  	    eventData.end == "" ||
+		  	    eventData.st == "" ||
+		  	  	eventData.et == "" 
 		  	  ) {
 		  	    alert("입력하지 않은 값이 있습니다.");
 				return;
@@ -288,6 +311,8 @@
 		  	    $("#content").val("");
 		  	    $("#start").val("");
 		  	    $("#end").val("");
+		  	  	$("#start-time").val("");
+	  			$("#end-time").val("");
 		  	    
 		  	    $.ajax({
 		  	    	url : "calendarok.jsp",
@@ -295,8 +320,8 @@
 		  	    	data :{
 		  	    		title : eventData.title,
 		  	    		content : eventData.content,
-		  	    		start : eventData.start,
-		  	    		end : eventData.end,
+		  	    		start : eventData.start + " " + eventData.st,
+		  	    		end : eventData.end + " " + eventData.et,
 		  	    		boardType : eventData.boardType
 		  	    	},
 		  	    	success : function(result){
@@ -334,12 +359,17 @@
 		        <form>
 		          <div class="mb-3">
 		            <label for="choose-date" class="col-form-label">시작일: </label>
-		            <input type="text" class="form-control" id="choose-date" readonly="readonly">
+		            <input type="text" class="form-control" id="choose-date" readonly="readonly">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		            <label for="choose-date" class="col-form-label">시작시간: </label>
+		            <input type="text" class="form-control" id="start-time" placeholder="시작시간선택" readonly="readonly">
+		            
 		          </div>
 		          <div class="mb-3">
 		            <label for="choose-end-date" class="col-form-label">종료일: </label>
-		            <input type="text" class="form-control" id="choose-end-date" readonly="readonly">
+		            <input type="text" class="form-control" id="choose-end-date" readonly="readonly">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 		            <input type="hidden" class="form-control" id="choose-real-end-date" readonly="readonly">
+		            <label for="choose-date" class="col-form-label">종료시간: </label>
+		            <input type="text" class="form-control" id="end-time" placeholder="종료시간선택" readonly="readonly">
 		          </div>
 		          <div>
 		          	<label col-form-label>일정 타입:</label>

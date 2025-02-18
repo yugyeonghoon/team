@@ -167,7 +167,7 @@
 	        .dropdown-menu2 a:last-child {
 	            border-bottom: none;
 	        }
-	        .dropdown-menu a:last-child {
+	        .dropdown-menu3 a:last-child {
 	            border-bottom: none;
 	        }
 	        .dropdown-menu a:hover {
@@ -190,6 +190,16 @@
 	            z-index: 999;
 	        }
 	        .overlay2 {
+	            display: none;
+	            position: fixed;
+	            top: 0px;
+	            left: 0;
+	            width: 100%;
+	            height: 100%;
+	            background: rgba(0, 0, 0, 0.1);
+	            z-index: 999;
+	        }
+	        .overlay3 {
 	            display: none;
 	            position: fixed;
 	            top: 0px;
@@ -266,20 +276,20 @@
 
 	        function toggleMenu3() {
 	            var menu3 = document.getElementById('dropdown-menu3');
-	            var overlay2 = document.getElementById('overlay2');
+	            var overlay3 = document.getElementById('overlay3');
 	            if (menu3.style.display === 'block') {
 	                menu3.style.display = 'none';
-	                overlay2.style.display = 'none';
+	                overlay3.style.display = 'none';
 	            } else {
 	                menu3.style.display = 'block';
-	                overlay2.style.display = 'block';
+	                overlay3.style.display = 'block';
 	            }
 	        }
 	        function closeMenu3() {
 	            var menu3 = document.getElementById('dropdown-menu3');
-	            var overlay2 = document.getElementById('overlay2');
+	            var overlay3 = document.getElementById('overlay3');
 	            menu3.style.display = 'none';
-	            overlay2.style.display = 'none';
+	            overlay3.style.display = 'none';
 	        };
 		</script>
 	</head>
@@ -297,7 +307,7 @@
 				<%
 			}%>
 		</div>
-		<div class="overlay2" id="overlay2" onclick="closeMenu3()"></div>
+		<div class="overlay3" id="overlay3" onclick="closeMenu3()"></div>
 		<button class="group-toggle" onclick="toggleMenu2()">그룹원</button>
 			<div class="dropdown-menu2" id="dropdown-menu2">
 			<%
@@ -310,18 +320,19 @@
 					int gnum = vo.getGroupnum();
 					String name = vo.getName();
 					String groupName = vo.getGroupname();
+					String id = vo.getId();
 					
 					//glist에 gnum이 포함되어있으면(중복) 그룹 번호를 다시 출력할 필요 x
 					if(glist1.contains(gnum)){
 						%>
-							<a>&nbsp;&nbsp;&nbsp;&nbsp;- <%= name %></a>
+							<a href="user_profile.jsp?id=<%=id%>">&nbsp;&nbsp;&nbsp;&nbsp;- <%= name %></a>
 						<%
 					}else{
 						//glist에 gnum이 포함되어있지 않으면 glist에 gnum을 추가하고, 그룹번호 출력
 						glist1.add(gnum);
 						%>
 							<a href="calendar.jsp?groupnum=<%=gnum%>"><%= groupName %></a>
-							<a>&nbsp;&nbsp;&nbsp;&nbsp;- <%= name %></a>
+							<a href="user_profile.jsp?id=<%=id%>">&nbsp;&nbsp;&nbsp;&nbsp;- <%= name %></a>
 						<%
 					}
 					

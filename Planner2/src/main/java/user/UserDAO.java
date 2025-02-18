@@ -259,13 +259,15 @@ public class UserDAO extends DBManager{
 				String nick = getString("nick");
 				String email = getString("email");
 				int userType = getInt("user_type");
-				
+				String birth = getString("birth");
+						
 				UserVO uvo = new UserVO();
 				uvo.setId(uid);
 				uvo.setName(name);
 				uvo.setNick(nick);
 				uvo.setEmail(email);
 				uvo.setUserType(userType);
+				uvo.setBirth(birth);
 				
 				DBDisConnect();
 				return uvo;
