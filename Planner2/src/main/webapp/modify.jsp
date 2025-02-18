@@ -5,6 +5,7 @@
 <%@ include file="header.jsp" %>
 <%
 	String no = request.getParameter("no");
+	System.out.println(no);
 	if(no == null || no.isEmpty()){
 		response.sendRedirect("calendar.jsp");
 		return;

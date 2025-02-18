@@ -10,17 +10,16 @@ public class studytimeDAO extends DBManager {
 	//1. 공부 시간 시작
 	//stopwatch start 버튼 눌렀을 때 starttime 칼럼에 현재 시간 입력
 	//insert into studytime(bno, id, startTime) value(?, '??', now())
-	public int stime(studytimeVO vo) {
+	public int start(studytimeVO vo) {
 		String no = vo.getNo();
 		String id = vo.getId();
-		String startTime = vo.getStartTime();
 		
 		driverLoad();
 		DBConnect();
 		
 		String sql = "";
 		sql += "insert into studytime(bno, id, startTime) ";
-		sql += "values('"+no+"', '"+id+"', '"+startTime+"')";
+		sql += "values('"+no+"', '"+id+"', now())";
 		
 		String selectSql = "select last_insert_id() as stdno";
 		executeUpdate(sql);
@@ -43,7 +42,7 @@ public class studytimeDAO extends DBManager {
 	//update studytime set endTime = '', 
 	//totalTime =  ROUND(TIMESTAMPDIFF(SECOND, startTime, now()) / 60) where stdno = '';
 	
-	public void utime(studytimeVO vo) {
+	public void update(studytimeVO vo) {
 		String startTime = vo.getStartTime();
 		String endTime = vo.getEndTime();
 		int totalTime = vo.getTotalTime();
@@ -63,7 +62,7 @@ public class studytimeDAO extends DBManager {
 	
 	//3. 공부 시간 조회(단건)
 		//select * from studytime where no =  and id = ''"
-		public studytimeVO view(String no, String id) {
+		public studytimeVO view(int no, String id) {
 			driverLoad();
 			DBConnect();
 			
