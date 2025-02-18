@@ -214,7 +214,7 @@
 	</head>
 		<script>
 			//이상한 아이디 저장 스크립트
-			/* window.onload = function() {
+			window.onload = function() {
 				let pwd = document.getElementById('pwd');
 				let eye = document.getElementById('eye');
 				let usernameInput = document.querySelector('input[name="username"]');
@@ -270,7 +270,7 @@
 			      usernameInput.value = localStorage.getItem('username');
 			      rememberMeCheckbox.checked = true;
 			    }
-			  } */
+			  }
 		</script>
 		<body id="particles-js"></body>
 			<div class="animated bounceInDown">
@@ -279,9 +279,9 @@
 					<form method="post" name="form1" class="box" onsubmit="return checkStuff()" action="loginok.jsp">
 				<h4>로그인 페이지<span></span></h4>
 				<h5></h5>
-					<input value="hong" type="text" id="username" name="username" placeholder="Id" autocomplete="off">
+					<input type="text" id="username" name="username" placeholder="Id" autocomplete="off">
 					<i class="typcn typcn-eye" id="eye"></i>
-					<input value="12345" type="password" name="password" placeholder="Passsword" id="pwd" autocomplete="off">
+					<input type="password" name="password" placeholder="Passsword" id="pwd" autocomplete="off">
 					
 					<!-- <span class="rmb">
 					    <input type="checkbox" id="checkId" name="checkId">                                         
