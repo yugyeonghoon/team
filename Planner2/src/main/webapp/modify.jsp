@@ -5,7 +5,6 @@
 <%@ include file="header.jsp" %>
 <%
 	String no = request.getParameter("no");
-	System.out.println(no);
 	if(no == null || no.isEmpty()){
 		response.sendRedirect("calendar.jsp");
 		return;
@@ -126,7 +125,7 @@ $.datetimepicker.setLocale('ko');
 $(document).ready(function(){
 	$('#datetimepicker_start_time').datetimepicker({
 		format:'Y-m-d H시:i분',
-		step:10,
+		step:30,
 		scrollMonth: false,
 		onShow: function (ct) {
 			console.log(ct);
@@ -139,7 +138,7 @@ $(document).ready(function(){
 $(document).ready(function(){
 	$('#datetimepicker_end_time').datetimepicker({
 		format:'Y-m-d H시:i분',
-		step:10,
+		step:30,
 		scrollMonth: false,
 		onShow: function (ct) {
             this.setOptions({
