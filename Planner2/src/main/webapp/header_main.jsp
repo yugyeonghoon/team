@@ -104,7 +104,7 @@
 	            display: none;
 	            position: absolute;
 	            top: 60px;
-	            right: 80px;
+	            right: -10px;
 	            background: white;
 	            border: 1px solid #ddd;
 	            border-radius: 0px;
@@ -115,7 +115,7 @@
 	            display: none;
 	            position: absolute;
 	            top: 60px;
-	            right: 80px;
+	            right: 70px;
 	            background: white;
 	            border: 1px solid #ddd;
 	            border-radius: 0px;
