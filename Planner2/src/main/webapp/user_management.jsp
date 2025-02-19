@@ -114,7 +114,7 @@
 							<td><%= email %></td>
 							<td class="action-buttons">
 								<button onclick="location.href='user_update.jsp?id=<%= id %>'">수정</button>
-								<button class="delete" onclick="deleteUser('<%= id %>')">삭제</button>
+								<button id="delete-user" class="delete" onclick="deleteUser('<%= id %>')">삭제</button>
 							</td>
 						</tr>				
 					<%
@@ -126,7 +126,10 @@
 	</body>
 	<script>
 	function deleteUser(userId){
+		alert("삭제하시겠습니까?")
 		location.href = "userOut.jsp?userId="+userId;
 	}
+	
+	
 </script>
 </html>

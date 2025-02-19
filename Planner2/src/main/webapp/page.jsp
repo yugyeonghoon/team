@@ -42,7 +42,6 @@
 	//같은 그룹 멤버 name 다 불어오기
 	//로그인한 아이디의 name과 같은 groupnum을 가지고 있는 유저 테이블에 있는 user를 다 불러오게 하기	
 	String id = user.getId();
-	
 	memberDAO mdao = new memberDAO();
 	List<memberVO> mlist = mdao.memberList(id, no, groupNum);
 	
@@ -394,10 +393,13 @@
 <script>
 	let userId = "<%= user == null ? "" : user.getId() %>"
 	console.log(userId);
+<<<<<<< HEAD
 	
 	//시작 버튼 눌렀을 때 인서트된 studytime의 번호
 	let stdNo = 0;
 	
+=======
+>>>>>>> branch 'main' of https://github.com/yugyeonghoon/team.git
 	//일정 시간 뭐라하지
 	let daliytime = "<%=vo.getStartTime().equals(vo.getEndTime()) ? "종일" : vo.getStartTime() + " ~ " + vo.getEndTime()%>"
 	document.getElementById("plantime").innerHTML = daliytime;
