@@ -110,7 +110,7 @@
 							<td><%= gname %></td>
 							<td><%= id %></td>
 							<td class="action-buttons">
-								<button class="delete" onclick="location.href='groupDelete.jsp?no=<%= no %>'">그룹 삭제</button>
+								<button class="delete" onclick="deleteGroup(<%= no %>)">그룹 삭제</button>
 							</td>
 						</tr>
 						<%
@@ -120,4 +120,11 @@
 		</table>
 	</div>
 </body>
+	<script>
+	function deleteGroup(bno){
+		alert("삭제하시겠습니까?")
+		location.href = "groupDelete.jsp?no="+bno;
+	}
+	<%-- location.href='groupDelete.jsp?no=<%= no %>' --%>
+	</script>
 </html>
