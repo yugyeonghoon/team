@@ -43,6 +43,11 @@
 	
 	memberDAO mdao = new memberDAO();
 	List<memberVO> mlist = mdao.memberList(id, no);
+	
+	studytimeDAO sdao = new studytimeDAO();
+	studytimeVO svo = new studytimeVO();
+	String statime = svo.getStartTime();
+	
 %>
 <!DOCTYPE html>
 <html>
@@ -464,15 +469,10 @@
 				data: {
 					no: <%=no%>,
 					id: "<%=id%>",
-					startTime: new Date()
+					startTime: Date.now()
 				},
 				success: function(result) {
 					console.log(result);
-					if(result.trim() == "success") {
-						alert("DB 저장 완료!");
-					}else {
-						alert("DB 저장 실패!");
-					}
 				},
 				error: function() {
 					console.log("에러 발생");
@@ -489,7 +489,7 @@
             	url: "stdEndTime.jsp",
             	type: "post",
             	data: {
-            		start_time: startTime,
+            		start_time: <%=statime%>,
             		end_time: new Date()
             	},
             	success: function(result) {
@@ -512,6 +512,7 @@
         }
 
         //click clear button
+        //버튼 클릭 시 이전 공부 시간 저장 해놓고 다시 start - end 버튼 누르고 clear 버튼 클릭하면 누적된 공부 시간이 나옴
         document.getElementById("clear")?.addEventListener("click", function(){
             stop();
             document.getElementById("sec").innerText = "00";
