@@ -43,8 +43,6 @@ public class studytimeVO {
 	public void setTotalTime(int totalTime) {
 		this.totalTime = totalTime;
 	}
-	
 
-	
 	
 }

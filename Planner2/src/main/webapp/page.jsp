@@ -249,13 +249,27 @@
  			color: black;
         }
         
+        #modiBtn {
+        	background-color: #555555;
+			border: none;
+			color: white;
+			padding: 10px;
+			text-align: center;
+			text-decoration: none;
+			display: inline-block;
+			font-size: 16px;
+        }
+        
+        #modiBtn:hover {
+        	background-color: #e7e7e7; color: black;
+ 			color: black;
+        }
         #inputReply {
         	resize: none;
         }
 </style>
 </head>
 <body>
-	<form class="content-container">
 		<div style="height: max-content">
 			<div class="menu-container">
 				<!-- 상단 스톱워치 및 공부시간 표시 -->
@@ -300,32 +314,26 @@
 						<div>작성자 : <%= vo.getAuthor() %> | 작성일 : <%= vo.getCreateDate() %></div>
 						<div>제목 : <%= vo.getTitle() %></div>
 						
-						<%-- <div id="Plan" class="Plan" <%= user.getId().equals(vo.getAuthor()) ? "onclick=location.href='modify.jsp?no="+vo.getNo()+"'" : "" %>>
+						<div id="Plan" class="Plan">
 							<div id="plantime"></div>
 							<div>내용 : <%= vo.getContent() %></div>
-						</div> --%>
-						
-						<%
-							if(user.getId().equals(vo.getAuthor())){
-								%>
-									<div id="Plan" class="Plan" onclick="location.href='modify.jsp?no=<%=vo.getNo()%>'">
-										<div id="plantime"></div>
-										<div>내용 : <%= vo.getContent() %></div>
-									</div>
-								<%
-							}else{
-								%>
-								<div id="Plan" class="Plan">
-									<div id="plantime"></div>
-									<div>내용 : <%= vo.getContent() %></div>
-								</div>
-							<%
-							}
-						%>
+						</div>
 						
 						<%= vo.getBoardType() == 2 ? "<input type='checkbox' id='check1' class='checkbox'>" : "<span></span>" %>
 						<label for="check1"></label>
 						<button id="backBtn" onclick="location.href='calendar.jsp'">뒤로가기</button>
+						<%
+							if(id.equals(vo.getAuthor())) {
+								%>
+								<button id="modiBtn" onclick="location.href='modify.jsp?no=<%=vo.getNo()%>'">수정하기</button>
+								<%
+							}else {
+								%>
+								<div></div>
+								<%
+							}
+						%>
+						
 					</li>
 				</ul>		
 			</div>	
@@ -377,7 +385,6 @@
 				%>
 			</div>
 		</div>	
-	</form>	
 </body>
 <script>
 	let userId = "<%= user == null ? "" : user.getId() %>"
@@ -459,10 +466,15 @@
 				data: {
 					no: <%=no%>,
 					id: "<%=id%>",
-					start_time: new Date().toISOString()
+					startTime: new Date()
 				},
 				success: function(result) {
 					console.log(result);
+					if(result.trim() == "success") {
+						alert("DB 저장 완료!");
+					}else {
+						alert("DB 저장 실패!");
+					}
 				},
 				error: function() {
 					console.log("에러 발생");
@@ -475,7 +487,20 @@
         document.getElementById("stop")?.addEventListener("click", function(){
             stop();
             
-            //a.jax로 update end_time = now(), total_time ROUND(TIMESTAMPDIFF(SECOND, start_time, now()) / 60)
+            $.ajax ({
+            	url: "stdEndTime.jsp",
+            	type: "post",
+            	data: {
+            		start_time: startTime,
+            		end_time: new Date()
+            	},
+            	success: function(result) {
+            		console.log(result);
+            	},
+            	error: function() {
+            		console.log("에러 발생");
+            	}
+            })
         });
 
         function stop(){

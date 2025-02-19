@@ -52,14 +52,12 @@ public class groupDAO extends DBManager{
 			int gnum = getInt("groupnum");
 			String gname = getString("groupname");
 			int gtype = getInt("group_type");
-			String id = getString("id");
 			
 			groupVO vo = new groupVO();
 			
 			vo.setGroupNum(gnum);
 			vo.setGroupName(gname);
 			vo.setGroupType(gtype);
-			vo.setId(id);
 			
 			list.add(vo);
 		}
