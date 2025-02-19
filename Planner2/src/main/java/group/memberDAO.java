@@ -55,14 +55,14 @@ public class memberDAO extends DBManager{
 	}
 	
 	//그룹 멤버 스터디 시간 조회
-	public List<memberVO> memberList(String id, String bno) {
+	public List<memberVO> memberList(String id, String bno,String gnum) {
 		driverLoad();
 		DBConnect();
 		
 		String sql = "";
 		sql += "select (select sum(total_time) from studytime where id = g.id and bno = '"+bno+"') as cnt, g.*, u.name, u.email, c.groupname from groupmember g";
 		sql += " inner join calendargroup c on g.groupnum = c.groupnum inner join user u on g.id = u.id where g.groupnum in ";
-		sql += " (select groupnum from groupmember where id = '"+id+"')";
+		sql += " (select groupnum from groupmember where id = '"+id+"' and groupnum = "+gnum+")";
 		
 		executeQuery(sql);
 		
@@ -71,7 +71,7 @@ public class memberDAO extends DBManager{
 		while(next()) {
 			int no = getInt("no");
 			String id2 = getString("id");
-			int gnum = getInt("groupnum");
+			int gnum2 = getInt("groupnum");
 			int gtype = getInt("grouptype");
 			String name = getString("name");
 			String email = getString("email");
@@ -81,7 +81,7 @@ public class memberDAO extends DBManager{
 			memberVO vo = new memberVO();
 			
 			vo.setNo(no);
-			vo.setGroupnum(gnum);
+			vo.setGroupnum(gnum2);
 			vo.setGrouptype(gtype);
 			vo.setId(id2);
 			vo.setEmail(email);

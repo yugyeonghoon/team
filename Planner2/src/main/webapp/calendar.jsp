@@ -245,6 +245,7 @@
 		    			String title = vo.getTitle();
 		    			String start = vo.getStartTime();
 		    			String end = vo.getEndTime();
+		    			String gnum = vo.getGroupNum();
 		    			
 		    			%>
 		    				{
@@ -252,7 +253,8 @@
 		    					title : "<%= title %>",
 		    					start : "<%=start%>",
 		    					end : "<%=end %>",
-		    					url : "page.jsp?no=<%=no%>",
+		    					gnum : "<%=gnum%>",
+		    					url : "page.jsp?no=<%=no%><%= groupNum != null ? "&groupnum="+groupNum : "" %>",
 		    					
 		    				<%	if(boardType == 1){
 							%>	backgroundColor: '#0000ff',<%
@@ -359,14 +361,14 @@
 		        <form>
 		          <div class="mb-3">
 		            <label for="choose-date" class="col-form-label">시작일: </label>
-		            <input type="text" class="form-control" id="choose-date" readonly="readonly">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		            <input type="text" class="form-control" id="choose-date" readonly="readonly">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 		            <label for="choose-date" class="col-form-label">시작시간: </label>
 		            <input type="text" class="form-control" id="start-time" placeholder="시작시간선택" readonly="readonly">
 		            
 		          </div>
 		          <div class="mb-3">
 		            <label for="choose-end-date" class="col-form-label">종료일: </label>
-		            <input type="text" class="form-control" id="choose-end-date" readonly="readonly">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		            <input type="text" class="form-control" id="choose-end-date" readonly="readonly">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 		            <input type="hidden" class="form-control" id="choose-real-end-date" readonly="readonly">
 		            <label for="choose-date" class="col-form-label">종료시간: </label>
 		            <input type="text" class="form-control" id="end-time" placeholder="종료시간선택" readonly="readonly">
