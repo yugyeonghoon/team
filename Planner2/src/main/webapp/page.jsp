@@ -1,4 +1,3 @@
-<%@page import="group.groupDAO"%>
 <%@page import="reply.ReplyVO"%>
 <%@page import="java.util.List"%>
 <%@page import="reply.ReplyDAO"%>
@@ -15,7 +14,6 @@
 <%
 	String no = request.getParameter("no");
 	String author = request.getParameter("author");
-	String gnum = request.getParameter("gnum");
 
 	if(no == null){
 		response.sendRedirect("calendar.jsp");
@@ -42,8 +40,13 @@
 	//같은 그룹 멤버 name 다 불어오기
 	//로그인한 아이디의 name과 같은 groupnum을 가지고 있는 유저 테이블에 있는 user를 다 불러오게 하기	
 	String id = user.getId();
+	
 	memberDAO mdao = new memberDAO();
-	List<memberVO> mlist = mdao.memberList(id, no, gnum);
+	List<memberVO> mlist = mdao.memberList(id, no);
+	
+	studytimeDAO sdao = new studytimeDAO();
+	studytimeVO svo = new studytimeVO();
+	String statime = svo.getStartTime();
 	
 %>
 <!DOCTYPE html>
@@ -389,7 +392,6 @@
 <script>
 	let userId = "<%= user == null ? "" : user.getId() %>"
 	console.log(userId);
-	
 	//일정 시간 뭐라하지
 	let daliytime = "<%=vo.getStartTime().equals(vo.getEndTime()) ? "종일" : vo.getStartTime() + " ~ " + vo.getEndTime()%>"
 	document.getElementById("plantime").innerHTML = daliytime;
@@ -466,15 +468,10 @@
 				data: {
 					no: <%=no%>,
 					id: "<%=id%>",
-					startTime: new Date()
+					startTime: Date.now()
 				},
 				success: function(result) {
 					console.log(result);
-					if(result.trim() == "success") {
-						alert("DB 저장 완료!");
-					}else {
-						alert("DB 저장 실패!");
-					}
 				},
 				error: function() {
 					console.log("에러 발생");
@@ -491,7 +488,7 @@
             	url: "stdEndTime.jsp",
             	type: "post",
             	data: {
-            		start_time: startTime,
+            		start_time: <%=statime%>,
             		end_time: new Date()
             	},
             	success: function(result) {
@@ -514,6 +511,7 @@
         }
 
         //click clear button
+        //버튼 클릭 시 이전 공부 시간 저장 해놓고 다시 start - end 버튼 누르고 clear 버튼 클릭하면 누적된 공부 시간이 나옴
         document.getElementById("clear")?.addEventListener("click", function(){
             stop();
             document.getElementById("sec").innerText = "00";
