@@ -1,3 +1,4 @@
+<%@page import="group.groupDAO"%>
 <%@page import="reply.ReplyVO"%>
 <%@page import="java.util.List"%>
 <%@page import="reply.ReplyDAO"%>
@@ -14,6 +15,7 @@
 <%
 	String no = request.getParameter("no");
 	String author = request.getParameter("author");
+	String gnum = request.getParameter("gnum");
 
 	if(no == null){
 		response.sendRedirect("calendar.jsp");
@@ -40,9 +42,9 @@
 	//같은 그룹 멤버 name 다 불어오기
 	//로그인한 아이디의 name과 같은 groupnum을 가지고 있는 유저 테이블에 있는 user를 다 불러오게 하기	
 	String id = user.getId();
-	
 	memberDAO mdao = new memberDAO();
-	List<memberVO> mlist = mdao.memberList(id, no);
+	List<memberVO> mlist = mdao.memberList(id, no, gnum);
+	
 %>
 <!DOCTYPE html>
 <html>
