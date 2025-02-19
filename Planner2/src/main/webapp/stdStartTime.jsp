@@ -15,7 +15,7 @@
 		id = user.getId();
 	}
 	
-	if(user == null || no == null) {
+	if(user == null || no == null || startTime == null) {
 		out.print("fail");
 		return;
 	}

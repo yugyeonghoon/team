@@ -302,6 +302,7 @@
 			</div>
 		</body>
 		<script>
+		
 			$(document).ready(function(){
 				let cookieId = getCookie("key");
 				

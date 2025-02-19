@@ -82,6 +82,10 @@
 		padding : 15px; */
 		
 	}
+	
+	.list {
+		display: inline-block;
+	}
 	#wrapper {
 		float: right;
 	}
@@ -180,6 +184,7 @@
 	    
 	    .menu-container{
 	    	overflow: auto;
+	    	display: contents;
 	    	/* text-align: center; */
 	    }
 
@@ -290,8 +295,7 @@
 							int toTime = mvo.getStudyTime();
 				
 							%>
-								<div class="gname"><%=mName %></div>
-								<div class="totime"><%=toTime %>분</div>
+								<div class="gname"><%=mName %>: <%=toTime %>분</div>
 								<%
 							}
 							%>
@@ -393,10 +397,46 @@
 	let userId = "<%= user == null ? "" : user.getId() %>"
 	console.log(userId);
 	
+	//시작 버튼 눌렀을 때 인서트된 studytime의 번호
+	let stdNo = 0;
+	
 	//일정 시간 뭐라하지
 	let daliytime = "<%=vo.getStartTime().equals(vo.getEndTime()) ? "종일" : vo.getStartTime() + " ~ " + vo.getEndTime()%>"
 	document.getElementById("plantime").innerHTML = daliytime;
 	
+	//ajax data에 start_time에 현재 시간 보낼 때
+	let currentDate = new Date();
+	let year = currentDate.getFullYear();
+	let month = currentDate.getMonth() + 1;
+	let day = currentDate.getDate();
+	let hours = currentDate.getHours();
+	let minutes = currentDate.getMinutes();
+	let seconds = currentDate.getSeconds();
+
+	let formatdate = year + "-" + String(month).padStart(2, '0') + "-" + String(day).padStart(2, '0') + " " + 
+					String(hours).padStart(2, '0') + ":" + String(minutes).padStart(2, '0') + ":" + String(seconds).padStart(2, '0');
+	
+	//현재 보고있는 화면을 닫을 때 , 이동할 때 실행하는 함수
+	//만약 시작버튼 눌러놓고 중지 안누르면 떠날 때 눌러주려고
+	window.onbeforeunload = function() {
+		if(stdNo != 0){
+            $.ajax ({
+            	url: "stdEndTime.jsp",
+            	type: "post",
+            	data: {
+            		stnNo : stdNo
+            	},
+            	success: function(result) {
+            		console.log(result);
+            		stnNo = 0;
+            	},
+            	error: function() {
+            		console.log("에러 발생");
+            	}
+            })
+        }
+	};
+					
 	//스톱워치
 	window.onload = function(){
         
@@ -469,10 +509,13 @@
 				data: {
 					no: <%=no%>,
 					id: "<%=id%>",
-					startTime: Date.now()
+					startTime: formatdate
 				},
+				
 				success: function(result) {
 					console.log(result);
+					console.log(formatdate);
+					stdNo = result.trim();
 				},
 				error: function() {
 					console.log("에러 발생");
@@ -484,21 +527,22 @@
         //click stop button
         document.getElementById("stop")?.addEventListener("click", function(){
             stop();
-            
-            $.ajax ({
-            	url: "stdEndTime.jsp",
-            	type: "post",
-            	data: {
-            		start_time: <%=statime%>,
-            		end_time: new Date()
-            	},
-            	success: function(result) {
-            		console.log(result);
-            	},
-            	error: function() {
-            		console.log("에러 발생");
-            	}
-            })
+            if(stdNo != 0){
+	            $.ajax ({
+	            	url: "stdEndTime.jsp",
+	            	type: "post",
+	            	data: {
+	            		stnNo : stdNo
+	            	},
+	            	success: function(result) {
+	            		console.log(result);
+	            		stnNo = 0;
+	            	},
+	            	error: function() {
+	            		console.log("에러 발생");
+	            	}
+	            })
+            }
         });
 
         function stop(){
@@ -512,7 +556,6 @@
         }
 
         //click clear button
-        //버튼 클릭 시 이전 공부 시간 저장 해놓고 다시 start - end 버튼 누르고 clear 버튼 클릭하면 누적된 공부 시간이 나옴
         document.getElementById("clear")?.addEventListener("click", function(){
             stop();
             document.getElementById("sec").innerText = "00";

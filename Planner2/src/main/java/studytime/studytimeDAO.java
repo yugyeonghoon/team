@@ -18,7 +18,7 @@ public class studytimeDAO extends DBManager {
 		DBConnect();
 		
 		String sql = "";
-		sql += "insert into studytime(bno, id, startTime) ";
+		sql += "insert into studytime(bno, id, start_time) ";
 		sql += "values('"+no+"', '"+id+"', now())";
 		
 		String selectSql = "select last_insert_id() as stdno";
@@ -42,19 +42,14 @@ public class studytimeDAO extends DBManager {
 	//update studytime set endTime = '', 
 	//totalTime =  ROUND(TIMESTAMPDIFF(SECOND, startTime, now()) / 60) where stdno = '';
 	
-	public void update(studytimeVO vo) {
-		String startTime = vo.getStartTime();
-		String endTime = vo.getEndTime();
-		int totalTime = vo.getTotalTime();
-		int stdno = vo.getStdno();
-		
+	public void update(int stdNo) {
 		driverLoad();
 		DBConnect();
 		
 		String sql = "";
-		sql += "update studytime set endTime = now(), ";
-		sql += "'"+totalTime+"' =  ROUND(TIMESTAMPDIFF(SECOND, '"+startTime+"', '"+endTime+"') / 60) ";
-		sql += "where stdno = '"+stdno+"'";
+		sql += "update studytime set end_time = now(), ";
+		sql += "total_time =  ROUND(TIMESTAMPDIFF(SECOND, start_time, now()) / 60) ";
+		sql += "where stdno = '"+stdNo+"'";
 		
 		executeUpdate(sql);
 		DBDisConnect();
