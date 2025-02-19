@@ -3,7 +3,7 @@
 <%@ include file="header.jsp" %>
 <%
 	request.setCharacterEncoding("utf-8");
-
+	String id = user.getId();
 	if(user == null){
 		response.sendRedirect("calendar.jsp");
 		return;
@@ -118,7 +118,7 @@
 				<div class="profile-actions">
 					<button type="submit">저장</button>
 					<button type="button" onclick="location.href='calendar.jsp'">취소</button>
-					<button type="button" onclick="location.href='joinout.jsp'">탈퇴</button>
+					<button type="button" onclick="joinout('<%= id %>')">탈퇴</button>
 				</div>
 			</form>
 		</div>
@@ -157,6 +157,28 @@
 		}
 		
 		alert("비밀번호가 변경되었습니다.");
+	}
+	function joinout(id){
+		let result = confirm("회원탈퇴를 하시겠습니까 ?")
+		if(result == true){
+			$.ajax({
+				url : "joinout.jsp",
+				type : "post",
+				data : {
+					id : id
+				},
+				success : function(result){
+					if(result.trim() == "success"){
+						alert("회원탈퇴를 하셨습니다.");
+						location.href = "login.jsp"
+					}
+				},
+				error : function(){
+					console.log("error")
+				}
+			});
+		}
+		
 	}
 	</script>
 </html>
