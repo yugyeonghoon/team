@@ -14,6 +14,5 @@
 	
 	groupDAO dao = new groupDAO();
 	dao.delete(bno);
-	
-	response.sendRedirect("group_management.jsp");
+	out.print("success");
 %>

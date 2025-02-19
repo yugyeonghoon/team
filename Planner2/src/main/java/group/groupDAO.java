@@ -53,6 +53,7 @@ public class groupDAO extends DBManager{
 			String gname = getString("groupname");
 			int gtype = getInt("group_type");
 			
+			
 			groupVO vo = new groupVO();
 			
 			vo.setGroupNum(gnum);
