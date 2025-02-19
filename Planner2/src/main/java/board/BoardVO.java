@@ -10,7 +10,14 @@ public class BoardVO {
 	private int boardType;
 	private String startTime;
 	private String endTime;
+	private String groupNum;
 	
+	public String getGroupNum() {
+		return groupNum;
+	}
+	public void setGroupNum(String groupNum) {
+		this.groupNum = groupNum;
+	}
 	public int getNo() {
 		return no;
 	}

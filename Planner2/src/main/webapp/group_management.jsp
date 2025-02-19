@@ -110,7 +110,7 @@
 							<td><%= gname %></td>
 							<td><%= id %></td>
 							<td class="action-buttons">
-								<button class="delete" onclick="deleteGroup(<%= no %>)">그룹 삭제</button>
+								<button class="delete" onclick="deletegroup(<%=no%>, this)">그룹 삭제</button>
 							</td>
 						</tr>
 						<%
@@ -120,11 +120,28 @@
 		</table>
 	</div>
 </body>
-	<script>
-	function deleteGroup(bno){
-		alert("삭제하시겠습니까?")
-		location.href = "groupDelete.jsp?no="+bno;
+<script>
+function deletegroup(no, obj){
+	let result = confirm("그룹을 삭제하시겠습니까?")
+	if(result == true){
+		$.ajax({
+			url : "groupDelete.jsp",
+			type : "post",
+			data : {
+				no : no
+			},
+			success : function(result){
+				if(result.trim() == "success"){
+					alert("그룹을 삭제하셨습니다.");
+					$(obj).parent().parent().remove();
+				}
+			},
+			error : function(){
+				console.log("error");
+				alert("그룹 삭제실패");
+			}
+		});
 	}
-	<%-- location.href='groupDelete.jsp?no=<%= no %>' --%>
-	</script>
+}
+</script>
 </html>

@@ -392,7 +392,6 @@
 <script>
 	let userId = "<%= user == null ? "" : user.getId() %>"
 	console.log(userId);
-	
 	//일정 시간 뭐라하지
 	let daliytime = "<%=vo.getStartTime().equals(vo.getEndTime()) ? "종일" : vo.getStartTime() + " ~ " + vo.getEndTime()%>"
 	document.getElementById("plantime").innerHTML = daliytime;
