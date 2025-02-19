@@ -126,7 +126,7 @@
 	</body>
 	<script>
 	function deleteUser(userId){
-		alert("삭제하시겠습니까?")
+		confirm("삭제하시겠습니까?")
 		location.href = "userOut.jsp?userId="+userId;
 	}
 	
