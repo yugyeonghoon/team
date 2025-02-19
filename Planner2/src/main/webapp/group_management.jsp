@@ -131,6 +131,7 @@ function deletegroup(no, obj){
 				no : no
 			},
 			success : function(result){
+				console.log(result);
 				if(result.trim() == "success"){
 					alert("그룹을 삭제하셨습니다.");
 					$(obj).parent().parent().remove();

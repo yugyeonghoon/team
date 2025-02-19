@@ -108,11 +108,7 @@
 	<div class="group-container">
 	<h2 id="group-name"><%= gname %></h2>
 		<div class="action-buttons">
-			<%if(gnum == 0){
-				%>
 				<button class="group"  onclick="location.href='makegroup.jsp'">그룹만들기</button>
-			<%
-				}%>
 			<%if(gnum != 0){
 				%>
 				<button type="button" class="invite" onclick="invite(<%= gnum %>)">초대하기</button>

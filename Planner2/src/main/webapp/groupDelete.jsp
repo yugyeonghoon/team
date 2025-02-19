@@ -1,10 +1,11 @@
+<%@page import="user.UserVO"%>
 <%@page import="group.groupDAO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<%@ include file="header.jsp" %>    
+    pageEncoding="UTF-8"%> 
 <%
+	UserVO user = (UserVO)session.getAttribute("user");
 	if(user == null || user.getUserType() != 0){
-		response.sendRedirect("board.jsp");
+		out.print("fail");
 		return;
 	}
 	
@@ -15,4 +16,5 @@
 	groupDAO dao = new groupDAO();
 	dao.delete(bno);
 	out.print("success");
+	System.out.println("?");
 %>
