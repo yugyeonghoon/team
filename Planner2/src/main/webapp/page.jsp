@@ -14,6 +14,8 @@
 <%
 	String no = request.getParameter("no");
 	String author = request.getParameter("author");
+	String gnum = request.getParameter("gnum");
+	System.out.println(groupNum);
 
 	if(no == null){
 		response.sendRedirect("calendar.jsp");
@@ -42,7 +44,7 @@
 	String id = user.getId();
 	
 	memberDAO mdao = new memberDAO();
-	List<memberVO> mlist = mdao.memberList(id, no);
+	List<memberVO> mlist = mdao.memberList(id, no, groupNum);
 	
 	studytimeDAO sdao = new studytimeDAO();
 	studytimeVO svo = new studytimeVO();
@@ -81,10 +83,6 @@
 /* 		margin: 5px;
 		padding : 15px; */
 		
-	}
-	
-	.list {
-		display: inline-block;
 	}
 	#wrapper {
 		float: right;

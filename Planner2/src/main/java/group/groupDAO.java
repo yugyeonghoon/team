@@ -39,9 +39,9 @@ public class groupDAO extends DBManager{
 		String sql = "";
 		
 		if(uid != null) {
-			sql = "select * from calendargroup where groupnum in (select groupnum from groupmember where id = '"+uid+"')";
+			sql = "select *, (select id from groupmember where groupnum = g.groupnum and grouptype = 1) as id from calendargroup g where g.groupnum in (select groupnum from groupmember where id = '"+uid+"')";
 		}else {
-			sql = "select * from calendargroup";
+			sql = "select * from calendargroup c inner join groupmember g on c.groupnum = g.groupnum where g.grouptype =1";
 		}
 		
 		executeQuery(sql);
@@ -52,12 +52,15 @@ public class groupDAO extends DBManager{
 			int gnum = getInt("groupnum");
 			String gname = getString("groupname");
 			int gtype = getInt("group_type");
+			String id = getString("id");
+			
 			
 			groupVO vo = new groupVO();
 			
 			vo.setGroupNum(gnum);
 			vo.setGroupName(gname);
 			vo.setGroupType(gtype);
+			vo.setId(id);
 			
 			list.add(vo);
 		}
