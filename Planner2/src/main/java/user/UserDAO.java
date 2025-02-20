@@ -298,4 +298,25 @@ public class UserDAO extends DBManager{
 				return 0;
 			}
 		}
+		
+		//11. 이메일과 이름이 같은지 확인
+		public int nameemail(String name, String email) {
+			driverLoad();
+			DBConnect();
+			
+			String sql = "";
+			sql += "select count(*) as cnt from user where name = '"+name+"' and email = '"+email+"'";
+			executeQuery(sql);
+			
+			System.out.println(sql);
+			
+			if(next()) {
+				int cnt = getInt("cnt");
+				DBDisConnect();
+				return cnt;
+			}else {
+				DBDisConnect();
+				return 0;
+			}
+		}
 }
