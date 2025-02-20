@@ -19,6 +19,8 @@
 	String content = vo.getContent();
 	String author = vo.getAuthor();
 	
+	String startDate =  start.split(":")[0] + "시 : " + start.split(":")[1] + "분";
+	String endDate = end.split(":")[0] + "시 : " + end.split(":")[1] + "분";
 %>
 <!DOCTYPE html>
 <html>
@@ -169,7 +171,7 @@ $(document).ready(function(){
 						<td>
 						<p> 시작일 </p>
 						<div class="date">
-						<input id="datetimepicker_start_time" type="text" name="start" value=<%=start%>>
+						<input id="datetimepicker_start_time" type="text" name="start" value="<%=startDate%>">
 						</div>
 						</td>
 					</tr>
@@ -177,7 +179,7 @@ $(document).ready(function(){
 						<td>
 						<p>종료일</p>
 						<div class="date">
-						<input id="datetimepicker_end_time" type="text" name="end" value=<%=end %>>
+						<input id="datetimepicker_end_time" type="text" name="end" value="<%=endDate %>">
 						</div>
 						</td>
 					</tr>

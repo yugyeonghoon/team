@@ -33,6 +33,7 @@
 	CalendarDAO cdao = new CalendarDAO();
 	vo.getStartTime();
 	vo.getEndTime();
+	
 	//댓글 여러건 조회
 	ReplyDAO rdao = new ReplyDAO();
 	List<ReplyVO> list = rdao.select(no);
@@ -47,6 +48,13 @@
 	studytimeVO svo = new studytimeVO();
 	String statime = svo.getStartTime();
 	
+	//시작일자 .split("") ""기준 으로 분할해줌
+	String startDate = vo.getStartTime();	//2025-02-20 18:12:00
+	String[] startDateSplit = startDate.split(":");
+		
+	startDate = startDateSplit[0] + ":" + startDateSplit[1];	//2025-02-20 18:12
+		
+	String endDate = vo.getEndTime().split(":")[0] + ":" + vo.getEndTime().split(":")[1];
 %>
 <!DOCTYPE html>
 <html>
@@ -322,6 +330,8 @@
 						
 						<div id="Plan" class="Plan">
 							<div id="plantime"></div>
+							<div>시작일자 : <%= startDate %> </div>
+							<div>종료일자 : <%= endDate %> </div>
 							<div>내용 : <%= vo.getContent() %></div>
 						</div>
 						
@@ -397,8 +407,8 @@
 	let stdNo = 0;
 	
 	//일정 시간 뭐라하지
-	let daliytime = "<%=vo.getStartTime().equals(vo.getEndTime()) ? "종일" : vo.getStartTime() + " ~ " + vo.getEndTime()%>"
-	document.getElementById("plantime").innerHTML = daliytime;
+	<%-- let daliytime = "<%=vo.getStartTime().equals(vo.getEndTime()) ? "종일" : vo.getStartTime() + " ~ " + vo.getEndTime()%>" --%>
+	//document.getElementById("plantime").innerHTML = daliytime;
 	
 	//ajax data에 start_time에 현재 시간 보낼 때
 	let currentDate = new Date();
