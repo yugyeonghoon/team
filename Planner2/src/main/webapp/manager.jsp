@@ -122,4 +122,27 @@
 			</table>
 		</div>
 	</body>
+	<script>
+		function deleteUser(id){
+			let result = confirm("회원을 탈퇴 하시겠습니까 ?")
+			if(result == true){
+				$.ajax({
+					url : "joinout.jsp",
+					type : "post",
+					data : {
+						id : id
+					},
+					success : function(result){
+						if(result.trim() == "success"){
+							alert("회원을 탈퇴시켰습니다.");
+							location.href = "manager.jsp"
+						}
+					},
+					error : function(){
+						console.log("error")
+					}
+				});
+			}
+		}
+	</script>
 </html>
