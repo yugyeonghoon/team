@@ -10,7 +10,7 @@
 	UserVO user1 = (UserVO)session.getAttribute("user");
 	memberDAO dao = new memberDAO();
 	memberVO vo = new memberVO();
-
+	System.out.println(groupNum);
 	List<memberVO> list = dao.view(user1.getId(), groupNum);
 	
 	int grouptype = 0;
@@ -31,7 +31,6 @@
 	}
 	
 	int gnum = list.size() > 0 ? list.get(0).getGroupnum() : 0;
-	
 %>
 <!DOCTYPE html>
 <html>
@@ -102,11 +101,23 @@
 	.group, .invite {
 		margin:5px;
 	}
+	.ii{
+	 pointer-events : none;
+	 }
 </style>
 </head>
 <body>
 	<div class="group-container">
-	<h2 id="group-name"><%= gname %></h2>
+	<%if(groupNum != null){
+	%>
+		<h2 id="group-name"><%= gname %></h2>
+	<%	
+		}else{
+		%>
+			<h2 id="group-name">MY Group</h2>
+		<%
+	}
+	%>
 		<div class="action-buttons">
 				<button class="group"  onclick="location.href='makegroup.jsp'">그룹만들기</button>
 			<%if(gnum != 0){
@@ -156,11 +167,16 @@
 						%>
 					
 						<td class="action-buttons">
+							
 							<% if(!id.equals(user1.getId())) {
 								%>
 									<button type="submit" class="delete" onclick="deleteMember(<%= no %>, this)">삭제</button>
 								<%
-							}%>
+							}else{
+							%><%
+							%>
+							<button class="ii">관리자</button>
+							<%}%>
 						</td>
 					<%}%>
 				</tr>
