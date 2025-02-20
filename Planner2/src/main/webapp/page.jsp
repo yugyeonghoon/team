@@ -15,7 +15,6 @@
 	String no = request.getParameter("no");
 	String author = request.getParameter("author");
 	String gnum = request.getParameter("gnum");
-	System.out.println(groupNum);
 
 	if(no == null){
 		response.sendRedirect("calendar.jsp");
@@ -284,15 +283,19 @@
 		        			
 		        			<div class="box" id="timebox">
 							<p id="studyTime">TODAY 공부시간</p>
-						<%
+							<%
 							for(int i = 0; i < mlist.size(); i++) {
 							memberVO mvo = mlist.get(i);
 							String mName = mvo.getName();
 							String mId = mvo.getId();
 							int toTime = mvo.getStudyTime();
 				
-							%>
-								<div class="gname"><%=mName %>: <%=toTime %>분</div>
+								%>
+									<%if(mName != null){%>
+										<div class="gname"><%=mName %>: <%=toTime %>분</div>
+									 <%}else{%>
+									 	<div class="gname"><%=user.getName() %>: 0분</div>
+									 <%}%>
 								<%
 							}
 							%>
@@ -393,13 +396,10 @@
 <script>
 	let userId = "<%= user == null ? "" : user.getId() %>"
 	console.log(userId);
-<<<<<<< HEAD
 	
 	//시작 버튼 눌렀을 때 인서트된 studytime의 번호
 	let stdNo = 0;
 	
-=======
->>>>>>> branch 'main' of https://github.com/yugyeonghoon/team.git
 	//일정 시간 뭐라하지
 	let daliytime = "<%=vo.getStartTime().equals(vo.getEndTime()) ? "종일" : vo.getStartTime() + " ~ " + vo.getEndTime()%>"
 	document.getElementById("plantime").innerHTML = daliytime;

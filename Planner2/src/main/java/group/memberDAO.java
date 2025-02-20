@@ -55,38 +55,32 @@ public class memberDAO extends DBManager{
 	}
 	
 	//그룹 멤버 스터디 시간 조회
-	public List<memberVO> memberList(String id, String bno,String gnum) {
+	public List<memberVO> memberList(String id, String bno,String groupnum) {
 		driverLoad();
 		DBConnect();
 		
 		String sql = "";
+		if(groupnum != null) {
+		
 		sql += "select (select sum(total_time) from studytime where id = g.id and bno = '"+bno+"') as cnt, g.*, u.name, u.email, c.groupname from groupmember g";
 		sql += " inner join calendargroup c on g.groupnum = c.groupnum inner join user u on g.id = u.id where g.groupnum in ";
-		sql += " (select groupnum from groupmember where id = '"+id+"' and groupnum = "+gnum+")";
-		
+		sql += " (select groupnum from groupmember where id = '"+id+"' and groupnum = "+groupnum+")";
+		}else {
+			sql += "select sum(total_time) as cnt, s.bno, s.id, u.name from studytime s inner join user u  on s.id = u.id  where(bno = "+bno+" and s.id = '"+id+"')";
+		}
 		executeQuery(sql);
 		
 		List<memberVO> list = new ArrayList<>();
 		
 		while(next()) {
-			int no = getInt("no");
 			String id2 = getString("id");
-			int gnum2 = getInt("groupnum");
-			int gtype = getInt("grouptype");
 			String name = getString("name");
-			String email = getString("email");
-			String gname = getString("groupname");
 			int cnt = getInt("cnt");
 					
 			memberVO vo = new memberVO();
 			
-			vo.setNo(no);
-			vo.setGroupnum(gnum2);
-			vo.setGrouptype(gtype);
 			vo.setId(id2);
-			vo.setEmail(email);
 			vo.setName(name);
-			vo.setGroupname(gname);
 			vo.setStudyTime(cnt);
 			
 			list.add(vo);
