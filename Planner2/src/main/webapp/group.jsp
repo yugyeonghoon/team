@@ -10,7 +10,7 @@
 	UserVO user1 = (UserVO)session.getAttribute("user");
 	memberDAO dao = new memberDAO();
 	memberVO vo = new memberVO();
-
+	System.out.println(groupNum);
 	List<memberVO> list = dao.view(user1.getId(), groupNum);
 	
 	int grouptype = 0;
@@ -102,26 +102,33 @@
 	.group, .invite {
 		margin:5px;
 	}
+	.ii{
+	 pointer-events : none;
+	 }
 </style>
 </head>
 <body>
 	<div class="group-container">
-	<h2 id="group-name"><%= gname %></h2>
+	<%if(groupNum != null){
+	%>
+		<h2 id="group-name"><%= gname %></h2>
+	<%	
+		}else{
+		%>
+			<h2 id="group-name">MY Group</h2>
+		<%
+	}
+	%>
 		<div class="action-buttons">
+			<%if(groupNum == null){
+				%>
 				<button class="group"  onclick="location.href='makegroup.jsp'">그룹만들기</button>
-			<%if(gnum != 0){
+				<%
+			}%>
+			<%if(groupNum != null && grouptype == 1){
 				%>
 				<button type="button" class="invite" onclick="invite(<%= gnum %>)">초대하기</button>
 				<button type="submit" class="updategname" onclick="updategname('<%=gname%>', <%=gnum%>)">그룹이름변경</button>
-				<%if(grouptype == 1){
-					%>
-					<button class="delete" onclick="deleteGroup(<%= gnum%>, this)">그룹삭제</button>
-				<%
-					}else{
-					%>
-					<button class="delete" onclick="outmember('<%= mid %>')">그룹나가기</button>
-						<%
-					}%>
 			<%
 				}%>
 			
@@ -132,7 +139,7 @@
 					<th>아이디</th>
 					<th>이름</th>
 					<th>이메일</th>
-					<% if(grouptype == 1){
+					<% if(grouptype == 1 && groupNum != null){
 						%>
 							<th>관리</th>
 						<%
@@ -152,15 +159,20 @@
 					<td><%= id%></td>
 					<td><%= name %></td>
 					<td><%= email %></td>
-					<%if(grouptype == 1){
+					<%if(grouptype == 1 && groupNum != null){
 						%>
 					
 						<td class="action-buttons">
+							
 							<% if(!id.equals(user1.getId())) {
 								%>
 									<button type="submit" class="delete" onclick="deleteMember(<%= no %>, this)">삭제</button>
 								<%
-							}%>
+							}else{
+							%><%
+							%>
+							<button class="ii">관리자</button>
+							<%}%>
 						</td>
 					<%}%>
 				</tr>

@@ -29,7 +29,7 @@ public class DBManager {
 	
 	//2. 데이터베이스 연결
 	public void DBConnect() {
-		String url = "jdbc:mysql://192.168.0.85:3306/calender?useSSL=false&allowPublicKeyRetrieval=true&autoReconnect=true&rewriteBatchedStatements=true&useCompression=true&connectTimeout=5000&socketTimeout=10000";
+		String url = "jdbc:mysql://192.168.0.222:3306/calender";
 		String user = "ljh";
 		String pw = "ezen";
 		try {

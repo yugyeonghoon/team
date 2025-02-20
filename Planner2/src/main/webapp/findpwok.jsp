@@ -132,9 +132,7 @@
 			if(pw.val().trim() == ""){
 				pw.focus();
 				pw.val("");
-				pwFeedback.css("display", "block");
-				pwFeedback.text("비밀번호를 입력해주세요.");
-				pwFeedback.removeClass("success");
+				confirm("비밀번호를 입력해주세요.")
 				return false;
 			}
 			
@@ -142,9 +140,7 @@
 			if(pwc.val().trim() == ""){
 				pwc.focus();
 				pwc.val("");
-				pwFeedback.css("display", "block");
-				pwFeedback.text("비밀번호 확인을 입력해주세요.");
-				pwFeedback.removeClass("success");
+				confirm("비밀번호 확인을 입력해주세요.")
 				return false;
 			}
 			
@@ -159,7 +155,7 @@
 				pwFeedback.css("display", "block");
 				pwFeedback.addClass("success");
 				pwFeedback.text("비밀번호가 일치합니다.");
-				alert("비밀번호 변경이 완료되었습니다.");
+				confirm("비밀번호 변경이 완료되었습니다.");
 			}
 			
 			return true;

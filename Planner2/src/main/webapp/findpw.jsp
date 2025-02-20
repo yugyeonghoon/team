@@ -5,6 +5,7 @@
 	<head>
 		<meta charset="UTF-8">
 		<title>비밀번호 찾기</title>
+		<script src="./jquery-3.7.1.js"></script>
 			<style>
 				body{
 					font-family: 'Source Sans Pro', sans-serif;
@@ -138,7 +139,7 @@
 	<body style="padding:30px;" >
 		<div class="findpw">
 		<h1>비밀번호 찾기</h1>
-			<form class="pwform" method="post" action="findpwok.jsp" onsubimt="return formCheck()">
+			<form class="pwform" method="post" action="findpwok.jsp" onsubmit="return formCheck()">
 				<div class="fi1">아이디 :
 					<input type="text" name="id" id="id" placeholder="ID을 입력하세요" autocomplete="off">
 				</div>
@@ -160,10 +161,11 @@
 	<script>
 		let emailCheckFlag = false;
 		
-		let email = $("#email")
+		let id = $("#id")
+		let mail = $("#email")
 		let emc = $("#mailCheck");
 		let emcFeedback = $("#mailCheck-feedback");
-	
+		
 		function formCheck(){
 			if(emailCheckFlag == false){
 				alert("이메일 인증을 해주세요");
@@ -176,15 +178,40 @@
 		let mailCode = "";
 		$("#checkBtn").click(function(){
 			
-			let mail = $("#email");
+			
 			if(mail.val().trim() == ""){
-				emcFeedback.css("display", "block");
-				emcFeedback.removeClass("success");
-				emcFeedback.text("이메일을 입력해주세요");
+				alert("이메일을 입력해주세요");
 				return;
 			}
 			
 			$("#checkBtn").attr("disabled", true);
+			
+			//입력한 아이디와 이메일이 일치하는 회원정보가 있는지 확인
+			$.ajax({
+				url : "mailCheck.jsp",
+				//select count(*) from user where id = ? and mail = ?
+				type : "post",
+				async : false,
+				//비동기를 강제로 동기화
+				data : {
+					id : id.val(),
+					mail : mail.val()
+				},
+				success : function(result){
+					mailCode = result.trim();
+					//여기 return은 success를 종료
+				},
+				error : function(){
+					console.log("에러 발생");
+					$("#checkBtn").attr("disabled", false);
+				}
+			});
+			
+			if(mailCode == 0){
+				$("#checkBtn").attr("disabled", false);
+				alert("아이디와 이메일이 동일하지 않습니다.");
+				return;
+			}
 			
 			$.ajax({
 				url : "sendMail.jsp",
@@ -196,13 +223,9 @@
 					mailCode = result.trim();
 					if(mailCode == "fail"){
 						$("#checkBtn").attr("disabled", false);
-						emcFeedback.css("display", "block");
-						emcFeedback.removeClass("success");
-						emcFeedback.text("이메일이 올바르지 않습니다.");
+						alert("이메일이 올바르지 않습니다.");
 					}else{
-						emcFeedback.css("display", "block");
-						emcFeedback.addClass("success");
-						emcFeedback.text("이메일 전송 완료");
+						alert("이메일 전송 완료");
 					}
 				},
 				error : function(){
@@ -215,31 +238,23 @@
 		
 		$("#mailCheckBtn").click(function(){
 			
-			let id = $("#id")
-			
 			if(id.val().trim() == ""){
 				id.focus();
 				id.val("");
-				emcFeedback.css("display", "block");
-				emcFeedback.text("아이디를 입력해주세요.");
-				emcFeedback.removeClass("success");
+				alert("아이디를 입력해주세요.");
 				return false;
 			}
 			
-			if(email.val().trim() ==""){
-				email.focus();
-				email.val();
-				emcFeedback.css("display", "block");
-				emcFeedback.text("이메일을 입력해주세요.");
-				emcFeedback.removeClass("success");
+			if(mail.val().trim() ==""){
+				mail.focus();
+				mail.val();
+				alert("이메일을 입력해주세요.");
 				return false;
 			}
 			
 			let mailCheck = $("#mailCheck");
 			if(mailCheck.val().trim() == ""){
-				emcFeedback.css("display", "block");
-				emcFeedback.removeClass("success");
-				emcFeedback.text("인증번호를 입력해주세요.");
+				
 				return false;
 			}
 			

@@ -1,9 +1,11 @@
+<%@page import="user.UserVO"%>
 <%@page import="user.UserDAO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ include file="header.jsp" %>
 <%
 	request.setCharacterEncoding("utf-8");	
+
+	UserVO user = (UserVO)session.getAttribute("user");
 
 	String name = request.getParameter("name");
 	String email = request.getParameter("email");
@@ -36,6 +38,7 @@
 	<head>
 		<meta charset="UTF-8">
 		<title>Insert title here</title>
+		<script src="./jquery-3.7.1.js"></script>
 		<style>
 			body{
 				font-family: 'Source Sans Pro', sans-serif;

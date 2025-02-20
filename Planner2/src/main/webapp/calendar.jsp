@@ -386,7 +386,7 @@
 		          </div>
 		          <div class="mb-3">
 		            <label for="message-text" class="col-form-label">내용 : </label>
-		            <textarea class="form-control" id="content"></textarea>
+		            <input class="form-control" id="content"></input>
 		          </div>
 		        </form>
 		      </div>

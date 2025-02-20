@@ -5,6 +5,7 @@
 <head>
 	<meta charset="UTF-8">
 	<title>Insert title here</title>
+	<script src="./jquery-3.7.1.js"></script>
 	<style>
 		body{
 			font-family: 'Source Sans Pro', sans-serif;
@@ -91,15 +92,15 @@
 	<body style="padding:30px;" >
 		<div class="findid">
 		<h1>아이디 찾기</h1>
-			<form class="idform" method="post" action="findidok.jsp">
-				<div class="fi1"> 이름 :
+			<form class="idform" method="post" action="findidok.jsp" onsubmit="return formCheck()">
+				<div class="fi1"> &nbsp 이름 :
 					<input type="text" name="name" id="name" placeholder="이름을 입력하세요" autocomplete="off">
 				</div>
 				<div class="fi1">이메일 :
 					<input type="text" name="email" id="email" placeholder="email을 입력하세요" autocomplete="off">
 				</div>
 				<div>
-					<button type="submit" class="btn">찾기</button>	
+					<button type="submit" class="btn" id="btn">찾기</button>	
 					<button onclick="location.href='login.jsp'" class="btn"> 취소</button>
 				</div>
 			</form>
@@ -109,4 +110,71 @@
 				</div>
 			</div>
 	</body>
+	<script>
+		let email = $("#email");
+		let name = $("#name");
+	
+		function formCheck(){
+			
+			if(name.val().trim() == ""){
+				name.focus();
+				name.val("");
+				confirm("이름을 입력해주세요.");
+				return false;
+			}
+			
+			if(email.val().trim() == ""){
+				email.focus();
+				email.val("");
+				confirm("이메일을 입력해주세요.");
+				return false;
+			}
+		}
+		
+		let check = "";
+		$("#btn").click(function(){
+			
+			if(name.val().trim() == ""){
+				name.focus();
+				name.val("");
+				confirm("이름을 입력해주세요.");
+				return false;
+			}
+			
+			if(email.val().trim() == ""){
+				email.focus();
+				email.val("");
+				confirm("이메일을 입력해주세요.");
+				return false;
+			}
+		
+		$.ajax({
+			url : "idMailCheck.jsp",
+			//select count(*) from user where id = ? and mail = ?
+			type : "post",
+			async : false,
+			//비동기를 강제로 동기화
+			data : {
+				email : email.val(),
+				name : name.val()
+			},
+			success : function(result){
+				check = result.trim();
+				//여기 return은 success를 종료
+			},
+			error : function(){
+				console.log("에러 발생");
+				$("#btn").attr("disabled", false);
+			}
+		});
+		
+		if(check == 0){
+			$("#btn").attr("disabled", false);
+			alert("일치하는 이름과 이메일이 없습니다.");
+			return false;
+		}else{
+			alert("완료");
+		}
+		});
+	</script>
 </html>
