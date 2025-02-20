@@ -277,4 +277,25 @@ public class UserDAO extends DBManager{
 			}
 			
 		}
+
+	//10. 이메일과 아이디가 같은지 확인
+		public int idemail(String id, String email) {
+			driverLoad();
+			DBConnect();
+			
+			String sql = "";
+			sql += "select count(*) as cnt from user where id = '"+id+"' and email = '"+email+"'";
+			executeQuery(sql);
+			
+			System.out.println(sql);
+			
+			if(next()) {
+				int cnt = getInt("cnt");
+				DBDisConnect();
+				return cnt;
+			}else {
+				DBDisConnect();
+				return 0;
+			}
+		}
 }

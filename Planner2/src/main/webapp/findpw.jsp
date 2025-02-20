@@ -161,10 +161,11 @@
 	<script>
 		let emailCheckFlag = false;
 		
-		let email = $("#email")
+		let id = $("#id")
+		let mail = $("#email")
 		let emc = $("#mailCheck");
 		let emcFeedback = $("#mailCheck-feedback");
-	
+		
 		function formCheck(){
 			if(emailCheckFlag == false){
 				alert("이메일 인증을 해주세요");
@@ -177,13 +178,40 @@
 		let mailCode = "";
 		$("#checkBtn").click(function(){
 			
-			let mail = $("#email");
+			
 			if(mail.val().trim() == ""){
-				confirm("이메일을 입력해주세요");
+				alert("이메일을 입력해주세요");
 				return;
 			}
 			
 			$("#checkBtn").attr("disabled", true);
+			
+			//입력한 아이디와 이메일이 일치하는 회원정보가 있는지 확인
+			$.ajax({
+				url : "mailCheck.jsp",
+				//select count(*) from user where id = ? and mail = ?
+				type : "post",
+				async : false,
+				//비동기를 강제로 동기화
+				data : {
+					id : id.val(),
+					mail : mail.val()
+				},
+				success : function(result){
+					mailCode = result.trim();
+					//여기 return은 success를 종료
+				},
+				error : function(){
+					console.log("에러 발생");
+					$("#checkBtn").attr("disabled", false);
+				}
+			});
+			
+			if(mailCode == 0){
+				$("#checkBtn").attr("disabled", false);
+				alert("아이디와 이메일이 동일하지 않습니다.");
+				return;
+			}
 			
 			$.ajax({
 				url : "sendMail.jsp",
@@ -195,9 +223,9 @@
 					mailCode = result.trim();
 					if(mailCode == "fail"){
 						$("#checkBtn").attr("disabled", false);
-						confirm("이메일이 올바르지 않습니다.");
+						alert("이메일이 올바르지 않습니다.");
 					}else{
-						confirm("이메일 전송 완료");
+						alert("이메일 전송 완료");
 					}
 				},
 				error : function(){
@@ -210,19 +238,17 @@
 		
 		$("#mailCheckBtn").click(function(){
 			
-			let id = $("#id")
-			
 			if(id.val().trim() == ""){
 				id.focus();
 				id.val("");
-				confirm("아이디를 입력해주세요.");
+				alert("아이디를 입력해주세요.");
 				return false;
 			}
 			
-			if(email.val().trim() ==""){
-				email.focus();
-				email.val();
-				confirm("이메일을 입력해주세요.");
+			if(mail.val().trim() ==""){
+				mail.focus();
+				mail.val();
+				alert("이메일을 입력해주세요.");
 				return false;
 			}
 			
@@ -234,10 +260,10 @@
 			
 			if(mailCode == mailCheck.val().trim()){
 				emailCheckFlag = true;
-				confirm("코드가 일치합니다!")
+				alert("코드가 일치합니다!")
 			}else{
 				emailCheckFlag = false;
-				confirm("코드가 일치하지 않습니다.");
+				alert("코드가 일치하지 않습니다.");
 				return false;
 			}
 				
