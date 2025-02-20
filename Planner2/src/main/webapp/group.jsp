@@ -119,20 +119,24 @@
 	}
 	%>
 		<div class="action-buttons">
+			<%if(groupNum == null){
+				%>
 				<button class="group"  onclick="location.href='makegroup.jsp'">그룹만들기</button>
-			<%if(gnum != 0){
+				<%
+			}%>
+			<%if(groupNum != null && grouptype == 1){
 				%>
 				<button type="button" class="invite" onclick="invite(<%= gnum %>)">초대하기</button>
 				<button type="submit" class="updategname" onclick="updategname('<%=gname%>', <%=gnum%>)">그룹이름변경</button>
-				<%if(grouptype == 1){
-					%>
-					<button class="delete" onclick="deleteGroup(<%= gnum%>, this)">그룹삭제</button>
-				<%
-					}else{
-					%>
-					<button class="delete" onclick="outmember('<%= mid %>')">그룹나가기</button>
-						<%
-					}%>
+			<%
+				}%>
+			<%if(groupNum != null && grouptype == 1){
+				%>
+				<button class="delete" onclick="deleteGroup(<%= gnum%>, this)">그룹삭제</button>
+			<%
+				}else if(groupNum != null){
+				%>
+				<button class="delete" onclick="outmember('<%= mid %>')">그룹나가기</button>
 			<%
 				}%>
 			
@@ -143,7 +147,7 @@
 					<th>아이디</th>
 					<th>이름</th>
 					<th>이메일</th>
-					<% if(grouptype == 1){
+					<% if(grouptype == 1 && groupNum != null){
 						%>
 							<th>관리</th>
 						<%
@@ -163,7 +167,7 @@
 					<td><%= id%></td>
 					<td><%= name %></td>
 					<td><%= email %></td>
-					<%if(grouptype == 1){
+					<%if(grouptype == 1 && groupNum != null){
 						%>
 					
 						<td class="action-buttons">
