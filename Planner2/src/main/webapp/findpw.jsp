@@ -5,6 +5,7 @@
 	<head>
 		<meta charset="UTF-8">
 		<title>비밀번호 찾기</title>
+		<script src="./jquery-3.7.1.js"></script>
 			<style>
 				body{
 					font-family: 'Source Sans Pro', sans-serif;
@@ -138,7 +139,7 @@
 	<body style="padding:30px;" >
 		<div class="findpw">
 		<h1>비밀번호 찾기</h1>
-			<form class="pwform" method="post" action="findpwok.jsp" onsubimt="return formCheck()">
+			<form class="pwform" method="post" action="findpwok.jsp" onsubmit="return formCheck()">
 				<div class="fi1">아이디 :
 					<input type="text" name="id" id="id" placeholder="ID을 입력하세요" autocomplete="off">
 				</div>
@@ -178,9 +179,7 @@
 			
 			let mail = $("#email");
 			if(mail.val().trim() == ""){
-				emcFeedback.css("display", "block");
-				emcFeedback.removeClass("success");
-				emcFeedback.text("이메일을 입력해주세요");
+				confirm("이메일을 입력해주세요");
 				return;
 			}
 			
@@ -196,13 +195,9 @@
 					mailCode = result.trim();
 					if(mailCode == "fail"){
 						$("#checkBtn").attr("disabled", false);
-						emcFeedback.css("display", "block");
-						emcFeedback.removeClass("success");
-						emcFeedback.text("이메일이 올바르지 않습니다.");
+						confirm("이메일이 올바르지 않습니다.");
 					}else{
-						emcFeedback.css("display", "block");
-						emcFeedback.addClass("success");
-						emcFeedback.text("이메일 전송 완료");
+						confirm("이메일 전송 완료");
 					}
 				},
 				error : function(){
@@ -220,35 +215,29 @@
 			if(id.val().trim() == ""){
 				id.focus();
 				id.val("");
-				emcFeedback.css("display", "block");
-				emcFeedback.text("아이디를 입력해주세요.");
-				emcFeedback.removeClass("success");
+				confirm("아이디를 입력해주세요.");
 				return false;
 			}
 			
 			if(email.val().trim() ==""){
 				email.focus();
 				email.val();
-				emcFeedback.css("display", "block");
-				emcFeedback.text("이메일을 입력해주세요.");
-				emcFeedback.removeClass("success");
+				confirm("이메일을 입력해주세요.");
 				return false;
 			}
 			
 			let mailCheck = $("#mailCheck");
 			if(mailCheck.val().trim() == ""){
-				emcFeedback.css("display", "block");
-				emcFeedback.removeClass("success");
-				emcFeedback.text("인증번호를 입력해주세요.");
+				
 				return false;
 			}
 			
 			if(mailCode == mailCheck.val().trim()){
 				emailCheckFlag = true;
-				alert("코드가 일치합니다!")
+				confirm("코드가 일치합니다!")
 			}else{
 				emailCheckFlag = false;
-				alert("코드가 일치하지 않습니다.");
+				confirm("코드가 일치하지 않습니다.");
 				return false;
 			}
 				

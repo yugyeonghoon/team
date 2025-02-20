@@ -5,6 +5,7 @@
 <head>
 	<meta charset="UTF-8">
 	<title>Insert title here</title>
+	<script src="./jquery-3.7.1.js"></script>
 	<style>
 		body{
 			font-family: 'Source Sans Pro', sans-serif;
@@ -91,8 +92,8 @@
 	<body style="padding:30px;" >
 		<div class="findid">
 		<h1>아이디 찾기</h1>
-			<form class="idform" method="post" action="findidok.jsp">
-				<div class="fi1"> 이름 :
+			<form class="idform" method="post" action="findidok.jsp" onsubmit="return formCheck()">
+				<div class="fi1"> &nbsp 이름 :
 					<input type="text" name="name" id="name" placeholder="이름을 입력하세요" autocomplete="off">
 				</div>
 				<div class="fi1">이메일 :
@@ -109,4 +110,24 @@
 				</div>
 			</div>
 	</body>
+	<script>
+		function formCheck(){
+			let name = $("#name")
+			let email = $("#email")
+			
+			if(name.val().trim() == ""){
+				name.focus();
+				name.val("");
+				confirm("이름을 입력해주세요.");
+				return false;
+			}
+			
+			if(email.val().trim() == ""){
+				email.focus();
+				email.val("");
+				confirm("이메일을 입력해주세요.");
+				return false;
+			}
+		}
+	</script>
 </html>
