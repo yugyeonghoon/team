@@ -31,7 +31,6 @@
 	}
 	
 	int gnum = list.size() > 0 ? list.get(0).getGroupnum() : 0;
-	
 %>
 <!DOCTYPE html>
 <html>

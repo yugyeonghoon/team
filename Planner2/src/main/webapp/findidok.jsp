@@ -32,6 +32,7 @@
 		response.sendRedirect("findid.jsp");
 		return;
 	}
+	
 %>    
 <!DOCTYPE html>
 <html>
