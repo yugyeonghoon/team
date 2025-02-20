@@ -156,7 +156,7 @@
 			return false;
 		}
 		
-		alert("비밀번호가 변경되었습니다.");
+		confirm("비밀번호가 변경되었습니다.");
 	}
 	function joinout(id){
 		let result = confirm("회원탈퇴를 하시겠습니까 ?")
