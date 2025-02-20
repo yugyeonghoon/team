@@ -131,6 +131,15 @@
 				<button type="submit" class="updategname" onclick="updategname('<%=gname%>', <%=gnum%>)">그룹이름변경</button>
 			<%
 				}%>
+			<%if(groupNum != null && grouptype == 1){
+				%>
+				<button class="delete" onclick="deleteGroup(<%= gnum%>, this)">그룹삭제</button>
+			<%
+				}else if(groupNum != null){
+				%>
+				<button class="delete" onclick="outmember('<%= mid %>')">그룹나가기</button>
+			<%
+				}%>
 			
 		</div>
 		<table>
