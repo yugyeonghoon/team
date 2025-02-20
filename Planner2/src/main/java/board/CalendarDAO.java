@@ -141,8 +141,8 @@ public class CalendarDAO extends DBManager{
 			driverLoad();
 			DBConnect();
 			
-			String sql ="delete from board where no ="+ no ;
-			executeQuery(sql);
+			String sql ="delete from board where bno ="+ no ;
+			executeUpdate(sql);
 			DBDisConnect();
 		}
 

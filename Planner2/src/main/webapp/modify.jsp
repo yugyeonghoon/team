@@ -190,7 +190,6 @@ $(document).ready(function(){
 			%>
 			<div class="action-buttons">
 				<button type="submit">수정</button>
-				<button class="delete">삭제</button>
 			</div>
 			<% } %>
 		</form>

@@ -33,7 +33,6 @@
 	CalendarDAO cdao = new CalendarDAO();
 	vo.getStartTime();
 	vo.getEndTime();
-	
 	//댓글 여러건 조회
 	ReplyDAO rdao = new ReplyDAO();
 	List<ReplyVO> list = rdao.select(no);
@@ -332,11 +331,8 @@
 						<%
 							if(id.equals(vo.getAuthor())) {
 								%>
-								<button id="modiBtn" onclick="location.href='modify.jsp?no=<%=vo.getNo()%>'">수정하기</button>
-								<%
-							}else {
-								%>
-								<div></div>
+								<button id="modiBtn" onclick="location.href='modify.jsp?no=<%=vo.getNo()%>'">수정</button>
+								<button id="modiBtn" onclick="deleteBoard('<%= no %>')">삭제</button>
 								<%
 							}
 						%>
@@ -753,6 +749,28 @@
 				})
 			}
 		}	
+	}
+	function deleteBoard(no){
+		
+		let result = confirm("정말 일정을 삭제하시겠습니까?");
+		if(result == true){
+			$.ajax({
+				url : "deleteboard.jsp",
+				type : "post",
+				data : {
+					no : no
+				},
+				success: function(result){
+					if(result.trim() == "success"){
+						alert("일정을 삭제하셨습니다.")
+						location.href="calendar.jsp"
+					}
+				},
+				error: function(){
+					console.log("error");
+				}
+			})	
+		}
 	}
 </script>
 </html>
