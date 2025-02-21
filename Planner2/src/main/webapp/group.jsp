@@ -12,6 +12,7 @@
 	memberVO vo = new memberVO();
 	System.out.println(groupNum);
 	List<memberVO> list = dao.view(user1.getId(), groupNum);
+
 	
 	int grouptype = 0;
 	String mid = user1.getId();

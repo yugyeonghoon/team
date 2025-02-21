@@ -7,7 +7,8 @@
 
 	String rno = request.getParameter("rno");
 	String rcontent = request.getParameter("rcontent");
-	
+	System.out.println(rno);
+	System.out.println(rcontent);
 	if(rno == null || rcontent == null) {
 		out.print("fail");
 		return;
@@ -22,7 +23,6 @@
 	ReplyVO vo = new ReplyVO();
 	vo.setRno(rno);
 	vo.setRcontent(rcontent);
-	
 	dao.modify(vo);
 	out.print("success");
 %>

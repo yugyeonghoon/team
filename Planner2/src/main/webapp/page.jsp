@@ -371,7 +371,7 @@
 						if(user != null && (user.getId().equals(rauthor) || user.getUserType() == 99)) {
 							%>
 									<div>
-										<button class="replyBtn" id="btnModify" onclick="modifyBtn(this)">수정</button>
+										<button class="replyBtn" id="btnModify" onclick="modifyBtn(<%= rno %>, this)">수정</button>
 										<input type="hidden">
 			                    		<button class="dpnone" onclick="modifyReply(<%= rno %>, this)">확인</button>
 			                    		<button class="dpnone" onclick="cancelBtn(this, '<%= rcontent %>')">취소</button>
@@ -699,13 +699,12 @@
 	}
 	
 	//댓글 수정 버튼
-	function modifyBtn(obj) {
+	function modifyBtn(rno, obj) {
  		let el = $(".replyList");
  		
 		for(let i = 0; i < el.length; i++) {
 			//hidden 찾기
 			let value = el.eq(i).children().children("input").val();
-			console.log(value);
 			let input = el.eq(i).children().children("input");
 			input.replaceWith("<div>"+value+"</div>");
 			
@@ -728,7 +727,6 @@
 	//댓글 확인 버튼
 	function modifyReply(rno, obj) {
 		console.log(rno);
-		
 		let input = $(obj).parent().parent().children("input");
 		
 		let reply = input.val();
@@ -743,9 +741,8 @@
 						rno: rno,
 						rcontent: reply
 					},
-					success: function(result) {
-						console.log(result);
-						if(result.trim() == "success") {
+					success: function(data) {
+						if(data.trim() == "success") {
 							input.replaceWith("<div>"+reply+"</div>");
 							$(obj).parent().children(".dpnone").css("display", "none");
 							$(obj).prev().prev().css("display", "inline");
