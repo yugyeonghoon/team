@@ -128,7 +128,7 @@
 						</select>	
 						<div class="profile-actions">
 							<button type="submit">저장</button>
-							<button type="button" onclick="location.href='user_management.jsp'">확인</button>
+							<button type="button" onclick="location.href='manager.jsp'">확인</button>
 							<button type="button" onclick="location.href='user_management.jsp'">취소</button>							
 						</div>						
 					</div>				
