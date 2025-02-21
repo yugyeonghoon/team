@@ -82,6 +82,7 @@
 	            padding: 12px;
 	            border-radius: 5px;
 	            cursor: pointer;
+	            font-weight: bold;
 	        }
 	        .group-toggle {
 	            position: absolute;
@@ -93,6 +94,7 @@
 	            padding: 12px;
 	            border-radius: 5px;
 	            cursor: pointer;
+	            font-weight: bold;
 	        }
 	        .menu-toggle:hover {
 	            background: #1d243d;
