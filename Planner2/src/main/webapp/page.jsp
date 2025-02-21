@@ -335,9 +335,6 @@
 							<div>내용 : <%= vo.getContent() %></div>
 						</div>
 						
-						<%= vo.getBoardType() == 2 ? "<input type='checkbox' id='check1' class='checkbox'>" : "<span></span>" %>
-						<label for="check1"></label>
-						<button id="backBtn" onclick="location.href='calendar.jsp'">뒤로가기</button>
 						<%
 							if(id.equals(vo.getAuthor())) {
 								%>
@@ -586,7 +583,7 @@
 	  }
 	}
 	
-	//checkbox 누를 시 studyPlan 색상 변경
+	/* //checkbox 누를 시 studyPlan 색상 변경
 	$(document).ready(function() {
 		$("[id^=check]").change(function() {
 			let num = this.id.replace("check", "");
@@ -594,7 +591,7 @@
 			let target = $("#Plan");
 			$(target).toggleClass("PlanModify", this.checked);
 		});
-	});
+	}); */
 	
 	/* 댓글 */
 	
@@ -668,23 +665,24 @@
 	//댓글 삭제
 	function deleteReply(rno, obj) {
 		console.log(rno + "번 댓글 삭제");
-		
-		$.ajax({
-			url: "deleteReplyok.jsp",
-			type: "post",
-			data: {
-				rno: rno
-			},
-			success: function(result) {
-				if(result.trim() == "success") {
-					$(obj).parent().parent().parent().remove();
+		let result = confirm("정말 삭제하시겠습니까?");
+		if(result == true){
+			$.ajax({
+				url: "deleteReplyok.jsp",
+				type: "post",
+				data: {
+					rno: rno
+				},
+				success: function(result) {
+					if(result.trim() == "success") {
+						$(obj).parent().parent().parent().remove();
+					}
+				},
+				error: function() {
+					console.log("에러 발생");
 				}
-			},
-			error: function() {
-				console.log("에러 발생");
-			}
-			
-		})
+			})
+		}
 	}
 
 	
@@ -695,7 +693,7 @@
 		
 		$(obj).prev().prev().prev().css("display", "inline");
 		$(obj).parent().children(".dpnone").css("display", "none");
-		
+		location.reload();
 	}
 	
 	//댓글 수정 버튼
@@ -747,6 +745,7 @@
 							$(obj).parent().children(".dpnone").css("display", "none");
 							$(obj).prev().prev().css("display", "inline");
 							$(obj).next().attr("onclick", "modifyReply(this, '"+reply+"')");
+							location.reload();
 						}
 						
 					},
