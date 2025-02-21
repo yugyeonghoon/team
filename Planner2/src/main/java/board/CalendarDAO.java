@@ -102,9 +102,9 @@ public class CalendarDAO extends DBManager{
 			//파라미터로 넘어온 groupnum이 null이면 id에 해당하는 게시글만
 			//파라미터로 넘어온 groupnum이 null이 아니면 해당 그룹 포함하는 게시글
 			if(groupnum != null) {
-				sql = "select * from board where author in(select id from groupmember where groupnum = "+groupnum+") or author =  '"+id+"';";
+				sql = "select * from board where (author in(select id from groupmember where groupnum = "+groupnum+") or author =  '"+id+"') and board_type != 99 ";
 			}else {
-				sql = "select * from board where author = '"+id+"'";
+				sql = "select * from board where author = '"+id+"' and board_type != 99";
 			}
 			
 			System.out.println(sql);
@@ -141,7 +141,7 @@ public class CalendarDAO extends DBManager{
 			driverLoad();
 			DBConnect();
 			
-			String sql ="delete from board where bno ="+ no ;
+			String sql ="update board set board_type = 99 where bno ="+ no ;
 			executeUpdate(sql);
 			DBDisConnect();
 		}

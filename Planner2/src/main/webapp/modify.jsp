@@ -19,8 +19,8 @@
 	String content = vo.getContent();
 	String author = vo.getAuthor();
 	
-	String startDate =  start.split(":")[0] + "시 : " + start.split(":")[1] + "분";
-	String endDate = end.split(":")[0] + "시 : " + end.split(":")[1] + "분";
+	String startDate =  start.split(":")[0] + "시:" + start.split(":")[1] + "분";
+	String endDate = end.split(":")[0] + "시:" + end.split(":")[1] + "분";
 %>
 <!DOCTYPE html>
 <html>

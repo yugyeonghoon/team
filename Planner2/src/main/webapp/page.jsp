@@ -52,9 +52,9 @@
 	String startDate = vo.getStartTime();	//2025-02-20 18:12:00
 	String[] startDateSplit = startDate.split(":");
 		
-	startDate = startDateSplit[0] + ":" + startDateSplit[1];	//2025-02-20 18:12
+	startDate = startDateSplit[0] + "시 : " + startDateSplit[1] + "분";	//2025-02-20 18:12
 		
-	String endDate = vo.getEndTime().split(":")[0] + ":" + vo.getEndTime().split(":")[1];
+	String endDate = vo.getEndTime().split(":")[0] + "시 : " + vo.getEndTime().split(":")[1] + "분";
 %>
 <!DOCTYPE html>
 <html>
@@ -88,10 +88,6 @@
 /* 		margin: 5px;
 		padding : 15px; */
 		
-	}
-	
-	.list {
-		display: inline-block;
 	}
 	#wrapper {
 		float: right;
@@ -338,6 +334,10 @@
 							<div>종료일자 : <%= endDate %> </div>
 							<div>내용 : <%= vo.getContent() %></div>
 						</div>
+						
+						<%= vo.getBoardType() == 2 ? "<input type='checkbox' id='check1' class='checkbox'>" : "<span></span>" %>
+						<label for="check1"></label>
+						<button id="backBtn" onclick="location.href='calendar.jsp'">뒤로가기</button>
 						<%
 							if(id.equals(vo.getAuthor())) {
 								%>
@@ -375,7 +375,7 @@
 										<input type="hidden">
 			                    		<button class="dpnone" onclick="modifyReply(<%= rno %>, this)">확인</button>
 			                    		<button class="dpnone" onclick="cancelBtn(this, '<%= rcontent %>')">취소</button>
-										<button class="dpnone" id="btnDelete" onclick="deleteReply(<%=rno %>, this)">삭제</button>
+										<button class="replyBtn" id="btnDelete" onclick="deleteReply(<%=rno %>, this)">삭제</button>
 									</div>
 							<%
 						}
@@ -405,11 +405,10 @@
 	
 	//시작 버튼 눌렀을 때 인서트된 studytime의 번호
 	let stdNo = 0;
-
 	
 	//일정 시간 뭐라하지
-	<%-- let daliytime = "<%=vo.getStartTime().equals(vo.getEndTime()) ? "하루 종일" : vo.getStartTime().replace(" 00:00:00", "") + " ~ " + vo.getEndTime().replace(" 00:00:00", "")%>"
-	document.getElementById("plantime").innerHTML = daliytime; --%>
+	<%-- let daliytime = "<%=vo.getStartTime().equals(vo.getEndTime()) ? "종일" : vo.getStartTime() + " ~ " + vo.getEndTime()%>" --%>
+	//document.getElementById("plantime").innerHTML = daliytime;
 	
 	//ajax data에 start_time에 현재 시간 보낼 때
 	let currentDate = new Date();
@@ -587,7 +586,15 @@
 	  }
 	}
 	
-
+	//checkbox 누를 시 studyPlan 색상 변경
+	$(document).ready(function() {
+		$("[id^=check]").change(function() {
+			let num = this.id.replace("check", "");
+			
+			let target = $("#Plan");
+			$(target).toggleClass("PlanModify", this.checked);
+		});
+	});
 	
 	/* 댓글 */
 	
@@ -657,41 +664,34 @@
 			}
 		})
 	})
-
-	//댓글 삭제
 	
+	//댓글 삭제
 	function deleteReply(rno, obj) {
-		if(!confirm("댓글을 삭제하시겠습니까?")) {
-			return;
-		}else {
-			console.log(rno + "번 댓글 삭제");
-			
-			$.ajax({
-				url: "deleteReplyok.jsp",
-				type: "post",
-				data: {
-					rno: rno
-				},
-				success: function(result) {
-					alert()
-					if(result.trim() == "success") {
-						$(obj).parent().parent().parent().remove();
-					}
-				},
-				error: function() {
-					console.log("에러 발생");
-				}
-				
-			})
-		}
+		console.log(rno + "번 댓글 삭제");
 		
+		$.ajax({
+			url: "deleteReplyok.jsp",
+			type: "post",
+			data: {
+				rno: rno
+			},
+			success: function(result) {
+				if(result.trim() == "success") {
+					$(obj).parent().parent().parent().remove();
+				}
+			},
+			error: function() {
+				console.log("에러 발생");
+			}
+			
+		})
 	}
 
 	
 	function cancelBtn(obj, text) {
 		let input = $(obj).parent().parent().children("input");
 		console.log(input);
-		input.replaceWith("<div class='reply-content'>"+text+"</div>");
+		input.replaceWith("<div>"+text+"</div>");
 		
 		$(obj).prev().prev().prev().css("display", "inline");
 		$(obj).parent().children(".dpnone").css("display", "none");
@@ -746,7 +746,7 @@
 					success: function(result) {
 						console.log(result);
 						if(result.trim() == "success") {
-							input.replaceWith("<div class='reply-content'>"+reply+"</div>");
+							input.replaceWith("<div>"+reply+"</div>");
 							$(obj).parent().children(".dpnone").css("display", "none");
 							$(obj).prev().prev().css("display", "inline");
 							$(obj).next().attr("onclick", "modifyReply(this, '"+reply+"')");

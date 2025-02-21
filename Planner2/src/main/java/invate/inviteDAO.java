@@ -8,19 +8,15 @@ import db.DBManager;
 public class inviteDAO extends DBManager{
 	
 	//1. 초대 알림확인
-	public void invite(inviteVO vo) {
-		driverLoad();
-		DBConnect();
-		String sender = vo.getSender();
-		String receiver = vo.getReceiver();
-		
-		String sql = "";
-		sql += "select * from invite where '"+sender+"' = '"+receiver+"'";
-		
-		executeQuery(sql);
-		DBDisConnect();
-	}
-	
+	/*
+	 * public void invite(inviteVO vo) { driverLoad(); DBConnect(); String sender =
+	 * vo.getSender(); String receiver = vo.getReceiver();
+	 * 
+	 * String sql = ""; sql +=
+	 * "select * from invite where '"+sender+"' = '"+receiver+"'";
+	 * 
+	 * executeQuery(sql); DBDisConnect(); }
+	 */
 	//2. 그룹원 초대
 	public void insert(inviteVO vo){
 		String sender = vo.getSender();
@@ -36,7 +32,7 @@ public class inviteDAO extends DBManager{
 		DBDisConnect();
 	}
 	
-	//3. 초대목록 리스트 
+	//3. 초대목록 리스트(알람확인) 
 	public List<inviteVO> listinvite(String id){
 		driverLoad();
 		DBConnect();
