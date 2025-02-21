@@ -40,6 +40,7 @@
 		margin-top:20px;
 		border-radius: 12px;
 		border-style: hidden;
+		border-collapse: collapse;
 	}
 	th,td {
 		text-align: center;
