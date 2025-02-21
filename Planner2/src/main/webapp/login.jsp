@@ -10,9 +10,14 @@
 		
 		body, html {
 		  font-family: 'Source Sans Pro', sans-serif;
-		  background-color: #1d243d;
+		  background-color: #ffffff;
 		  padding: 0;
 		  margin: 0;
+		  /* width:200px;
+		  height:200px;
+		  background:radial-gradient(circle,white,gray); */
+		  /* background: url(./studycafe4.jpg) no-repeat;
+		  background-size: 100% 100%; */
 		}
 		
 		#particles-js {
@@ -28,18 +33,23 @@
 		  position: absolute;
 		  text-align: center;
 		  transform: translateX(-50%);
-		  background-color: rgb( 33, 41, 66 );
+		  background-color: #ffffff; 
+		  opacity : 0.8;
 		  border-radius: 9px;
-		  border-top: 10px solid #79a6fe;
-		  border-bottom: 10px solid #8BD17C;
+		  border-top: 2px solid gray;
+		  border-bottom: 2px solid gray;
+		  border-right: 2px solid gray;
+		  border-left:2px solid gray;
 		  width: 400px;
 		  height: 500px;
-		  box-shadow: 1px 1px 108.8px 19.2px rgb(25,31,53);
+		  background: url(./sky1.jpg) no-repeat;
+		  opacity : 0.8;
+		 /*  box-shadow: 1px 1px 108.8px 19.2px rgb(25,31,53); */
 		}
 		
 		.box h4 {
 		  font-family: 'Source Sans Pro', sans-serif;
-		  color: #5c7fda; 
+		  color: #000000;
 		  font-size: 18px;
 		  margin-top:94px;;
 		}
@@ -61,13 +71,13 @@
 		.box input[type = "text"],.box input[type = "password"] {
 		  display: block;
 		  margin: 20px auto;
-		  background: #262e49;
+		  background: #000000;
 		  border: 0;
 		  border-radius: 5px;
 		  padding: 14px 10px;
 		  width: 320px;
 		  outline: none;
-		  color: #d6d6d6;
+		  color: white;
 		      -webkit-transition: all .2s ease-out;
 		    -moz-transition: all .2s ease-out;
 		    -ms-transition: all .2s ease-out;
@@ -76,16 +86,16 @@
 		  
 		}
 		::-webkit-input-placeholder {
-		  color: #565f79;
+		  color: white;
 		}
 		
 		.box input[type = "text"]:focus,.box input[type = "password"]:focus {
-		  border: 1px solid #79A6FE;
+		  border: 1px solid #000000;
 		  
 		}
 		
 		a{
-		  color: #5c7fda;
+		  color: #000000;
 		  text-decoration: none;
 		}
 		
@@ -112,8 +122,8 @@
 		
 		.btn1 {
 		  border:0;
-		  background: #7f5feb;
-		  color: #dfdeee;
+		  background: #000000;
+		  color: white;
 		  border-radius: 100px;
 		  width: 340px;
 		  height: 49px;
@@ -126,14 +136,14 @@
 		}
 		
 		.btn1:hover {
-		  background: #5d33e6;
+		  background: black;
 		}
 		
 		.rmb {
 		  position: absolute;
 		  margin-left: -20%;
 		  margin-top: 0px;
-		  color: #5c7fda;
+		  color: #000000;
 		  font-size: 13px;
 		}
 		
@@ -158,11 +168,11 @@
 		
 		[type=checkbox]:checked + span:before {/* <-- style its checked state */
 		    font-family: FontAwesome;
-		    font-size: 16px;
+		    font-size: 24px;
 		    content: "v";
 		    position: absolute;
-		    top: -4px;
-		    color: #896cec;
+		    top: -13px;
+		    color: black;
 		    left: -1px;
 		    width: 13px;
 		}
@@ -209,6 +219,23 @@
 		
 		.footer .fa {
 		  color: #7f5feb;;
+		}
+		
+		.bounceInDown{
+			width: 100%;
+			height: 100%;
+		}
+		
+		.bounceInDown::before{
+			content: "";
+			background: url(./sky1.jpg) no-repeat;
+		    background-size: 100% 100%;
+		    opacity: 0.5;
+		    position: absolute;
+		    top: 0px;
+		    left: 0px;
+		    right: 0px;
+		    bottom: 0px;
 		}
 		</style>
 	</head>
@@ -272,7 +299,7 @@
 			    }
 			  }
 		</script>
-		<body id="particles-js"></body>
+		<body id="particles-js">
 			<div class="animated bounceInDown">
 				<div class="container">
 					<span class="error animated tada" id="msg"></span>
