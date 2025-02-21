@@ -63,9 +63,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>상세페이지</title>
 <script src="./jquery-3.7.1.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js"></script>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 <style>
 	/* .content-container{
 		text-align: center;
@@ -333,7 +331,7 @@
 						<div>제목 : <%= vo.getTitle() %></div>
 						
 						<div id="Plan" class="Plan">
-							<div id="plantime"></div>
+							<!-- <div id="plantime"></div> -->
 							<div>시작일자 : <%= startDate %> </div>
 							<div>종료일자 : <%= endDate %> </div>
 							<div>내용 : <%= vo.getContent() %></div>
@@ -390,8 +388,11 @@
 					if(user != null) {
 						%>
 							<div class="writeInput">
-								<div class="panel-body"><textarea id="inputReply" cols="100%" rows="2"></textarea></div>
-								<div class="RinputBtn"><button class="replyBtn" id="btnOk">확인</button></div>
+								<div class="panel-body" style="display:inline-flex">
+									<input type="text" style="width:50rem" id="inputReply" placeholder="댓글을 입력하세요">
+									<div class="RinputBtn" style="padding:0.5rem"><button class="replyBtn" id="btnOk">확인</button></div>
+								</div>
+								
 							</div>
 						<%
 					}
@@ -607,6 +608,7 @@
 		return time;
 	}
 	
+	
 	//댓글 확인
 	function Replyok(rno, obj) {
 	console.log(rno);
@@ -644,7 +646,7 @@
 					html += "			<input type='hidden'>";
             		html += "			<button class='dpnone' onclick='modifyReply("+rno+", this)'>확인</button>";
 					html += "			<button class='dpnone' onclick='cancelBtn(this, '"+rcontent+"')'>취소</button>";
-					html += "			<button class='replyBtn' id='btnDelete' onclick='deleteReply("+rno+", this)'>삭제</button>";
+					html += "			<button class='dpnone' id='btnDelete' onclick='deleteReply("+rno+", this)'>삭제</button>";	
 					html += "		</div>";
 					html += "	</li>";
 					html += "</ul>	";
@@ -673,7 +675,7 @@
 					rno: rno
 				},
 				success: function(result) {
-					alert()
+					alert("댓글이 삭제되었습니다.");
 					if(result.trim() == "success") {
 						$(obj).parent().parent().parent().remove();
 					}
@@ -707,7 +709,7 @@
 			let value = el.eq(i).children().children("input").val();
 			console.log(value);
 			let input = el.eq(i).children().children("input");
-			input.replaceWith("<div>"+value+"</div>");
+			input.replaceWith("<div class='reply-content'>"+value+"</div>");
 			
 			el.eq(i).children().children().children().eq(0).css("display", "inline");
 			el.eq(i).children().children().children(".dpnone").css("display", "none");
@@ -749,7 +751,7 @@
 							input.replaceWith("<div class='reply-content'>"+reply+"</div>");
 							$(obj).parent().children(".dpnone").css("display", "none");
 							$(obj).prev().prev().css("display", "inline");
-							$(obj).next().attr("onclick", "modifyReply(this, '"+reply+"')");
+							$(obj).next().attr("onclick", "modifyReply("+rno+", "+rcontent+")");
 						}
 						
 					},
