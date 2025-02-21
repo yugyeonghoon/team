@@ -87,6 +87,10 @@
 		padding : 15px; */
 		
 	}
+	
+	.list {
+		display: inline-block;
+	}
 	#wrapper {
 		float: right;
 	}
@@ -332,10 +336,6 @@
 							<div>종료일자 : <%= endDate %> </div>
 							<div>내용 : <%= vo.getContent() %></div>
 						</div>
-						
-						<%= vo.getBoardType() == 2 ? "<input type='checkbox' id='check1' class='checkbox'>" : "<span></span>" %>
-						<label for="check1"></label>
-						<button id="backBtn" onclick="location.href='calendar.jsp'">뒤로가기</button>
 						<%
 							if(id.equals(vo.getAuthor())) {
 								%>
@@ -369,11 +369,11 @@
 						if(user != null && (user.getId().equals(rauthor) || user.getUserType() == 99)) {
 							%>
 									<div>
-										<button class="replyBtn" id="btnModify" onclick="modifyBtn(<%= rno %>, this)">수정</button>
+										<button class="replyBtn" id="btnModify" onclick="modifyBtn(this)">수정</button>
 										<input type="hidden">
 			                    		<button class="dpnone" onclick="modifyReply(<%= rno %>, this)">확인</button>
 			                    		<button class="dpnone" onclick="cancelBtn(this, '<%= rcontent %>')">취소</button>
-										<button class="replyBtn" id="btnDelete" onclick="deleteReply(<%=rno %>, this)">삭제</button>
+										<button class="dpnone" id="btnDelete" onclick="deleteReply(<%=rno %>, this)">삭제</button>
 									</div>
 							<%
 						}
@@ -406,6 +406,7 @@
 	
 	//시작 버튼 눌렀을 때 인서트된 studytime의 번호
 	let stdNo = 0;
+
 	
 	//일정 시간 뭐라하지
 	<%-- let daliytime = "<%=vo.getStartTime().equals(vo.getEndTime()) ? "종일" : vo.getStartTime() + " ~ " + vo.getEndTime()%>" --%>
@@ -587,15 +588,7 @@
 	  }
 	}
 	
-	//checkbox 누를 시 studyPlan 색상 변경
-	$(document).ready(function() {
-		$("[id^=check]").change(function() {
-			let num = this.id.replace("check", "");
-			
-			let target = $("#Plan");
-			$(target).toggleClass("PlanModify", this.checked);
-		});
-	});
+
 	
 	/* 댓글 */
 	
@@ -666,10 +659,10 @@
 			}
 		})
 	})
-	
+
 	//댓글 삭제
+	
 	function deleteReply(rno, obj) {
-<<<<<<< HEAD
 		if(!confirm("댓글을 삭제하시겠습니까?")) {
 			return;
 		}else {
@@ -693,33 +686,14 @@
 				
 			})
 		}
-=======
-		console.log(rno + "번 댓글 삭제");
->>>>>>> branch 'main' of https://github.com/yugyeonghoon/team.git
 		
-		$.ajax({
-			url: "deleteReplyok.jsp",
-			type: "post",
-			data: {
-				rno: rno
-			},
-			success: function(result) {
-				if(result.trim() == "success") {
-					$(obj).parent().parent().parent().remove();
-				}
-			},
-			error: function() {
-				console.log("에러 발생");
-			}
-			
-		})
 	}
 
 	
 	function cancelBtn(obj, text) {
 		let input = $(obj).parent().parent().children("input");
 		console.log(input);
-		input.replaceWith("<div>"+text+"</div>");
+		input.replaceWith("<div class='reply-content'>"+text+"</div>");
 		
 		$(obj).prev().prev().prev().css("display", "inline");
 		$(obj).parent().children(".dpnone").css("display", "none");
@@ -727,7 +701,7 @@
 	}
 	
 	//댓글 수정 버튼
-	function modifyBtn(rno, obj) {
+	function modifyBtn(obj) {
  		let el = $(".replyList");
  		
 		for(let i = 0; i < el.length; i++) {
@@ -755,6 +729,7 @@
 	//댓글 확인 버튼
 	function modifyReply(rno, obj) {
 		console.log(rno);
+		
 		let input = $(obj).parent().parent().children("input");
 		
 		let reply = input.val();
@@ -769,9 +744,10 @@
 						rno: rno,
 						rcontent: reply
 					},
-					success: function(data) {
-						if(data.trim() == "success") {
-							input.replaceWith("<div>"+reply+"</div>");
+					success: function(result) {
+						console.log(result);
+						if(result.trim() == "success") {
+							input.replaceWith("<div class='reply-content'>"+reply+"</div>");
 							$(obj).parent().children(".dpnone").css("display", "none");
 							$(obj).prev().prev().css("display", "inline");
 							$(obj).next().attr("onclick", "modifyReply("+rno+", "+rcontent+")");
