@@ -5,8 +5,12 @@
 <%
 	String gname = request.getParameter("gname");
 	String gnum = request.getParameter("gnum");
-	
 	int gnum2 = Integer.parseInt(gnum);
+
+	
+	if(gname == null || gname.isEmpty()){
+		return;
+	}
 	
 	groupDAO dao = new groupDAO();
 	groupVO vo = new groupVO();
