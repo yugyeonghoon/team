@@ -100,12 +100,11 @@
 		/* display: inline-block; */
 		/* margin-left: 30rem; */
     	margin-top: 3rem;
-    	background-color: white;
+    	/* background-color: #eee; */
     	border-radius: 2rem;
     	padding: 1rem;
     	margin-right: 25rem;
     	margin-left: 20rem;
-    	border: 1px solid black;
     	/* height: 30rem; */
 	}
 	
@@ -229,21 +228,23 @@
 		
 	  	
 	  	.replyBtn {
-	 		background-color: black;
+	 		/* background-color: black; */
+	 		background-color: unset;
 			border: none;
-			color: white;
+			/* color: white; */
 			padding: 10px;
 			text-align: center;
 			text-decoration: none;
 			display: inline-block;
-			font-size: 12px;
+			font-size: 15px;
 			border: none;
 			border-radius: 5px;
 			cursor: pointer;
-			opacity: 0.7;
+			/* opacity: 0.7; */
+			margin-right: 2rem;
 		}
 		.replyBtn:hover {
-  			background: #1d243d;
+  			/* background: #1d243d; */
 		}
   		
   		#replyText {
@@ -257,21 +258,23 @@
   		}
   		.dpnone {
         	display : none;
-        	background-color: black;
+        	/* background-color: black; */
+        	background-color: unset;
 			border: none;
-			color: white;
+			/* color: white; */
 			padding: 10px;
 			text-align: center;
 			text-decoration: none;
-			font-size: 12px;
+			font-size: 15px;
 			border: none;
 			border-radius: 5px;
 			cursor: pointer;
-			opacity: 0.7;
+			/* opacity: 0.7; */
+			margin-right: 2rem;
         }
         
         .dpnone:hover {
-        	background: #1d243d;
+        	/* background: #1d243d; */
         }
         
         /* #backBtn {
@@ -328,7 +331,7 @@
         
         .reply-content {
         	font-size: larger;
-        	/* display: inline; */
+        	display: inline;
     		padding-right: 1rem;
         }
         
@@ -375,7 +378,22 @@
         }
         #btnOk {
         	font-size: inherit;
+        	background-color: black;
+			border: none;
+			color: white;
+			padding: 10px;
+			text-align: center;
+			text-decoration: none;
+			display: inline-block;
+			/* font-size: 12px; */
+			border: none;
+			border-radius: 5px;
+			cursor: pointer;
+			opacity: 0.7;
         }
+        #btnOk:hover {
+  			background: #1d243d;
+		}
         .conplan {
     		font-weight: bold;
     		font-size: large;
@@ -460,12 +478,8 @@
 						
 					</li>
 				</ul>		
-<<<<<<< HEAD
 			</div>
 			<hr style="border:1px solid black">	
-=======
-			</div>	
->>>>>>> branch 'main' of https://github.com/yugyeonghoon/team.git
 			<div class="divReply">
 			<span id="replyText">댓글 리스트</span><br>
 				<div class="RpyList">
@@ -486,7 +500,7 @@
 						<%
 						if(user != null && (user.getId().equals(rauthor) || user.getUserType() == 99)) {
 							%>
-									<div style="margin-top: inherit;">
+									<div style="margin-top: inherit;float:inline-end">
 										<button class="replyBtn" id="btnModify" onclick="modifyBtn(<%= rno %>, this)">수정</button>
 										<input type="hidden">
 			                    		<button class="dpnone" onclick="modifyReply(<%= rno %>, this)">확인</button>
