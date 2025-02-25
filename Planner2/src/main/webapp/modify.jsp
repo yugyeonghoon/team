@@ -195,7 +195,7 @@ $(document).ready(function(){
 			<div class="action-buttons">
 				<button type="submit">수정</button>
 			</div>
-			<% } %>
+			<% } %> 
 		</form>
 	</div>
 </body>

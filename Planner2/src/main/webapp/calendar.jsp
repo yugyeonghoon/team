@@ -245,7 +245,20 @@
 		    },
 			//modal
 		    select: function(arg) { //일정추가
-		    	console.log(arg);
+		    	//console.log(arg);
+		    	let today = new Date(new Date().toDateString());
+		    	//오늘(시간을 뺀)
+		    	
+		    	/* console.log(today)
+		    	console.log(arg.start)
+		    	//fullcalendar가 가지고있는 오늘 날짜(선택된, 시간 뺀)
+		    	
+		    	console.log("오늘보다 작거나 같냐?", arg.start <= today)
+		    	console.log("오늘보다 크냐?", arg.start > today) */
+		    	if(arg.start < today){
+		    		calendar.unselect()
+		    		return;
+		    	}
 		    	let startDate = arg.startStr;
 		    	startDate = dayjs(startDate);
 		    	//클릭 시작된 날짜
@@ -362,7 +375,6 @@
 		  	    	},
 		  	    	success : function(result){
 		  	    		console.log(result);
-		  	    		location.reload();
 		  	    	},
 		  	    	error : function(){
 		  	    		console.log("error");
@@ -370,11 +382,22 @@
 		  	    });
 		  	  }
 		  	});
-		  	
+		  
 		  	calendar.render();
 		  	
+		  	$("#exampleModal").on("hidePrevented.bs.modal", function () {
+		  		console.log("모달이벤트");
+		  		calendar.render();
+			});
+		  	//모달창 닫았을때 폼 리셋
+		  	$("#exampleModal").on("hidden.bs.modal", function () {
+		  		$(this).find('form')[0].reset();
+		  		calendar.render();
+			});
 		  });
-		  
+		
+		
+		
 		</script>
 	<body style="padding:30px;">
 	<div id='calendar'></div>
