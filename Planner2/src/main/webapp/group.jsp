@@ -123,7 +123,7 @@
 	<%	
 		}else{
 		%>
-			<h2 id="group-name">MY Group</h2>
+			<h2 id="group-name">MY Group Member</h2>
 		<%
 	}
 	%>
