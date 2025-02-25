@@ -76,4 +76,23 @@ public class inviteDAO extends DBManager{
 		executeUpdate(sql);
 		DBDisConnect();
 	}
+	
+	//그룹초대 중복검사
+	public int inviteCheck(int groupnum) {
+		driverLoad();
+		DBConnect();
+		String sql = "select count(*) as cnt from invite i where groupnum = "+ groupnum;
+		
+		executeQuery(sql);
+		
+		if(next()) {
+			int cnt = getInt("cnt");
+			DBDisConnect();
+			return cnt;
+		}else {
+			DBDisConnect();
+			return 0;
+		}
+	}
+	
 }

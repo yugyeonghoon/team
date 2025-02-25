@@ -219,6 +219,8 @@ function invite(gnum){
 					alert("없는 사용자입니다.");
 				}else if(data.trim() == "inUser"){
 					alert("이미 그룹에 속한 사용자 입니다.");
+				}else if(data.trim() == "inviteUser"){
+					alert("이미 초대한 유저입니다.");
 				}else{
 					location.reload();
 				}
