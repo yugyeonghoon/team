@@ -42,16 +42,16 @@
 				padding: 20px;
 				max-width: 600px;
 				margin: 40px auto;
-				background: white;
+				background: #ffffff;
 				border-radius: 10px;
-				box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-				border-top: 10px solid #79a6fe;
-				border-bottom: 10px solid #8BD17C;
+				box-shadow: 0 2px 10px rgb(30 88 139 / 20%);
+				border: 2px solid #a9a9a9;
 			}
 			h2{
-				color: #0073e6;
+				color: #000000;
 				text-align: center;
 				margin-bottom: 20px;
+				font-size: 27px
 			}
 			.profile-field{
 				margin-bottom:15px;
@@ -66,6 +66,7 @@
 				width: 100%;
 				padding: 8px;
 				border: 1px solid black;
+				box-shadow: 0 1px 10px rgb(30 88 139 / 20%);
 				border-radius: 10px;
 				box-sizing: border-box;
 			}
@@ -73,6 +74,7 @@
 				width: 100%;
 				padding: 8px;
 				border: 1px solid black;
+				box-shadow: 0 1px 10px rgb(30 88 139 / 20%);
 				border-radius: 10px;
 				box-sizing: border-box;
 			}
@@ -85,8 +87,8 @@
 				color: green;
 			}
 			.profile-actions button{
-				background: #7f5feb;
-				color: #dfdeee;
+				background: #000000;
+				color: #ffffff;
 				border: none;
 				padding: 10px 20px;
 				border-radius: 10px;
@@ -95,7 +97,7 @@
 				margin: 0 64px;
 			}
 			.profile-actions button:hover {
-			        background: #1a5fc4;
+			        background: #000000;
 			    }
 		</style>
 	</head>
@@ -128,8 +130,8 @@
 						</select>	
 						<div class="profile-actions">
 							<button type="submit">저장</button>
-							<button type="button" onclick="location.href='user_management.jsp'">확인</button>
-							<button type="button" onclick="location.href='user_management.jsp'">취소</button>							
+							<button type="button" onclick="location.href='manager.jsp'">확인</button>
+							<button type="button" onclick="location.href='manager.jsp'">취소</button>							
 						</div>						
 					</div>				
 				</form>
