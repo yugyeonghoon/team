@@ -82,6 +82,7 @@
 	            padding: 12px;
 	            border-radius: 5px;
 	            cursor: pointer;
+	            font-weight: bold;
 	        }
 	        .group-toggle {
 	            position: absolute;
@@ -93,6 +94,7 @@
 	            padding: 12px;
 	            border-radius: 5px;
 	            cursor: pointer;
+	            font-weight: bold;
 	        }
 	        .menu-toggle:hover {
 	            background: #1d243d;
@@ -107,7 +109,7 @@
 	            right: -10px;
 	            background: white;
 	            border: 1px solid #ddd;
-	            border-radius: 0px;
+	            border-radius: 10px;
 	            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 	            z-index: 1000;
 	        }
@@ -118,7 +120,7 @@
 	            right: 70px;
 	            background: white;
 	            border: 1px solid #ddd;
-	            border-radius: 0px;
+	            border-radius: 10px;
 	            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 	            z-index: 1000;
 	        }
@@ -129,7 +131,7 @@
 	            right: 80px;
 	            background: white;
 	            border: 1px solid #ddd;
-	            border-radius: 0px;
+	            border-radius: 10px;
 	            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 	            z-index: 1000;
 	        }
@@ -139,6 +141,7 @@
 	            color: #333;
 	            text-decoration: none;
 	            border-bottom: 1px solid #ddd;
+	            border-radius: 10px;
 	        }
 	        .dropdown-menu2 a {
 	            display: block;
@@ -146,6 +149,7 @@
 	            color: #333;
 	            text-decoration: none;
 	            border-bottom: 1px solid #ddd;
+	            border-radius: 10px;
 	        }
 	        .dropdown-menu3 a {
 	            display: block;
@@ -153,6 +157,8 @@
 	            color: #333;
 	            text-decoration: none;
 	            border-bottom: 1px solid #ddd;
+	            border-radius: 10px;
+	            font-weight: bold;
 	        }
 	        .dropdown-menu a:last-child {
 	            border-bottom: none;
@@ -227,6 +233,7 @@
 	    	p{
 	    		margin-top: 10px;
 	    		font-size: 15px;
+	    		font-weight: bold;
 	    	}
 	    	
 	    	.fa-bell{
@@ -242,6 +249,24 @@
 	    	}
 	    	.fa-bell:hover {
 	            background: #1d243d;
+	        }
+	        .inviteButton{
+	        	background: #000000;
+			    color: white;
+			    border: none;
+			    border-radius: 5px;
+			    margin-right: 5px;
+			    font-weight: bold;
+			    padding: 7px 7px;
+	        }
+	        .inviteButtonno{
+	        	background: #ff1a1a;
+			    color: white;
+			    border: none;
+			    border-radius: 5px;
+			    margin-right: 5px;
+			    font-weight: bold;
+			    padding: 7px 7px;
 	        }
 	    </style>
 		<script>
@@ -312,9 +337,9 @@
 			int no = vo.getInviteno();
 			%>
 			<a><%=sender %>이 <%=gname %> 에 초대하였습니다.
-				<button type="submit" onclick="inviteuser('<%=user.getId()%>', <%= gnum%>, this, <%= no %>)">수락</button>
+				<button class="inviteButton" type="submit" onclick="inviteuser('<%=user.getId()%>', <%= gnum%>, this, <%= no %>)">수락</button>
 				
-				<button type="submit" onclick="refuse(<%=no%>)">거절</button>
+				<button class="inviteButtonno" type="submit" onclick="refuse(<%=no%>)">거절</button>
 				
 			</a>
 		<%

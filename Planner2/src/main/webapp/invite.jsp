@@ -49,6 +49,13 @@
 	inviteVO iVo = new inviteVO();
 	inviteDAO iDao = new inviteDAO();
 	
+	int inviteCheck =  iDao.inviteCheck(groupnum);
+	
+	if(inviteCheck == 1){
+		out.print("inviteUser");
+		return;
+	}
+	
 	iVo.setReceiver(id);
 	iVo.setGroupnum(groupnum);
 	iVo.setSender(user.getId());

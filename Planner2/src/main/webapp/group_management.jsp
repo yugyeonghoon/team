@@ -30,48 +30,55 @@
 		color: #333;
 	}
 	.group-container{
-		padding : 20px;
-		max-width: 900px;
-		margin: 40px auto;
-		background: white;
-		border-radius: 10px;
-		box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-	}
+		padding: 20px;
+	    max-width: 900px;
+	    margin: 40px auto;
+	    background: white;
+	    border-radius: 10px;
+	    box-shadow: 0 2px 10px rgb(30 88 139 / 20%);
+	    border: 2px solid #a9a9a9;
+	   }
 	h2{
-		color: #0073e6;
+		color: #000000;
 		text-align: center;
 		margin-bottom: 20px;
+		font-size: 27px;
 	}
 	table{
 		width: 100%;
-		border-collapse: collapse;
 		margin-top:20px;
+		border-radius: 12px;
+		border-style: hidden;
+		border-collapse: collapse;
 	}
 	th,td {
-		text-align: left;
-		padding: 10px;
-		border: 1px solid #000000;
+		text-align: center;
+		padding: 6px;
+		font-size: 17px;
+		border-radius: 12px;
 	}
 	th{
 		background-color:#edebeb;
 		color: #3d3838;
+		font-size: 19px;
 	}
 	.action-buttons{
 		text-align: center;
 	}
 	.action-buttons button{
-		background: #2575fc;
+		background: #000000;
 		color: white;
 		border: none;
-		padding: 5px 10px;
 		border-radius: 5px;
 		cursor: pointer;
-		font-size: 0.9rem;
+		font-size: 15px;
 		margin-right: 5px;
 		transition: background 0.3s;
+		font-weight: bold;
+		padding: 10px 10px;
 	}
 	.action-buttons button:hover {
-		background: #1a5fc4;
+		background:#283552;
 	}
 	.action-buttons button.delete {
 		background: #ff1a1a;

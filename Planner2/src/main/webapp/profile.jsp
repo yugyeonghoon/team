@@ -26,16 +26,16 @@
 					padding: 20px;
 					max-width: 600px;
 					margin: 40px auto;
-					background: white;
+					background: #ffffff;
 					border-radius: 10px;
-					box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-					border-top: 10px solid #79a6fe;
-					border-bottom: 10px solid #8BD17C;
+					box-shadow: 0 2px 10px rgb(30 88 139 / 20%);
+					border: 2px solid #a9a9a9;
 				}
 				h2{
-					color: #0073e6;
+					color: #000000;
 					text-align: center;
 					margin-bottom: 20px;
+					font-size: 27px;
 				}
 				.profile-field{
 					margin-bottom:15px;
@@ -45,13 +45,18 @@
 					margin-bottom: 5px;
 					display: block;
 					color: black;
+					font-size: 17px;
 				}
 				.profile-field input{
-					width: 100%;
+					width: 95%;
 					padding: 8px;
 					border: 1px solid black;
-					border-radius: 10px;
-					box-sizing: border-box;
+				    height: 20px;
+				    font-size: 15px;
+				    padding-left: 10px;
+				    box-shadow: 0 1px 10px rgb(30 88 139 / 20%);
+					border-radius: 12px;
+					border-style: hidden;
 				}
 				.feedback{
 					font-size: 0.9rem;
@@ -62,14 +67,16 @@
 					color: green;
 				}
 				.profile-actions button{
-					background: #7f5feb;
-					color: #dfdeee;
+					background: #000000;
+					color: #ffffff;
 					border: none;
 					padding: 10px 20px;
 					border-radius: 5px;
 					cursor: pointer;
 					transition: background 0.3s ease;
 					margin: 0 64px;
+					font-size: 14px;
+					font-weight: bold;
 				}
 				.profile-actions button:hover {
 				        background: #1a5fc4;
