@@ -63,7 +63,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>상세페이지</title>
 <script src="./jquery-3.7.1.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js"></script>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 <style>
 	/* .content-container{
 		text-align: center;
@@ -87,12 +89,20 @@
 		padding : 15px; */
 		
 	}
-	
-	.list {
-		display: inline-block;
-	}
 	#wrapper {
 		float: right;
+	}
+	
+	.list {
+		/* display: inline-block; */
+		/* margin-left: 30rem; */
+    	margin-top: 3rem;
+    	background-color: #eee;
+    	border-radius: 2rem;
+    	padding: 1rem;
+    	margin-right: 25rem;
+    	margin-left: 20rem;
+    	/* height: 30rem; */
 	}
 	
 	 #timebox {
@@ -102,9 +112,11 @@
 		margin-left: 2%;
 		margin-right: 2%;
 		padding : 10px;
+		box-shadow: 3px 0px black;
 	}
 	.Stopwatch {
 		float: inline-end;
+		font-family: fantasy;
 	}	
 	#studyTime {
 		text-align: center;
@@ -117,13 +129,16 @@
 	}
 	.Plan {
 		/* padding : 10px; */
-		margin : 10px;
-		width : 50rem;
-		height : 400px;
-		box-shadow: 4px 4px 4px 4px gray;
+		/* margin : 10px; */
+		/* width : 50rem; */
+		/* height : 230px; */
+		/* box-shadow: 4px 4px 4px 4px gray;
 		border : 0;
 		outline : 0;
-		border-radius : 15px;
+		border-radius : 15px; */
+		white-space: pre-line;
+		word-break: keep-all;
+		font-size: large;
 	}
 	
 	.PlanModify {
@@ -191,13 +206,15 @@
 	    	overflow: auto;
 	    	display: contents;
 	    	/* text-align: center; */
+	    	margin-top: 2rem;
 	    }
 
- 	    .divReply {
-			border: 1px solid black;
-			width: 100%;
+		 .divReply {
+			/* border: 1px solid black;
+			width: 100%; */
+			margin-top: 2rem;
 		}
-		
+		 
 		#todayReply {
 			width: 13%;
 			font-weight: bold;
@@ -208,23 +225,27 @@
 		
 	  	
 	  	.replyBtn {
-	 		background-color: #555555;
+	 		background-color: black;
 			border: none;
 			color: white;
 			padding: 10px;
 			text-align: center;
 			text-decoration: none;
 			display: inline-block;
-			font-size: 16px;
+			font-size: 12px;
+			border: none;
+			border-radius: 5px;
+			cursor: pointer;
+			opacity: 0.7;
 		}
 		.replyBtn:hover {
-  			background-color: #e7e7e7; color: black;
- 			color: black;
+  			background: #1d243d;
 		}
   		
   		#replyText {
-  			font-size: 20px;
+  			font-size: x-large;
   			font-weight: bold;
+  			margin: 1rem;
   		}
   		
   		.replyList {
@@ -232,21 +253,24 @@
   		}
   		.dpnone {
         	display : none;
-        	background-color: #555555;
+        	background-color: black;
 			border: none;
 			color: white;
 			padding: 10px;
 			text-align: center;
 			text-decoration: none;
-			font-size: 16px;
+			font-size: 12px;
+			border: none;
+			border-radius: 5px;
+			cursor: pointer;
+			opacity: 0.7;
         }
         
         .dpnone:hover {
-        	background-color: #e7e7e7; color: black;
- 			color: black;
+        	background: #1d243d;
         }
         
-        #backBtn {
+        /* #backBtn {
         	background-color: #555555;
 			border: none;
 			color: white;
@@ -260,10 +284,10 @@
         #backBtn:hover {
         	background-color: #e7e7e7; color: black;
  			color: black;
-        }
+        } */
         
         #modiBtn {
-        	background-color: #555555;
+        	background-color: black;
 			border: none;
 			color: white;
 			padding: 10px;
@@ -271,14 +295,84 @@
 			text-decoration: none;
 			display: inline-block;
 			font-size: 16px;
+			border: none;
+			border-radius: 5px;
+			cursor: pointer;
+			/* margin-bottom: inherit;
+			margin-left: inherit; */
+			margin-top: 2rem;
         }
         
         #modiBtn:hover {
-        	background-color: #e7e7e7; color: black;
- 			color: black;
+        	background: #1d243d;
         }
         #inputReply {
         	resize: none;
+        }
+        
+        /* div > ul > li {
+        	margin: 1rem;
+        } */
+        
+        .reWriter {
+        	font-size: medium;
+        	padding-bottom: 1rem;
+        	opacity: 0.8;
+        }
+        
+        .reply-content {
+        	font-size: larger;
+        	/* display: inline; */
+    		padding-right: 1rem;
+        }
+        
+        .writeInput {
+        	/* margin: 1rem; */
+        	margin-left: 2rem;
+        }
+        .write {
+        	font-size: large;
+    		font-weight: bold;
+    		text-align: center;
+    		margin: 1rem;
+        }
+        .title {
+        	font-size: xx-large;
+    		font-weight: bold;
+    		text-align: center;
+    		/* margin: 1rem; */
+        }
+        .w-btn-indigo {
+        	color: black;
+		    background-color: lightgray;
+		    border: none;
+		    border-radius: 5px;
+		    font-size: 16px;
+		    padding: 6px;
+		    font-family: fantasy;
+        }
+        hr {
+        	/* width: 55%; */
+        }
+        /* .menu-container > div {
+        	margin-top: 1.5rem;
+        } */
+        
+        .RpyList {
+       		margin: inherit;
+        }
+        .panel-body {
+        	display: flex;
+        }
+        .RinputBtn {
+        	display: contents;
+        }
+        #btnOk {
+        	font-size: inherit;
+        }
+        .conplan {
+    		font-weight: bold;
+    		font-size: large;
         }
 </style>
 </head>
@@ -311,8 +405,8 @@
 							</div>
 							<div class="Stopwatch">
 							<h5 style="text-align:center;">Stopwatch</h5>
-		        			<h1><span id="hour">00</span>:<span id="min">00</span>:<span id="sec">00</span></h1>
-		        			<button class="w-btn w-btn-green" id="start">start</button>
+		        			<h1 style="text-align:center;"><span id="hour">00</span>:<span id="min">00</span>:<span id="sec">00</span></h1>
+		        			<button class="w-btn w-btn-indigo" id="start">start</button>
 		        			<button class="w-btn w-btn-indigo" id="stop">stop</button>
 		        			<button class="w-btn w-btn-indigo" id="clear">clear</button>
 		        			</div>
@@ -327,15 +421,18 @@
 			<div class="list">
 				<ul class="planList">
 					<li>
-						<div>작성자 : <%= vo.getAuthor() %> | 작성일 : <%= vo.getCreateDate() %></div>
-						<div>제목 : <%= vo.getTitle() %></div>
+						<div class="write"><%= vo.getAuthor() %></div>
+						<div class="title"><%= vo.getTitle() %></div>
 						
 						<div id="Plan" class="Plan">
-							<!-- <div id="plantime"></div> -->
-							<div>시작일자 : <%= startDate %> </div>
-							<div>종료일자 : <%= endDate %> </div>
-							<div>내용 : <%= vo.getContent() %></div>
+							<div id="plantime"></div>
+							<div class="conplan">일자 |</div>
+							<div><%= startDate %> ~ <%= endDate %> </div>
+							<%-- <div>종료일자 : <%= endDate %> </div> --%>
+							<div class="conplan">내용 | </div>
+							<div><%= vo.getContent() %></div>
 						</div>
+						
 						<%
 							if(id.equals(vo.getAuthor())) {
 								%>
@@ -368,13 +465,14 @@
 						<%
 						if(user != null && (user.getId().equals(rauthor) || user.getUserType() == 99)) {
 							%>
-									<div>
-										<button class="replyBtn" id="btnModify" onclick="modifyBtn(this)">수정</button>
+									<div style="margin-top: inherit;">
+										<button class="replyBtn" id="btnModify" onclick="modifyBtn(<%= rno %>, this)">수정</button>
 										<input type="hidden">
 			                    		<button class="dpnone" onclick="modifyReply(<%= rno %>, this)">확인</button>
 			                    		<button class="dpnone" onclick="cancelBtn(this, '<%= rcontent %>')">취소</button>
 										<button class="dpnone" id="btnDelete" onclick="deleteReply(<%=rno %>, this)">삭제</button>
 									</div>
+									<hr>
 							<%
 						}
 						%>
@@ -388,9 +486,9 @@
 					if(user != null) {
 						%>
 							<div class="writeInput">
-								<div class="panel-body" style="display:inline-flex">
-									<input type="text" style="width:50rem" id="inputReply" placeholder="댓글을 입력하세요">
-									<div class="RinputBtn" style="padding:0.5rem"><button class="replyBtn" id="btnOk">확인</button></div>
+								<div class="panel-body">
+									<textarea id="inputReply" cols="100%" rows="2" placeholder="댓글을 입력하세요"></textarea>
+									<div class="RinputBtn"><button class="replyBtn" id="btnOk">확인</button></div>
 								</div>
 								
 							</div>
@@ -406,7 +504,6 @@
 	
 	//시작 버튼 눌렀을 때 인서트된 studytime의 번호
 	let stdNo = 0;
-
 	
 	//일정 시간 뭐라하지
 	<%-- let daliytime = "<%=vo.getStartTime().equals(vo.getEndTime()) ? "종일" : vo.getStartTime() + " ~ " + vo.getEndTime()%>" --%>
@@ -588,7 +685,15 @@
 	  }
 	}
 	
-
+	/* //checkbox 누를 시 studyPlan 색상 변경
+	$(document).ready(function() {
+		$("[id^=check]").change(function() {
+			let num = this.id.replace("check", "");
+			
+			let target = $("#Plan");
+			$(target).toggleClass("PlanModify", this.checked);
+		});
+	}); */
 	
 	/* 댓글 */
 	
@@ -607,7 +712,6 @@
 		let time = year + "-" + month + "-" + day + " " + hour + ":" + minute + ":" + second
 		return time;
 	}
-	
 	
 	//댓글 확인
 	function Replyok(rno, obj) {
@@ -646,7 +750,7 @@
 					html += "			<input type='hidden'>";
             		html += "			<button class='dpnone' onclick='modifyReply("+rno+", this)'>확인</button>";
 					html += "			<button class='dpnone' onclick='cancelBtn(this, '"+rcontent+"')'>취소</button>";
-					html += "			<button class='dpnone' id='btnDelete' onclick='deleteReply("+rno+", this)'>삭제</button>";	
+					html += "			<button class='replyBtn' id='btnDelete' onclick='deleteReply("+rno+", this)'>삭제</button>";
 					html += "		</div>";
 					html += "	</li>";
 					html += "</ul>	";
@@ -659,15 +763,12 @@
 			}
 		})
 	})
-
-	//댓글 삭제
 	
+	//댓글 삭제
 	function deleteReply(rno, obj) {
-		if(!confirm("댓글을 삭제하시겠습니까?")) {
-			return;
-		}else {
-			console.log(rno + "번 댓글 삭제");
-			
+		console.log(rno + "번 댓글 삭제");
+		let result = confirm("정말 삭제하시겠습니까?");
+		if(result == true){
 			$.ajax({
 				url: "deleteReplyok.jsp",
 				type: "post",
@@ -675,7 +776,6 @@
 					rno: rno
 				},
 				success: function(result) {
-					alert("댓글이 삭제되었습니다.");
 					if(result.trim() == "success") {
 						$(obj).parent().parent().parent().remove();
 					}
@@ -683,32 +783,30 @@
 				error: function() {
 					console.log("에러 발생");
 				}
-				
 			})
 		}
-		
 	}
 
 	
 	function cancelBtn(obj, text) {
 		let input = $(obj).parent().parent().children("input");
 		console.log(input);
-		input.replaceWith("<div class='reply-content'>"+text+"</div>");
+		input.replaceWith("<div>"+text+"</div>");
 		
 		$(obj).prev().prev().prev().css("display", "inline");
 		$(obj).parent().children(".dpnone").css("display", "none");
-		
+		location.reload();
 	}
 	
 	//댓글 수정 버튼
-	function modifyBtn(obj) {
+	function modifyBtn(rno, obj) {
  		let el = $(".replyList");
  		
 		for(let i = 0; i < el.length; i++) {
 			//hidden 찾기
 			let value = el.eq(i).children().children("input").val();
 			let input = el.eq(i).children().children("input");
-			input.replaceWith("<div class='reply-content'>"+value+"</div>");
+			input.replaceWith("<div>"+value+"</div>");
 			
 			el.eq(i).children().children().children().eq(0).css("display", "inline");
 			el.eq(i).children().children().children(".dpnone").css("display", "none");
@@ -729,7 +827,6 @@
 	//댓글 확인 버튼
 	function modifyReply(rno, obj) {
 		console.log(rno);
-		
 		let input = $(obj).parent().parent().children("input");
 		
 		let reply = input.val();
@@ -744,13 +841,13 @@
 						rno: rno,
 						rcontent: reply
 					},
-					success: function(result) {
-						console.log(result);
-						if(result.trim() == "success") {
-							input.replaceWith("<div class='reply-content'>"+reply+"</div>");
+					success: function(data) {
+						if(data.trim() == "success") {
+							input.replaceWith("<div>"+reply+"</div>");
 							$(obj).parent().children(".dpnone").css("display", "none");
 							$(obj).prev().prev().css("display", "inline");
-							$(obj).next().attr("onclick", "modifyReply("+rno+", "+rcontent+")");
+							$(obj).next().attr("onclick", "modifyReply(this, '"+reply+"')");
+							location.reload();
 						}
 						
 					},
