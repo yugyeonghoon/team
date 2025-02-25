@@ -1,5 +1,20 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%
+	
+		String cookie = "";
+
+		Cookie[] cookies = request.getCookies(); //쿠키생성
+		
+		if(cookies !=null && cookies.length > 0){
+			for (int i = 0; i < cookies.length; i++){
+			if (cookies[i].getName().equals("id")) { // 내가 원하는 쿠키명 찾아서 값 저장
+				cookie = cookies[i].getValue();
+				}
+			}
+		}	
+
+%>
 <!DOCTYPE html>
 <html>
 	<head>
@@ -241,7 +256,7 @@
 	</head>
 		<script>
 			//이상한 아이디 저장 스크립트
-			window.onload = function() {
+			/* window.onload = function() {
 				let pwd = document.getElementById('pwd');
 				let eye = document.getElementById('eye');
 				let usernameInput = document.querySelector('input[name="username"]');
@@ -297,7 +312,7 @@
 			      usernameInput.value = localStorage.getItem('username');
 			      rememberMeCheckbox.checked = true;
 			    }
-			  }
+			  } */
 		</script>
 		<body id="particles-js">
 			<div class="animated bounceInDown">
@@ -306,7 +321,7 @@
 					<form method="post" name="form1" class="box" onsubmit="return checkStuff()" action="loginok.jsp">
 				<h4>로그인 페이지<span></span></h4>
 				<h5></h5>
-					<input type="text" id="username" name="username" placeholder="Id" autocomplete="off">
+					<input type="text" id="username" value="<%= cookie %>" name="username" placeholder="Id" autocomplete="off">
 					<i class="typcn typcn-eye" id="eye"></i>
 					<input type="password" name="password" placeholder="Passsword" id="pwd" autocomplete="off">
 					
@@ -316,7 +331,7 @@
 					    아이디 저장
 					</span> -->
 					<label>
-						<input type="checkbox" id="checkId" name="checkId">
+						<input type="checkbox" <%= !cookie.equals("") ? "checked" : "" %> id="checkId" name="checkId" class="checkId">
 						<span></span>
 						<small class="rmb">아이디 저장</small>
 					</label>

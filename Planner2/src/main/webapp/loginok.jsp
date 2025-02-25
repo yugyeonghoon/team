@@ -7,6 +7,8 @@
 	String pw = request.getParameter("password");
 	String check = request.getParameter("checkId");
 	
+	System.out.print(check);
+	
 	if(id == null || pw == null){
 		response.sendRedirect("login.jsp");
 		return;
@@ -16,8 +18,6 @@
 		response.sendRedirect("login.jsp");
 		return;
 	}
-	
-	
 	
 	UserDAO dao = new UserDAO();
 	UserVO vo = new UserVO();
@@ -30,6 +30,11 @@
 		return;
 	}
 	
+	Cookie cookie = new Cookie("id", id);
+	cookie.setMaxAge(1 * 60 * 60 * 24 * 10);
+	if (check != null) { 	//체크박스 null이면 쿠키 add
+		response.addCookie(cookie);
+	}
 	session.setAttribute("user", user);
 	
 	response.sendRedirect("calendar.jsp");
