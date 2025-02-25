@@ -33,7 +33,7 @@
 		  position: absolute;
 		  text-align: center;
 		  transform: translateX(-50%);
-		  background-color: #ffffff; 
+		  background-color: #91CDE1; 
 		  opacity : 0.8;
 		  border-radius: 9px;
 		  border-top: 2px solid gray;
@@ -42,7 +42,7 @@
 		  border-left:2px solid gray;
 		  width: 400px;
 		  height: 500px;
-		  background: url(./sky1.jpg) no-repeat;
+		  /* background: url(./sky1.jpg) no-repeat; */
 		  opacity : 0.8;
 		 /*  box-shadow: 1px 1px 108.8px 19.2px rgb(25,31,53); */
 		}

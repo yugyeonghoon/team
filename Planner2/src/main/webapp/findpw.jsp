@@ -9,7 +9,7 @@
 			<style>
 				body{
 					font-family: 'Source Sans Pro', sans-serif;
-					background-color: #1d243d;
+					background-color: white;
 					padding: 0;
 					margin: 0;
 				}
@@ -20,13 +20,15 @@
 					position: absolute;
 					text-align: center;
 					transform: translateX(-50%);
-					background-color: rgb( 33, 41, 66 );
+					background-color: white;
 					border-radius: 9px;
-					border-top: 10px solid #79a6fe;
-					border-bottom: 10px solid #8BD17C;
+					border-top: 2px solid gray;
+					border-bottom: 2px solid gray;
+					border-right: 2px solid gray;
+					border-left:2px solid gray;
 					width: 800px;
 					height: 350px;
-					box-shadow: 1px 1px 108.8px 19.2px rgb(25,31,53);
+					/* box-shadow: 1px 1px 108.8px 19.2px rgb(25,31,53); */
 				}
 				.pwform{
 			        font-size: 1rem;
@@ -36,7 +38,7 @@
 				h1{
 					text-align: center;
 					margin-bottom: 20px;
-					color: #5c7fda;
+					color: black;
 					font-family: 'Seoul 1980', sans-serif;
 				}
 				.btn{
@@ -44,8 +46,8 @@
 					cursor: pointer;
 					margin-top: 75px;
 					border: 0;
-					background: #7f5feb;
-					color: #dfdeee;
+					background: black;
+					color: white;
 					border-radius: 100px;
 					width: 80px;
 					height: 30px;
@@ -55,8 +57,8 @@
 					cursor: pointer;
 					margin-top: 10px;
 					border: 0;
-					background: #7f5feb;
-					color: #dfdeee;
+					background: black;
+					color: white;
 					border-radius: 100px;
 					width: 80px;
 					height: 30px;
@@ -66,22 +68,22 @@
 					cursor: pointer;
 					margin-top: 10px;
 					border: 0;
-					background: #7f5feb;
-					color: #dfdeee;
+					background: black;
+					color: white;
 					border-radius: 100px;
 					width: 130px;
 					height: 35px;
 				}
 				input{
 					margin: 10px auto;
-					background: #262e49;
+					background: black;
 					border: 0;
 					border-radius: 5px;
 					outline: none;
 					width: 250px;
 					height: 35px;
 					font-size: 0.8rem;
-					color: #d6d6d6;
+					color: white;
 					      -webkit-transition: all .2s ease-out;
 					    -moz-transition: all .2s ease-out;
 					    -ms-transition: all .2s ease-out;
@@ -90,16 +92,16 @@
 				}
 				input:focus{
 					border: 1px solid #79A6FE;
-					color: #d6d6d6;
+					color: white;
 				}
 				.fi1{
-					color: #5c7fda;
+					color: black;
 				}
 				::-webkit-input-placeholder {
-				  	color: #565f79;
+				  	color: white;
 				}	
 				.emailCheck{
-					background: #7f5feb;
+					background: black;
 					width: 70px;
 					height: 35px;
 					position: absolute;
@@ -109,7 +111,7 @@
 					cursor: pointer;
 					margin-top: 10px;
 					border: 0;					
-					color: #dfdeee;
+					color: white;
 					border-radius: 100px;					
 				}
 				.pwcheck{
