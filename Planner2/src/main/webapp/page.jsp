@@ -70,6 +70,9 @@
 	/* .content-container{
 		text-align: center;
 	} */
+	body {
+		padding: 30px;
+	}
 	.Btn {
 	/* 버튼 클릭했을 때 리스트 뜨기 */
 		float: right;
@@ -290,10 +293,11 @@
         } */
         
         #modiBtn {
-        	background-color: black;
+        	/* background-color: black; */
+        	background-color: unset;
 			border: none;
-			color: white;
-			padding: 10px;
+			/* color: white; */
+			/* padding: 10px; */
 			text-align: center;
 			text-decoration: none;
 			display: inline-block;
@@ -303,11 +307,12 @@
 			cursor: pointer;
 			/* margin-bottom: inherit;
 			margin-left: inherit; */
-			margin-top: 2rem;
+			/* margin-top: 2rem; */
+			float: inline-end;
         }
         
         #modiBtn:hover {
-        	background: #1d243d;
+        	/* background: #1d243d; */
         }
         #inputReply {
         	resize: none;
@@ -391,6 +396,14 @@
         .conplan {
     		font-weight: bold;
     		font-size: large;
+    		text-align: center;
+        }
+        .consplan {
+        	font-weight: bold;
+    		font-size: x-large;
+        }
+        input {
+        	field-sizing: content;
         }
 </style>
 </head>
@@ -441,21 +454,23 @@
 					<li>
 						<div class="write"><%= vo.getAuthor() %></div>
 						<div class="title"><%= vo.getTitle() %></div>
-						
+						<hr style="width:35%;margin:auto;">
 						<div id="Plan" class="Plan">
 							<div id="plantime"></div>
-							<div class="conplan">일자 |</div>
-							<div><%= startDate %> ~ <%= endDate %> </div>
+							<div class="conplan">시작일 | <%= startDate %></div>
+							<div class="conplan">종료일 | <%= endDate %> </div>
 							<%-- <div>종료일자 : <%= endDate %> </div> --%>
-							<div class="conplan">내용 | </div>
+							<div class="consplan">내용 | </div>
 							<div><%= vo.getContent() %></div>
 						</div>
 						
 						<%
 							if(id.equals(vo.getAuthor())) {
 								%>
+								<div>
 								<button id="modiBtn" onclick="location.href='modify.jsp?no=<%=vo.getNo()%>'">수정</button>
 								<button id="modiBtn" onclick="deleteBoard('<%= no %>')">삭제</button>
+								</div>
 								<%
 							}
 						%>
@@ -463,7 +478,7 @@
 					</li>
 				</ul>		
 			</div>
-			<hr>	
+			<hr style="border:1px solid black">	
 			<div class="divReply">
 			<span id="replyText">댓글 리스트</span><br>
 				<div class="RpyList">
