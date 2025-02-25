@@ -97,11 +97,12 @@
 		/* display: inline-block; */
 		/* margin-left: 30rem; */
     	margin-top: 3rem;
-    	background-color: #eee;
+    	background-color: white;
     	border-radius: 2rem;
     	padding: 1rem;
     	margin-right: 25rem;
     	margin-left: 20rem;
+    	border: 1px solid black;
     	/* height: 30rem; */
 	}
 	

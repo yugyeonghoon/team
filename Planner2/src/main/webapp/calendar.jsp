@@ -171,6 +171,43 @@
 				display: inline;
     			width: 120px;
 			}
+			.modal{
+				font-weight: bold;
+				top: 70px;
+			}
+			.select {
+				width: 473px;
+				height: 35px;
+				background-size: 40px;
+				padding: 2px 10px 2px 10px;
+				outline: 0 none;
+				font-weight: bold;
+			    border: none;
+			    border-bottom: 1px solid #4c667f;
+			    border-radius: 0px;
+			}
+			.select option {
+				background: white;
+				color: #black;
+				padding: 3px 0;
+				font-weight: bold;
+				font-weight: bold;
+			}
+			.form-control {
+				font-weight: bold;
+			    border: none;
+			    border-bottom: 1px solid #4c667f;
+			    border-radius: 0px;
+			}
+			.modal-title{
+				font-weight: bold;
+				position: absolute;
+			    left: 50%;
+			    margin: 5px 0 0 -35px;
+			}
+			.modal-header{
+				position: relative;
+			}
 		</style>
 		</head>
 		<script>
@@ -208,6 +245,7 @@
 		    },
 			//modal
 		    select: function(arg) { //일정추가
+		    	console.log(arg);
 		    	let startDate = arg.startStr;
 		    	startDate = dayjs(startDate);
 		    	//클릭 시작된 날짜
@@ -215,23 +253,16 @@
 		    	let endDate = arg.endStr;
 		    	endDate = dayjs(endDate);
 		    	
-		    	const duration = endDate.diff(startDate, 'days');
+		    	//const duration = endDate.diff(startDate, 'days');
 		    	startDate = startDate.format("YYYY-MM-DD");
+		    	//Fri Jan 31 2025 00:00:00 GMT+0900 -> 2025-01-31
 		    	
 		    	let endBeforeDay = endDate.subtract(1, "days").format("YYYY-MM-DD");
-		    	let endRealBeforDay = "";
-		    	
-		    	if(duration > 1){
-		    		//여러 날짜(드래그)
-		        	endRealBeforDay = endDate.format("YYYY-MM-DD");
-		    	}else{
-		    		endRealBeforDay = endDate.subtract(1, "days").format("YYYY-MM-DD");
-		    	}
+		    	//Fri Feb 1 2025 00:00:00 GMT+0900 -> Fri Jan 31 2025 00:00:00 GMT+0900 -> 2025-01-31
 		    	
 		    	//클릭이나 드래그 끝난 지점의 날짜
 		    	$("#choose-date").val(startDate);
 		    	$("#choose-end-date").val(endBeforeDay);
-		    	$("#choose-real-end-date").val(endRealBeforDay);
 		    	var myModal = bootstrap.Modal.getOrCreateInstance('#exampleModal');
 		        myModal.show();
 		    	calendar.unselect()
@@ -254,13 +285,16 @@
 		    					start : "<%=start%>",
 		    					end : "<%=end %>",
 		    					gnum : "<%=gnum%>",
+		    					boardType : "<%=boardType%>",
 		    					url : "page.jsp?no=<%=no%><%= groupNum != null ? "&groupnum="+groupNum : "" %>",
 		    					
 		    				<%	if(boardType == 1){
 							%>	backgroundColor: '#0000ff',<%
-		    					}else{
+		    					}else if(boardType == 2) {
 							%>	backgroundColor: '#ff0000',<%
-		    					}%>
+		    					}else{
+		    				%>	backgroundColor: '#52ff4d'<%
+		    				}%>
 		    				},
 		    			<%
 		    		}
@@ -285,7 +319,7 @@
 		  	    title: $("#title").val(),
 		  	    content: $("#content").val(),
 		  	    start: $("#choose-date").val(),
-		  	    end: $("#choose-real-end-date").val(),
+		  	    end: $("#choose-end-date").val(),
 		  	  	boardType : $("#boardType").val(),
 		  	  	st : $("#start-time").val(),
 		  	  	et : $("#end-time").val()
@@ -328,6 +362,7 @@
 		  	    	},
 		  	    	success : function(result){
 		  	    		console.log(result);
+		  	    		location.reload();
 		  	    	},
 		  	    	error : function(){
 		  	    		console.log("error");
@@ -369,7 +404,6 @@
 		          <div class="mb-3">
 		            <label for="choose-end-date" class="col-form-label">종료일: </label>
 		            <input type="text" class="form-control" id="choose-end-date" readonly="readonly">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-		            <input type="hidden" class="form-control" id="choose-real-end-date" readonly="readonly">
 		            <label for="choose-date" class="col-form-label">종료시간: </label>
 		            <input type="text" class="form-control" id="end-time" placeholder="종료시간선택" readonly="readonly">
 		          </div>
@@ -378,6 +412,7 @@
 		          	<select class="select" id="boardType">
 		          		<option value="1">일정</option>
 		          		<option value="2">공부</option>
+		          		<option value="3">여행</option>
 		          	</select>
 		          </div>
 		          <div class="mb-3">

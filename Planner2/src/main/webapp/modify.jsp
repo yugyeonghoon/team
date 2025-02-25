@@ -19,8 +19,8 @@
 	String content = vo.getContent();
 	String author = vo.getAuthor();
 	
-	String startDate =  start.split(":")[0] + "시 : " + start.split(":")[1] + "분";
-	String endDate = end.split(":")[0] + "시 : " + end.split(":")[1] + "분";
+	String startDate =  start.split(":")[0] + "시:" + start.split(":")[1] + "분";
+	String endDate = end.split(":")[0] + "시:" + end.split(":")[1] + "분";
 %>
 <!DOCTYPE html>
 <html>
@@ -39,22 +39,19 @@
 		color: #333;
 	}
 	.page-container{
-		padding : 20px;
+		padding: 20px;
 		max-width: 900px;
 		margin: 40px auto;
-		background: white;
+		background: #ffffff;
 		border-radius: 10px;
-		box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-		text-align: center;
-		border-top: 10px solid #79a6fe;
-		border-bottom: 10px solid #8BD17C;
-		
+		box-shadow: 0 2px 10px rgb(30 88 139 / 20%);
+		border: 2px solid #a9a9a9;
 	}
 	h2{
-		color: #0073e6;
+		color: #000000;
 		text-align: center;
 		margin-bottom: 20px;
-		font-size: 1.3rem;
+		font-size: 27px;
 	}
 	table{
 		width: 100%;
@@ -101,15 +98,16 @@
 		text-align: center;
 	}
 	.action-buttons button{
-		background: #2575fc;
-		color: white;
+		background: #000000;
+		color: #ffffff;
 		border: none;
-		padding: 5px 10px;
+		padding: 10px 20px;
 		border-radius: 5px;
 		cursor: pointer;
-		font-size: 0.9rem;
-		margin-right: 5px;
-		transition: background 0.3s;
+		transition: background 0.3s ease;
+		margin: 0 64px;
+		font-size: 14px;
+		font-weight: bold;
 	}
 	.action-buttons button:hover {
 		background: #1a5fc4;
@@ -119,6 +117,10 @@
 	}
 	.action-buttons button.delete:hover{
 		background: #e60000;
+	}
+	.memo{
+		text-align: center;
+		border: none;
 	}
 </style>
 </head>
@@ -154,7 +156,7 @@ $(document).ready(function(){
 </script>
 <body>
 <div class="page-container">
-		<h2>일정 상세페이지</h2>
+		<h2>일정 수정</h2>
 		<form action="modifyok.jsp" method="post">
 			<input type="hidden" value="<%= no %>" name="no">
 			<table>
@@ -186,7 +188,7 @@ $(document).ready(function(){
 				</tbody>	
 			</table>
 			
-			<div class="memo">상세내용 입력</div> <br>
+			<div class="memo">Memo</div> <br>
 			<textarea class="text-content" name="content"><%=content %></textarea><br>
 			<% if(user != null && (user.getId().equals(author)|| user.getUserType() == 0)){
 			%>

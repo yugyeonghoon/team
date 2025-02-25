@@ -104,7 +104,7 @@ public class CalendarDAO extends DBManager{
 			if(groupnum != null) {
 				sql = "select * from board where author in(select id from groupmember where groupnum = "+groupnum+") or author =  '"+id+"';";
 			}else {
-				sql = "select * from board where author = '"+id+"'";
+				sql = "select * from board where author = '"+id+"' and board_type != 99";
 			}
 			
 			System.out.println(sql);
@@ -141,7 +141,7 @@ public class CalendarDAO extends DBManager{
 			driverLoad();
 			DBConnect();
 			
-			String sql ="delete from board where bno ="+ no ;
+			String sql ="update board set board_type = 99 where bno ="+ no ;
 			executeUpdate(sql);
 			DBDisConnect();
 		}
