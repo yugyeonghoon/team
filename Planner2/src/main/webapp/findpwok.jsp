@@ -37,7 +37,7 @@
 					position: absolute;
 					text-align: center;
 					transform: translateX(-50%);
-					background-color: white;
+					background-color: #91CDE1;
 					border-radius: 9px;
 					border-top: 2px solid gray;
 					border-bottom: 2px solid gray;
@@ -61,14 +61,14 @@
 				}
 				input{
 					margin: 5px auto;
-					background: black;
+					background: #ffffff;
 					border: 0;
 					border-radius: 5px;
 					outline: none;
 					width: 250px;
 					height: 35px;
 					font-size: 0.8rem;
-					color: white;
+					color: #000000;
 					      -webkit-transition: all .2s ease-out;
 					    -moz-transition: all .2s ease-out;
 					    -ms-transition: all .2s ease-out;
@@ -77,18 +77,18 @@
 				}
 				input:focus{
 					border: 1px solid #79A6FE;
-					color: white;
+					color: #000000;
 				}
 				::-webkit-input-placeholder {
-				  	color: white;
+				  	color: #000000;
 				}
 				.btn{
 					font-size: 1rem;
 					cursor: pointer;
 					margin-top: 10px;
 					border: 0;
-					background: black;
-					color: white;
+					background: #ffffff;
+					color: #000000;
 					border-radius: 100px;
 					width: 80px;
 					height: 30px;
@@ -102,27 +102,45 @@
 				.feedback.success{
 					color: green;
 				}
+				.bounceInDown{
+					width: 100%;
+					height: 100%;
+				}
+				
+				.bounceInDown::before{
+					content: "";
+					background: url(./sky1.jpg) no-repeat;
+				    background-size: 100% 100%;
+				    opacity: 0.5;
+				    position: absolute;
+				    top: 0px;
+				    left: 0px;
+				    right: 0px;
+				    bottom: 0px;
+				}
 		</style>
 	</head>
 	<body>
-		<div class="findpw-container">
-			<h2>비밀번호 변경</h2>
-				<form method="post" action="changepw.jsp" onsubmit="return formCheck()">
-					<div class="profile-field">
-						<label for="password">새 비밀번호</label>
-						<input type="hidden" value="<%= id %>" name="id">
-						<input type="password" id="password" name="password" placeholder="비밀번호를 다시 입력하세요.">
-					</div>
-					<div class="profile-field">
-						<label>새 비밀번호 확인</label>
-						<input type="password" id="password-check" name="password-check" placeholder="새 비밀번호를 다시 입력하세요.">
-						<div id="password-feedback" class="feedback">비밀번호가 일치하지 않습니다.</div>
-					</div>
-					<div>
-						<button type="submit" class="btn" id="btnClick">확인</button>
-					</div>
-				</form>
-		</div>
+		<div class="bounceInDown">
+			<div class="findpw-container">
+				<h2>비밀번호 변경</h2>
+					<form method="post" action="changepw.jsp" onsubmit="return formCheck()">
+						<div class="profile-field">
+							<label for="password">새 비밀번호</label>
+							<input type="hidden" value="<%= id %>" name="id">
+							<input type="password" id="password" name="password" placeholder="비밀번호를 다시 입력하세요.">
+						</div>
+						<div class="profile-field">
+							<label>새 비밀번호 확인</label>
+							<input type="password" id="password-check" name="password-check" placeholder="새 비밀번호를 다시 입력하세요.">
+							<div id="password-feedback" class="feedback">비밀번호가 일치하지 않습니다.</div>
+						</div>
+						<div>
+							<button type="submit" class="btn" id="btnClick">확인</button>
+						</div>
+					</form>
+			</div>
+		</div>	
 	</body>
 	<script>
 		let pw = $("#password");

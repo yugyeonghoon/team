@@ -20,7 +20,7 @@
 			position: absolute;
 			text-align: center;
 			transform: translateX(-50%);
-			background-color: white;
+			background-color: #91CDE1;
 			border-radius: 9px;
 			border-top: 2px solid gray;
 			border-bottom: 2px solid gray;
@@ -47,8 +47,8 @@
 			cursor: pointer;
 			margin-top: 10px;
 			border: 0;
-			background: black;
-			color: #dfdeee;
+			background: #ffffff;
+			color: #000000;
 			border-radius: 100px;
 			width: 80px;
 		}	
@@ -57,22 +57,22 @@
 			cursor: pointer;
 			margin-top: 10px;
 			border: 0;
-			background: black;
-			color: #dfdeee;
+			background: #ffffff;
+			color: #000000;
 			border-radius: 100px;
 			width: 130px;
 			height: 35px;
 		}
 		input{
 			margin: 10px auto;
-			background: black;
+			background: #ffffff;
 			border: 0;
 			border-radius: 5px;
 			outline: none;
 			width: 250px;
 			height: 35px;
 			font-size: 0.9rem;
-			color: white;
+			color: #000000;
 			      -webkit-transition: all .2s ease-out;
 			    -moz-transition: all .2s ease-out;
 			    -ms-transition: all .2s ease-out;
@@ -81,36 +81,54 @@
 		}
 		input:focus{
 			border: 1px solid #79A6FE;
-			color: white;
+			color: #000000;
 		}
 		.fi1{
 			color: black;
 		}
 		::-webkit-input-placeholder {
-		  color: white;
+		  color: #000000;
+		}
+		.bounceInDown{
+			width: 100%;
+			height: 100%;
+		}
+		
+		.bounceInDown::before{
+			content: "";
+			background: url(./sky1.jpg) no-repeat;
+		    background-size: 100% 100%;
+		    opacity: 0.5;
+		    position: absolute;
+		    top: 0px;
+		    left: 0px;
+		    right: 0px;
+		    bottom: 0px;
 		}
 	</style>
 	</head>
-	<body style="padding:30px;" >
-		<div class="findid">
-		<h1>아이디 찾기</h1>
-			<form class="idform" method="post" action="findidok.jsp" onsubmit="return formCheck()">
-				<div class="fi1"> &nbsp 이름 :
-					<input type="text" name="name" id="name" placeholder="이름을 입력하세요" autocomplete="off">
+	<body>
+		<div class="bounceInDown">
+				<div class="findid">
+					<h1>아이디 찾기</h1>
+					<form class="idform" method="post" action="findidok.jsp" onsubmit="return formCheck()">
+						<div class="fi1"> &nbsp 이름 :
+							<input type="text" name="name" id="name" placeholder="이름을 입력하세요" autocomplete="off">
+						</div>
+						<div class="fi1">이메일 :
+							<input type="text" name="email" id="email" placeholder="email을 입력하세요" autocomplete="off">
+						</div>
+						<div>
+							<button type="submit" class="btn" id="btn">찾기</button>	
+							<button onclick="location.href='login.jsp'" class="btn"> 취소</button>
+						</div>
+					</form>
+						<div>
+							<button onclick="location.href='login.jsp'" class="btn1">login</button>
+							<button onclick="location.href='findpw.jsp'" class="btn1">비밀번호 찾기</button>
+						</div>
+					</div>
 				</div>
-				<div class="fi1">이메일 :
-					<input type="text" name="email" id="email" placeholder="email을 입력하세요" autocomplete="off">
-				</div>
-				<div>
-					<button type="submit" class="btn" id="btn">찾기</button>	
-					<button onclick="location.href='login.jsp'" class="btn"> 취소</button>
-				</div>
-			</form>
-				<div>
-					<button onclick="location.href='login.jsp'" class="btn1">login</button>
-					<button onclick="location.href='findpw.jsp'" class="btn1">비밀번호 찾기</button>
-				</div>
-			</div>
 	</body>
 	<script>
 		let email = $("#email");

@@ -50,14 +50,14 @@
 			input{
 				text-align: center;
 				margin: 10px auto;
-				background: black;
+				background: #ffffff;
 				border: 0;
 				border-radius: 5px;
 				outline: none;
 				width: 250px;
 				height: 35px;
 				font-size: 0.9rem;
-				color: white;
+				color: #000000;
 				      -webkit-transition: all .2s ease-out;
 				    -moz-transition: all .2s ease-out;
 				    -ms-transition: all .2s ease-out;
@@ -66,7 +66,7 @@
 			}
 			input:focus{
 				border: 1px solid #79A6FE;
-				color: white;
+				color: #000000;
 			}
 			.find-container{
 				margin: 0;
@@ -75,7 +75,7 @@
 				position: absolute;
 				text-align: center;
 				transform: translateX(-50%);
-				background-color: white;
+				background-color: #91CDE1;
 				border-radius: 9px;
 				border-top: 2px solid gray;
 				border-bottom: 2px solid gray;
@@ -101,27 +101,45 @@
 				cursor: pointer;
 				margin-top: 180px;
 				border: 0;
-				background: black;
-				color: white;
+				background:  #ffffff;
+				color: #000000;
 				border-radius: 100px;
 				width: 130px;
 				height: 35px;				
 			}
+			.bounceInDown{
+			width: 100%;
+			height: 100%;
+			}
+			
+			.bounceInDown::before{
+				content: "";
+				background: url(./sky1.jpg) no-repeat;
+			    background-size: 100% 100%;
+			    opacity: 0.5;
+			    position: absolute;
+			    top: 0px;
+			    left: 0px;
+			    right: 0px;
+			    bottom: 0px;
+			}
 		</style>
 	</head>
 	<body>
-		<div class="find-container">
-			<form >
-				<div class="find-box">
-					<label><%= name %> 님의 아이디는</label>
-						<input type="text" value="<%=id %>" readonly>
-					<label>입니다.</label>
-				</div>	
-			</form>
-				<div>
-					<button onclick="location.href='login.jsp'" class="btn1">login</button>
-					<button onclick="location.href='findpw.jsp'" class="btn1">비밀번호 찾기</button>
-				</div>
-		</div>
+		<div class="bounceInDown">
+			<div class="find-container">
+				<form>
+					<div class="find-box">
+						<label><%= name %> 님의 아이디는</label>
+							<input type="text" value="<%=id %>" readonly>
+						<label>입니다.</label>
+					</div>	
+				</form>
+					<div>
+						<button onclick="location.href='login.jsp'" class="btn1">login</button>
+						<button onclick="location.href='findpw.jsp'" class="btn1">비밀번호 찾기</button>
+					</div>
+			</div>
+		</div>	
 	</body>
 </html>

@@ -71,13 +71,13 @@
 		.box input[type = "text"],.box input[type = "password"] {
 		  display: block;
 		  margin: 20px auto;
-		  background: #000000;
+		  background: #C2E9F3;
 		  border: 0;
 		  border-radius: 5px;
 		  padding: 14px 10px;
 		  width: 320px;
 		  outline: none;
-		  color: white;
+		  color: #000000;
 		      -webkit-transition: all .2s ease-out;
 		    -moz-transition: all .2s ease-out;
 		    -ms-transition: all .2s ease-out;
@@ -86,7 +86,7 @@
 		  
 		}
 		::-webkit-input-placeholder {
-		  color: white;
+		  color: #000000;
 		}
 		
 		.box input[type = "text"]:focus,.box input[type = "password"]:focus {
@@ -122,8 +122,8 @@
 		
 		.btn1 {
 		  border:0;
-		  background: #000000;
-		  color: white;
+		  background: #C2E9F3;
+		  color: #000000;
 		  border-radius: 100px;
 		  width: 340px;
 		  height: 49px;
@@ -136,7 +136,7 @@
 		}
 		
 		.btn1:hover {
-		  background: black;
+		  background: #C2E9F3;
 		}
 		
 		.rmb {

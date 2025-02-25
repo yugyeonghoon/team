@@ -16,11 +16,13 @@
 				.findpw{
 					margin: 0;
 					top: 180px;
+					margin: 0;
+					top: 180px;
 					left: 50%;
 					position: absolute;
 					text-align: center;
 					transform: translateX(-50%);
-					background-color: white;
+					background-color: #91CDE1;
 					border-radius: 9px;
 					border-top: 2px solid gray;
 					border-bottom: 2px solid gray;
@@ -46,8 +48,8 @@
 					cursor: pointer;
 					margin-top: 75px;
 					border: 0;
-					background: black;
-					color: white;
+					background: #ffffff;
+					color: #000000;
 					border-radius: 100px;
 					width: 80px;
 					height: 30px;
@@ -57,8 +59,8 @@
 					cursor: pointer;
 					margin-top: 10px;
 					border: 0;
-					background: black;
-					color: white;
+					background: #ffffff;
+					color: #000000;
 					border-radius: 100px;
 					width: 80px;
 					height: 30px;
@@ -76,14 +78,14 @@
 				}
 				input{
 					margin: 10px auto;
-					background: black;
+					background: #ffffff;
 					border: 0;
 					border-radius: 5px;
 					outline: none;
 					width: 250px;
 					height: 35px;
 					font-size: 0.8rem;
-					color: white;
+					color: #000000;
 					      -webkit-transition: all .2s ease-out;
 					    -moz-transition: all .2s ease-out;
 					    -ms-transition: all .2s ease-out;
@@ -92,16 +94,16 @@
 				}
 				input:focus{
 					border: 1px solid #79A6FE;
-					color: white;
+					color: #000000;
 				}
 				.fi1{
 					color: black;
 				}
 				::-webkit-input-placeholder {
-				  	color: white;
+				  	color: #000000;
 				}	
 				.emailCheck{
-					background: black;
+					background: #ffffff;
 					width: 70px;
 					height: 35px;
 					position: absolute;
@@ -111,7 +113,7 @@
 					cursor: pointer;
 					margin-top: 10px;
 					border: 0;					
-					color: white;
+					color: #000000;
 					border-radius: 100px;					
 				}
 				.pwcheck{
@@ -135,30 +137,48 @@
 				}
 				.feedback.success{
 					color: green;
-				}	
+				}
+				.bounceInDown{
+					width: 100%;
+					height: 100%;
+				}
+				
+				.bounceInDown::before{
+					content: "";
+					background: url(./sky1.jpg) no-repeat;
+				    background-size: 100% 100%;
+				    opacity: 0.5;
+				    position: absolute;
+				    top: 0px;
+				    left: 0px;
+				    right: 0px;
+				    bottom: 0px;
+				}
 			</style>
 	</head>
-	<body style="padding:30px;" >
-		<div class="findpw">
-		<h1>비밀번호 찾기</h1>
-			<form class="pwform" method="post" action="findpwok.jsp" onsubmit="return formCheck()">
-				<div class="fi1">아이디 :
-					<input type="text" name="id" id="id" placeholder="ID을 입력하세요" autocomplete="off">
-				</div>
-				<div class="fi1">이메일 :
-					<input type="text" name="email" id="email" placeholder="email을 입력하세요" autocomplete="off">
-					<input type="button" class="emailCheck" id="checkBtn" value="전송">		
-				</div>
-				<div class="fi2"> 
-					<input type="text" class="pwcheck" id="mailCheck" placeholder="인증번호">
-					<input type="submit" id="mailCheckBtn" value="확인" class="check">
-					<div id="mailCheck-feedback" class="feedback">인증번호가 일치하지 않습니다.</div>
-				</div>
-			</form>
-				<div>			
-					<button onclick="location.href='login.jsp'" class="btn">취소</button>
-				</div>
-		</div>
+	<body>
+		<div class="bounceInDown">
+			<div class="findpw">
+				<h1>비밀번호 찾기</h1>
+					<form class="pwform" method="post" action="findpwok.jsp" onsubmit="return formCheck()">
+						<div class="fi1">아이디 :
+							<input type="text" name="id" id="id" placeholder="ID을 입력하세요" autocomplete="off">
+						</div>
+						<div class="fi1">이메일 :
+							<input type="text" name="email" id="email" placeholder="email을 입력하세요" autocomplete="off">
+							<input type="button" class="emailCheck" id="checkBtn" value="전송">		
+						</div>
+						<div class="fi2"> 
+							<input type="text" class="pwcheck" id="mailCheck" placeholder="인증번호">
+							<input type="submit" id="mailCheckBtn" value="확인" class="check">
+							<div id="mailCheck-feedback" class="feedback">인증번호가 일치하지 않습니다.</div>
+						</div>
+					</form>
+						<div>			
+							<button onclick="location.href='login.jsp'" class="btn">취소</button>
+						</div>
+			</div>
+		</div>	
 	</body>
 	<script>
 		let emailCheckFlag = false;
