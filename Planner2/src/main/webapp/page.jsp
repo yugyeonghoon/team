@@ -785,7 +785,7 @@
 					html += "	<div class='reWriter'>작성자 : "+userId+" | 작성일: "+time+"</div>";
 					html += "		<div class='reply-content'>"+rcontent+"</div>";
 					html += "		<div style='margin-top: inherit;float:inline-end'>";
-					html += "			<button class='replyBtn' id='btnModify' onclick='modifyBtn(this)'>수정</button>";
+					html += "			<button class='replyBtn' id='btnModify' onclick='modifyBtn("+rno+", this)'>수정</button>";
 					html += "			<input type='hidden'>";
             		html += "			<button class='dpnone' onclick='modifyReply("+rno+", this)'>확인</button>";
 					html += "			<button class='dpnone' onclick='cancelBtn(this, '"+rcontent+"')'>취소</button>";
@@ -831,10 +831,10 @@
 	function cancelBtn(obj, text) {
 		let input = $(obj).parent().parent().children("input");
 		console.log(input);
-		input.replaceWith("<div>"+text+"</div>");
+		/* input.replaceWith("<div>"+text+"</div>");
 		
 		$(obj).prev().prev().prev().css("display", "inline");
-		$(obj).parent().children(".dpnone").css("display", "none");
+		$(obj).parent().children(".dpnone").css("display", "none"); */
 		location.reload();
 	}
 	
