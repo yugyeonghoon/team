@@ -62,6 +62,7 @@
 			font-size: 0.8rem;
 			cursor: pointer;
 			margin-top: 10px;
+			margin-left: 15px;
 			border: 0;
 			background: #C2E9F3;
 			color: #000000;
@@ -69,15 +70,12 @@
 			width: 130px;
 			height: 35px;
 		}
-		.btnc{
-			font-size: 1rem;
-			cursor: pointer;
-			margin-top: 10px;
-			border: 0;
-			background: #C2E9F3;
-			color: #000000;
-			border-radius: 100px;
-			width: 80px;
+		.btn1Class{
+			position: absolute;
+				    top: 65%;
+				    left: 4%;
+				    right: 0px;
+				    bottom: 0px;
 		}
 		input{
 			margin: 10px auto;
@@ -139,7 +137,7 @@
 						<!-- 	<button onclick="location.href='login.jsp'" class="btnc" id="btnc"> 취소</button> -->
 						</div>
 					</form>
-						<div>
+						<div class="btn1Class">
 							<button onclick="location.href='login.jsp'" class="btn1">login</button>
 							<button onclick="location.href='findpw.jsp'" class="btn1">비밀번호 찾기</button>
 						</div>
