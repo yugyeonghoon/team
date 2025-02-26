@@ -16,7 +16,7 @@
 <html>
 	<head>
 		<meta charset="UTF-8">
-		<title>매니저 관리</title>
+		<title>관리자 목록</title>
 		<style>
 				body{
 					font-family: 'Source Sans Pro', sans-serif;
@@ -86,7 +86,7 @@
 		</head>
 	<body>
 		<div class="user-container">
-			<h2>매니저 관리</h2>
+			<h2>관리자 목록</h2>
 			<table>
 				<thead>
 					<tr>
@@ -95,7 +95,7 @@
 						<th>이름</th>
 						<th>닉네임</th>
 						<th>이메일</th>
-						<th>관리</th>
+						<!-- <th>관리</th> -->
 					</tr>
 				</thead>
 				<tbody>
@@ -115,10 +115,10 @@
 							<td><%= name %></td>
 							<td><%= nick %></td>
 							<td><%= email %></td>
-							<td class="action-buttons">
+							<%-- <td class="action-buttons">
 								<button onclick="location.href='manager_update.jsp?id=<%= id %>'">수정</button>
 								<button class="delete" onclick="deleteUser('<%= id %>')">삭제</button>
-							</td>
+							</td> --%>
 						</tr>				
 					<%
 						}
