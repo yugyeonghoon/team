@@ -1,15 +1,16 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%
-	
 		String cookie = "";
 
-		Cookie[] cookies = request.getCookies(); //쿠키생성
+		Cookie[] cookies = request.getCookies(); //쿠키꺼내기
+		//[JSESSIONID=5EBD963FD482064DE12CD024E12075EA;, id=asdasd] 
+		//
 		
-		if(cookies !=null && cookies.length > 0){
+		if(cookies != null && cookies.length > 0){
 			for (int i = 0; i < cookies.length; i++){
-			if (cookies[i].getName().equals("id")) { // 내가 원하는 쿠키명 찾아서 값 저장
-				cookie = cookies[i].getValue();
+				if (cookies[i].getName().equals("id")) { // 내가 원하는 쿠키명 찾아서 값 저장
+					cookie = cookies[i].getValue();
 				}
 			}
 		}	
@@ -20,6 +21,7 @@
 	<head>
 		<meta charset="UTF-8">
 		<title>Study Calendar</title>
+		<script src="./jquery-3.7.1.js"></script>
 		<style>
 		@import url('https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400');
 		
@@ -318,7 +320,7 @@
 			<div class="animated bounceInDown">
 				<div class="container">
 					<span class="error animated tada" id="msg"></span>
-					<form method="post" name="form1" class="box" onsubmit="return checkStuff()" action="loginok.jsp">
+					<form method="post" name="form1" class="box" onsubmit="return formCheckId()" action="loginok.jsp">
 				<h4>로그인 페이지<span></span></h4>
 				<h5></h5>
 					<input type="text" id="username" value="<%= cookie %>" name="username" placeholder="Id" autocomplete="off">
@@ -343,4 +345,23 @@
 				</div> 	
 			</div>
 		</body>
+<script>
+let id = $("#username");
+let pw = $("#pwd");
+
+function formCheckId(){
+	if(id.val().trim() == ""){
+		id.focus();
+		id.val("");
+		alert("아이디를 입력해주세요.")
+		return false;
+	}
+	if(pw.val().trim() == ""){
+		pw.focus();
+		pw.val("");
+		alert("비밀번호를 입력해주세요.");
+		return false;
+	}
+}
+</script>
 </html>
