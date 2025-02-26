@@ -103,7 +103,7 @@
     	/* background-color: #eee; */
     	border-radius: 2rem;
 	    padding: 2rem;
-	    margin-right: 25rem;
+	    margin-right: 17rem;
 	    margin-left: 12rem;
 	    /* height: 30rem; */
 	}
@@ -140,7 +140,7 @@
 		outline : 0;
 		border-radius : 15px; */
 		white-space: pre-line;
-		word-break: keep-all;
+		/* word-break: keep-all; */
 		font-size: large;
 	}
 	
@@ -341,8 +341,8 @@
         .writeInput {
         	/* margin: 1rem; */
         	margin-left: 2rem;
-        	padding-left: 20rem;
-    		padding-right: 20rem;
+        	/* padding-left: 20rem; */
+    		/* padding-right: 20rem; */
         }
         .write {
         	font-size: large;
@@ -519,14 +519,12 @@
 							</ul>
 						<%
 					}
-					%>
-				</div>
-				<%
+					
 					if(user != null) {
 						%>
 							<div class="writeInput">
 								<div class="panel-body">
-									<textarea id="inputReply" cols="100%" rows="2" placeholder="댓글을 입력하세요"></textarea>
+									<textarea id="inputReply" cols="160%" rows="2" placeholder="댓글을 입력하세요"></textarea>
 									<div class="RinputBtn"><button class="replyBtn" id="btnOk">확인</button></div>
 								</div>
 								
@@ -534,6 +532,8 @@
 						<%
 					}
 				%>
+				</div>
+				
 			</div>
 		</div>	
 </body>
@@ -784,15 +784,16 @@
 					html += "	<li>";
 					html += "	<div class='reWriter'>작성자 : "+userId+" | 작성일: "+time+"</div>";
 					html += "		<div class='reply-content'>"+rcontent+"</div>";
-					html += "		<div>";
+					html += "		<div style='margin-top: inherit;float:inline-end'>";
 					html += "			<button class='replyBtn' id='btnModify' onclick='modifyBtn(this)'>수정</button>";
 					html += "			<input type='hidden'>";
             		html += "			<button class='dpnone' onclick='modifyReply("+rno+", this)'>확인</button>";
 					html += "			<button class='dpnone' onclick='cancelBtn(this, '"+rcontent+"')'>취소</button>";
-					html += "			<button class='replyBtn' id='btnDelete' onclick='deleteReply("+rno+", this)'>삭제</button>";
+					html += "			<button class='dpnone' id='btnDelete' onclick='deleteReply("+rno+", this)'>삭제</button>";
 					html += "		</div>";
 					html += "	</li>";
 					html += "</ul>	";
+					html += "<hr>	";
 					
 					$(".RpyList").prepend(html);
 					$("#inputReply").val("");
