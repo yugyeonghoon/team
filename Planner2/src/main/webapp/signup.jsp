@@ -20,14 +20,14 @@
 				position: absolute;
 				text-align: center;
 				transform: translateX(-50%);
-				background-color: #91CDE1;
+				background-color: #b1dbe900;
 				border-radius: 9px;
 				border-top: 2px solid gray;
 				border-bottom: 2px solid gray;
 				border-right: 2px solid gray;
 				border-left:2px solid gray;
 				width: 500px;
-				height: 750px;
+				height: 770px;
 				/* box-shadow: 1px 1px 108.8px 19.2px rgb(25,31,53); */
 			}
 			h1{
@@ -41,7 +41,9 @@
 			}
 			label{
 				display: block;
-	            margin-bottom: 8px;
+	            margin-bottom: 10px;
+	            margin-top: 7px;
+	            font-size: 1rem;
 	            font-weight: bold;
 	            color: #000000;
 			}
