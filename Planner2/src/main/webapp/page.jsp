@@ -98,14 +98,14 @@
 	
 	.list {
 		/* display: inline-block; */
-		/* margin-left: 30rem; */
+    	/* margin-left: 30rem; */
     	margin-top: 3rem;
     	/* background-color: #eee; */
     	border-radius: 2rem;
-    	padding: 1rem;
-    	margin-right: 25rem;
-    	margin-left: 20rem;
-    	/* height: 30rem; */
+	    padding: 2rem;
+	    margin-right: 25rem;
+	    margin-left: 12rem;
+	    /* height: 30rem; */
 	}
 	
 	 #timebox {
@@ -216,6 +216,8 @@
 			/* border: 1px solid black;
 			width: 100%; */
 			margin-top: 2rem;
+			margin-left: 8rem;
+    		margin-right: 8rem;
 		}
 		 
 		#todayReply {
@@ -251,6 +253,7 @@
   			font-size: x-large;
   			font-weight: bold;
   			margin: 1rem;
+  			margin-left: inherit;
   		}
   		
   		.replyList {
@@ -338,17 +341,19 @@
         .writeInput {
         	/* margin: 1rem; */
         	margin-left: 2rem;
+        	padding-left: 20rem;
+    		padding-right: 20rem;
         }
         .write {
         	font-size: large;
     		font-weight: bold;
-    		text-align: center;
+    		/* text-align: center; */
     		margin: 1rem;
         }
         .title {
         	font-size: xx-large;
     		font-weight: bold;
-    		text-align: center;
+    		/* text-align: center; */
     		/* margin: 1rem; */
         }
         .w-btn-indigo {
@@ -397,7 +402,7 @@
         .conplan {
     		font-weight: bold;
     		font-size: large;
-    		text-align: center;
+    		/* text-align: center; */
         }
         .consplan {
         	font-weight: bold;
@@ -455,13 +460,13 @@
 					<li>
 						<div class="write"><%= vo.getAuthor() %></div>
 						<div class="title"><%= vo.getTitle() %></div>
-						<hr style="width:35%;margin:auto;">
+						<!-- <hr style="width:35%;margin:auto;"> -->
 						<div id="Plan" class="Plan">
 							<div id="plantime"></div>
 							<div class="conplan">시작일 | <%= startDate %></div>
 							<div class="conplan">종료일 | <%= endDate %> </div>
 							<%-- <div>종료일자 : <%= endDate %> </div> --%>
-							<div class="consplan">내용 | </div>
+							<div class="consplan">내용  </div>
 							<div><%= vo.getContent() %></div>
 						</div>
 						
@@ -478,8 +483,7 @@
 						
 					</li>
 				</ul>		
-			</div>
-			<hr style="border:1px solid black">	
+			</div>	
 			<div class="divReply">
 			<span id="replyText">댓글 리스트</span><br>
 				<div class="RpyList">
