@@ -144,7 +144,7 @@
 			<%
 				}else if(groupNum != null){
 				%>
-				<button class="delete" onclick="outmember('<%= mid %>')">그룹나가기</button>
+				<button class="delete" onclick="outmember('<%= mid %>', <%= gnum %>)">그룹나가기</button>
 			<%
 				}%>
 			
@@ -268,6 +268,8 @@ function deleteGroup(gnum, obj){
 			success: function(result){
 				if(result.trim() == "success"){
 					$(obj).parent().parent().children("table").children("tbody").remove();
+					 /* alert("그룹이 삭제되었습니다.");
+					location.href = "group.jsp"; */
 				}
 			},
 			error : function(){
@@ -276,7 +278,7 @@ function deleteGroup(gnum, obj){
 		});
 	}
 }
-function outmember(mid){
+function outmember(mid, gnum){
 	console.log(mid);
 	let result = confirm("그룹을 나가시겠습니까 ?");
 	if(result == true){
@@ -284,7 +286,8 @@ function outmember(mid){
 			url : "outmember.jsp",
 			type : "post",
 			data : {
-				mid : mid
+				mid : mid,
+				gnum : gnum
 			},
 			success : function(data){
 				if(data.trim() == "success"){
@@ -300,7 +303,8 @@ function outmember(mid){
 function updategname(gname, gnum){
 	let result = prompt('변경하실 그룹명을 적어주세요', '변경하실 그룹이름');
 	console.log(result)
-	if(result == null){
+	if(result.trim() == "" ){
+		alert("그룹명을 입력해주세요.");
 		return;
 	}
 	$.ajax({
@@ -313,6 +317,7 @@ function updategname(gname, gnum){
 		success : function(data){
 			if(data.trim() == "success"){
 				$("#group-name").text(result);
+				location.href="group.jsp";
 			}
 		},
 		error : function(){

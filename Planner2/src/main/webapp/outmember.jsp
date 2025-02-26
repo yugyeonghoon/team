@@ -4,8 +4,10 @@
     pageEncoding="UTF-8"%>
 <%
 	String mid = request.getParameter("mid");
+	String gnum = request.getParameter("gnum");
 	memberDAO dao = new memberDAO();
 	memberVO vo = new memberVO();
-	dao.outmember(mid);
+	
+	dao.outmember(mid, gnum);
 	out.print("success");
 %>

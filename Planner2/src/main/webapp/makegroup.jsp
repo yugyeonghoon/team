@@ -94,7 +94,7 @@
 		<div class="action-buttons">
 			<button class="group"onclick="location.href='group.jsp'">My Group</button>
 		</div>
-		<form action="makegroupok.jsp" method="post">
+		<form action="makegroupok.jsp" method="post" onsubmit="return gnameCheck()">
 			<table>
 				<thead>
 					<tr>	
@@ -106,7 +106,7 @@
 				<tbody>
 					<tr>
 						<td>
-							<input name="gname"></input>
+							<input id="gname" name="gname"></input>
 						</td>
 						<td> <%=user1.getId() %> </td>
 					</tr>
@@ -119,4 +119,16 @@
 		</form>
 	</div>
 </body>
+<script>
+let gname = $('#gname');
+
+function gnameCheck(){
+	if(gname.val().trim() == ""){
+		 gname.focus();
+		 gname.val("");
+		 alert("그룹명을 입력해주세요");
+		 return false;
+	}
+}
+</script>
 </html>

@@ -49,7 +49,7 @@
 	inviteVO iVo = new inviteVO();
 	inviteDAO iDao = new inviteDAO();
 	
-	int inviteCheck =  iDao.inviteCheck(groupnum);
+	int inviteCheck =  iDao.inviteCheck(groupnum, id);
 	
 	if(inviteCheck == 1){
 		out.print("inviteUser");

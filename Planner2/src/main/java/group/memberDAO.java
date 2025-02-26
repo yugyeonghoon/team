@@ -139,12 +139,12 @@ public class memberDAO extends DBManager{
 	}
 
 	//멤버 그룹나가기
-	public void outmember(String id) {
+	public void outmember(String id, String gnum) {
 		driverLoad();
 		DBConnect();
 		
 		String sql = "";
-		sql += "delete from groupmember where id = '"+id+"'";
+		sql += "delete from groupmember where id = '"+id+"' and groupnum =" + gnum ;
 		executeUpdate(sql);
 		DBDisConnect();
 	}

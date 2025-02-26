@@ -17,11 +17,6 @@
 	UserVO user1 = (UserVO)session.getAttribute("user");
 	String gname = request.getParameter("gname");
 	
-	if(gname == null || gname.isEmpty()){
-		response.sendRedirect("group.jsp");
-		return;
-	}
-	
 	groupDAO dao = new groupDAO();
 	groupVO vo =new groupVO();
 	

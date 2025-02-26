@@ -82,10 +82,11 @@ public class inviteDAO extends DBManager{
 	}
 	
 	//그룹초대 중복검사
-	public int inviteCheck(int groupnum) {
+	public int inviteCheck(int groupnum, String id) {
 		driverLoad();
 		DBConnect();
-		String sql = "select count(*) as cnt from invite i where groupnum = "+ groupnum;
+		String sql = "select count(*) as cnt from invite i where groupnum = "+ groupnum ;
+		sql += " and receiver = '"+id+"'";
 		
 		executeQuery(sql);
 		
