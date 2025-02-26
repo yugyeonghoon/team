@@ -48,7 +48,7 @@
 		  position: absolute;
 		  text-align: center;
 		  transform: translateX(-50%);
-		  background-color: #91CDE1; 
+		  background-color: #b1dbe900; 
 		  opacity : 0.8;
 		  border-radius: 9px;
 		  border-top: 2px solid gray;

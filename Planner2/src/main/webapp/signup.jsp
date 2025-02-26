@@ -9,29 +9,31 @@
 		<style>
 			body{
 				font-family: 'Source Sans Pro', sans-serif;
-				background-color: #1d243d;
+				background-color: #ffffff;
 				padding: 0;
 				margin: 0;
 			}
 			.signup-container {
 				margin: 0;
-				top: 180px;
+				top: 100px;
 				left: 50%;
 				position: absolute;
 				text-align: center;
 				transform: translateX(-50%);
-				background-color: rgb( 33, 41, 66 );
+				background-color: #91CDE1;
 				border-radius: 9px;
-				border-top: 10px solid #79a6fe;
-				border-bottom: 10px solid #8BD17C;
+				border-top: 2px solid gray;
+				border-bottom: 2px solid gray;
+				border-right: 2px solid gray;
+				border-left:2px solid gray;
 				width: 500px;
 				height: 750px;
-				box-shadow: 1px 1px 108.8px 19.2px rgb(25,31,53);
+				/* box-shadow: 1px 1px 108.8px 19.2px rgb(25,31,53); */
 			}
 			h1{
 				text-align: center;
 				margin-bottom: 20px;
-				color: #dfdeee;
+				color: #000000;
 				font-family: 'Seoul 1980', sans-serif;
 			}
 			form{
@@ -41,18 +43,18 @@
 				display: block;
 	            margin-bottom: 8px;
 	            font-weight: bold;
-	            color: #5c7fda;
+	            color: #000000;
 			}
 			input{
 				margin: 2px auto;
-				background: #262e49;
+				background: #C2E9F3;
 				border: 0;
 				border-radius: 5px;
 				outline: none;
 				width: 250px;
 				height: 35px;
 				font-size: 0.8rem;
-				color: #d6d6d6;
+				color: #000000;
 				      -webkit-transition: all .2s ease-out;
 				    -moz-transition: all .2s ease-out;
 				    -ms-transition: all .2s ease-out;
@@ -61,7 +63,7 @@
 			}
 			input:focus{
 				border: 1px solid #79A6FE;
-				color: #d6d6d6;
+				color: #000000;
 				}
 			button{
 				width: 100%;
@@ -96,8 +98,8 @@
 			}
 			.btn1 {
 			  border:0;
-			  background: #7f5feb;
-			  color: #dfdeee;
+			  background: #C2E9F3;
+			  color: #000000;
 			  border-radius: 100px;
 			  width: 340px;
 			  height: 49px;
@@ -110,8 +112,8 @@
 			}
 			.btn{
 				border: 0;
-				background: #7f5feb;
-				color: #dfdeee;
+				background: #C2E9F3;
+				color: #000000;
 				border-radius: 100px;
 				width: 120px;
 				position: absolute;
@@ -123,47 +125,65 @@
 				border-top: none;
 				border-left: none;
 				border-right: none;
-				border-bottom: 3px solid black;
+				/* border-bottom: 3px solid black; */
 				font-size: 1rem;
+			}
+			.bounceInDown{
+				width: 100%;
+				height: 100%;
+			}
+			
+			.bounceInDown::before{
+				content: "";
+				background: url(./sky1.jpg) no-repeat;
+			    background-size: 100% 100%;
+			    opacity: 0.5;
+			    position: absolute;
+			    top: 0px;
+			    left: 0px;
+			    right: 0px;
+			    bottom: 0px;
 			}
 		</style>
 	</head>
 	<body>
-		<div class="signup-container">
-			<h1>회원 가입</h1>
-				<form method="post" action="signupok.jsp" onsubmit="return formCheck()">
-					<label for="username">아이디</label>
-					<input type="text" id="username" name="username">
-					<div id="username-feedback" class="feedback">아이디 중복확인을 해주세요</div>
-					
-					<label>이름</label>
-					<input type="text" id="name" name="name">
-					<div id="name-feedback" class="feedback">이름을 입력해주세요.</div>
-					
-					<label>비밀번호</label>
-					<input type="password" id="password" name="password">
-					
-					<label>비밀번호 확인</label>
-					<input type="password" id="password-check" name="password-check">
-					<div id="password-feedback" class="feedback">비밀번호가 일치하지 않습니다.</div>
-					
-					<label>닉네임</label>
-					<input type="text" id="nickname" name="nickname">
-					<div id="nickname-feedback" class="feedback">닉네임 중복확인을 해주세요.</div>
-					
-					<label>이메일</label>
-					<input type="text" id="mail" class="email" name="email">
-					<input type="button" id="mailBtn" class="btn" value="이메일 인증">
-					<div id="mail-feedback" class="feedback">인증번호가 일치하지 않습니다.</div>
-					
-					<label>인증번호</label>
-					<input type="text" id="mailCheck" class="email">
-					<input type="button" id="mailCheckBtn" class="btn" value="인증번호 확인">
-					<div id="mailCheck-feedback" class="feedback">인증번호가 일치하지 않습니다.</div>
-					
-					<input type="submit" value="회원가입" class="btn1" >
-				</form>
-		</div>
+		<div class="bounceInDown">
+			<div class="signup-container">
+				<h1>회원 가입</h1>
+					<form method="post" action="signupok.jsp" onsubmit="return formCheck()">
+						<label for="username">아이디</label>
+						<input type="text" id="username" name="username">
+						<div id="username-feedback" class="feedback">아이디 중복확인을 해주세요</div>
+						
+						<label>이름</label>
+						<input type="text" id="name" name="name">
+						<div id="name-feedback" class="feedback">이름을 입력해주세요.</div>
+						
+						<label>비밀번호</label>
+						<input type="password" id="password" name="password">
+						
+						<label>비밀번호 확인</label>
+						<input type="password" id="password-check" name="password-check">
+						<div id="password-feedback" class="feedback">비밀번호가 일치하지 않습니다.</div>
+						
+						<label>닉네임</label>
+						<input type="text" id="nickname" name="nickname">
+						<div id="nickname-feedback" class="feedback">닉네임 중복확인을 해주세요.</div>
+						
+						<label>이메일</label>
+						<input type="text" id="mail" class="email" name="email">
+						<input type="button" id="mailBtn" class="btn" value="이메일 인증">
+						<div id="mail-feedback" class="feedback">인증번호가 일치하지 않습니다.</div>
+						
+						<label>인증번호</label>
+						<input type="text" id="mailCheck" class="email">
+						<input type="button" id="mailCheckBtn" class="btn" value="인증번호 확인">
+						<div id="mailCheck-feedback" class="feedback">인증번호가 일치하지 않습니다.</div>
+						
+						<input type="submit" value="회원가입" class="btn1" >
+					</form>
+			</div>
+		</div>	
 	</body>
 	<script>
 	let idRegex = /^[a-zA-Z0-9]{6,12}$/;

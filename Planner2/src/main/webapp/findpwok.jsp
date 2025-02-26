@@ -37,7 +37,7 @@
 					position: absolute;
 					text-align: center;
 					transform: translateX(-50%);
-					background-color: #91CDE1;
+					background-color: #b1dbe900;
 					border-radius: 9px;
 					border-top: 2px solid gray;
 					border-bottom: 2px solid gray;
@@ -61,7 +61,7 @@
 				}
 				input{
 					margin: 5px auto;
-					background: #ffffff;
+					background: #C2E9F3;
 					border: 0;
 					border-radius: 5px;
 					outline: none;
@@ -87,7 +87,7 @@
 					cursor: pointer;
 					margin-top: 10px;
 					border: 0;
-					background: #ffffff;
+					background: #C2E9F3;
 					color: #000000;
 					border-radius: 100px;
 					width: 80px;

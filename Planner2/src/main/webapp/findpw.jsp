@@ -22,7 +22,7 @@
 					position: absolute;
 					text-align: center;
 					transform: translateX(-50%);
-					background-color: #91CDE1;
+					background-color: #b1dbe900;
 					border-radius: 9px;
 					border-top: 2px solid gray;
 					border-bottom: 2px solid gray;
@@ -48,7 +48,7 @@
 					cursor: pointer;
 					margin-top: 75px;
 					border: 0;
-					background: #ffffff;
+					background: #C2E9F3;
 					color: #000000;
 					border-radius: 100px;
 					width: 80px;
@@ -59,26 +59,15 @@
 					cursor: pointer;
 					margin-top: 10px;
 					border: 0;
-					background: #ffffff;
+					background: #C2E9F3;
 					color: #000000;
 					border-radius: 100px;
 					width: 80px;
 					height: 30px;
 				}	
-				.btn1{
-					font-size: 1rem;
-					cursor: pointer;
-					margin-top: 10px;
-					border: 0;
-					background: black;
-					color: white;
-					border-radius: 100px;
-					width: 130px;
-					height: 35px;
-				}
 				input{
 					margin: 10px auto;
-					background: #ffffff;
+					background: #C2E9F3;
 					border: 0;
 					border-radius: 5px;
 					outline: none;
@@ -103,9 +92,9 @@
 				  	color: #000000;
 				}	
 				.emailCheck{
-					background: #ffffff;
+					background: #C2E9F3;
 					width: 70px;
-					height: 35px;
+					height: 30px;
 					position: absolute;
 					top: 41%;
 					left: 71%;
