@@ -184,13 +184,13 @@
 	
 	[type=checkbox]:checked + span:before {/* <-- style its checked state */
 	    font-family: FontAwesome;
-	    font-size: 24px;
+	    font-size: 22px;
 	    content: "v";
 	    position: absolute;
-	    top: -13px;
+	    top: -12px;
 	    color: black;
 	    left: -1px;
-	    width: 13px;
+	    width: 15px;
 	}
 	
 	.typcn {

@@ -207,15 +207,22 @@
 	let emailFeedback = $("#mail-feedback");
 	let emc = $("#mailCheck");
 	let emcFeedback = $("#mailCheck-feedback");
+	let emailRegex = /^[a-zA-Z0-9]+@[0-9a-zA-Z]+\\.[a-z]$/;
 	
 	let name = $("#name");
 	let nameFeedback = $("#name-feedback");
 	let nameRegex = /^[가-힣]{2,5}$/;
 	
 	$("#mailBtn").click(function(){
-		let mail = $("#mail");
-		if(mail.val().trim() == ""){
+		if(email.val().trim() == ""){
 			alert("이메일을 입력해주세요");
+			return;
+		}
+		
+		if(!emailRegex.test(email.val())){
+			email.focus();
+			email.val("");
+			alert("올바른 이메일 형식이 아닙니다.");
 			return;
 		}
 		
@@ -225,7 +232,7 @@
 			url : "sendMail.jsp",
 			type : "post",
 			data : {
-				mail : mail.val()
+				mail : email.val()
 			},
 			success : function(result){
 				mailCode = result.trim();
@@ -348,43 +355,6 @@
 		});
 	});
 	
-	/* $("#nickname").keyup(function(e){
-		let nick = e.target.value;
-		let nickFeedback = $("#nickname-feedback");
-		nickFeedback.css("display", "block");
-		nickFeedback.removeClass("success");
-		nickFeedback.text("닉네임을 입력해주세요");
-		nickCheckFlag = false;
-		
-		if(nick.trim() == ""){
-			return;
-		}
-		
-		$.ajax({
-			url : "nickCheck.jsp",
-			type : "post",
-			data : {
-				nick : nick
-			},
-			success : function(result){
-				if(result.trim() == "0"){
-					nickCheckFlag = true;
-					nickFeedback.css("display", "block");
-					nickFeedback.addClass("success");
-					nickFeedback.text("사용 가능한 닉네임입니다.");
-				}else{
-					nickCheckFlag = false;
-					nickFeedback.css("display", "block");
-					nickFeedback.removeClass("success");
-					nickFeedback.text("사용 불가능한 닉네임 입니다.");
-				}
-			},
-			error : function(){
-				console.log("에러 발생");
-			}
-		});
-	}); */
-
 	function formCheck(){
 		let id = $("#username");
 		let idFeedback = $("#username-feedback");
@@ -410,7 +380,7 @@
 			id.focus();
 			id.val("");
 			idFeedback.css("display", "block");
-			idFeedback.text("아이디 중복확인이 필요합니다.");
+			idFeedback.text("아이디가 중복되었습니다.");
 			idFeedback.removeClass("success");
 			return false;
 		}
@@ -536,13 +506,6 @@
 			emcFeedback.css("display", "block");
 			emcFeedback.text("인증되지 않았습니다.");
 			emcFeedback.removeClass("success");
-			return false;
-		}
-		
-		let birth =$("#birth");
-		if(birth.val().trim() == ""){
-			birth.focus();
-			birth.val("");
 			return false;
 		}
 	

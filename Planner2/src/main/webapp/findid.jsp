@@ -125,7 +125,7 @@
 		<div class="bounceInDown">
 				<div class="findid">
 					<h1>아이디 찾기</h1>
-					<form class="idform" method="post" action="findidok.jsp" onsubmit="return formCheck()">
+					<form class="idform" method="post" action="findidok.jsp" >
 						<div class="fi1"> &nbsp 이름 :
 							<input type="text" name="name" id="name" placeholder="이름을 입력하세요" autocomplete="off">
 						</div>
@@ -148,7 +148,7 @@
 		let email = $("#email");
 		let name = $("#name");
 	
-		function formCheck(){
+		/* function formCheck(){
 			
 			if(name.val().trim() == ""){
 				name.focus();
@@ -163,7 +163,7 @@
 				confirm("이메일을 입력해주세요.");
 				return false;
 			}
-		}
+		} 		밑 btn.click function으로 똑같은걸 하고 있음.*/		 
 		
 		let check = "";
 		$("#btn").click(function(){
@@ -203,11 +203,9 @@
 		});
 		
 		if(check == 0){
-			$("#btn").attr("disabled", false);
+			/* $("#btn").attr("disabled", false); */
 			alert("일치하는 이름과 이메일이 없습니다.");
 			return false;
-		}else{
-			alert("완료");
 		}
 		});
 	</script>

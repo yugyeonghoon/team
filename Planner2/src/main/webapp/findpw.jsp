@@ -177,14 +177,14 @@
 		let emc = $("#mailCheck");
 		let emcFeedback = $("#mailCheck-feedback");
 		
-		function formCheck(){
+		/* function formCheck(){
 			if(emailCheckFlag == false){
 				alert("이메일 인증을 해주세요");
 				return false;
 			}
 			
 			return true;
-		}
+		} */
 	
 		let mailCode = "";
 		$("#checkBtn").click(function(){
