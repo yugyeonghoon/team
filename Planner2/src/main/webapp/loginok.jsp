@@ -25,7 +25,7 @@
 	
 	UserVO user = dao.login(vo);
 	if(user == null){
-		response.sendRedirect("login.jsp");
+		response.sendRedirect("login.jsp?error=fail");
 		return;
 	}
 	
